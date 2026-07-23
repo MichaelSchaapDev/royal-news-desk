@@ -58,7 +58,17 @@ Onder **Instellingen** kun je aanpassen:
 - de map waar video's terechtkomen;
 - ondertitels vast in beeld branden (standaard uit; YouTube kan ze los tonen).
 
-## 7. Problemen oplossen
+## 7. De AI-presentator (optioneel)
+
+Naast de geanimeerde nieuwslezer kan de app een levensechte presentator maken van één foto. Zo werkt het:
+
+1. Ga naar **Instellingen**, kopje **AI-presentator**, en download een van de twee varianten. De snelle variant heeft een NVIDIA-videokaart nodig; de andere werkt op elke pc maar doet er uren over. De download is eenmalig en enkele gigabytes groot.
+2. Kies bij **Presentatorfoto** een duidelijke portretfoto. Gebruik alleen een foto waarvan je de rechten hebt, van iemand die ermee instemt in je video's te verschijnen.
+3. Kies bij een aflevering onder **Presentator** voor **AI-presentator** en klik op Video maken.
+
+De presentator verschijnt in een kader in de studio, alsof een verslaggever wordt ingebeld. Lukt het maken een keer niet, dan neemt de geanimeerde nieuwslezer het automatisch over en zie je daar een melding van.
+
+## 8. Problemen oplossen
 
 **De download van de stem lukt niet.** Controleer je internetverbinding en klik op Opnieuw proberen.
 
@@ -68,6 +78,6 @@ Onder **Instellingen** kun je aanpassen:
 
 **Iets anders ging mis.** Start de app opnieuw en probeer het nog een keer. Blijft het misgaan, stuur dan het logbestand naar Michael. Dat vind je zo: druk op de Windows-toets plus R, plak `%LOCALAPPDATA%\RoyalNewsDeskStudio\logs` en druk op Enter. Stuur het nieuwste bestand mee.
 
-## 8. Updates
+## 9. Updates
 
 De app controleert zelf op nieuwe versies. Staat er een update klaar, dan zie je links onderin een knop **Update klaar: herstarten**. Eén klik en je zit op de nieuwste versie.

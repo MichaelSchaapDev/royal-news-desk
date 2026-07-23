@@ -20,6 +20,8 @@ Windows SmartScreen warns about new apps from small publishers. Click "More info
 
 The app speaks Dutch or English; the videos it makes are in English.
 
+Two presenter styles per episode: the built-in animated news reader, or a photorealistic AI presenter made from one photo (SadTalker, fully local and free; a one-time engine download in Settings, fast with an NVIDIA card and slow without one).
+
 ![The app](docs/screenshots/app-episodes.png)
 
 ## How it works

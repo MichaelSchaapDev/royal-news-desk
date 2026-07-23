@@ -8,6 +8,17 @@ Royal News Desk Studio bundles or downloads the following third-party software a
 - **Piper** (piper.exe and libraries): MIT license, from https://github.com/rhasspy/piper, release 2023.11.14-2. Ships with espeak-ng data (GPL v3) from the same release.
 - **Rhubarb Lip Sync** (rhubarb.exe and resources): MIT license, from https://github.com/DanielSWolf/rhubarb-lip-sync, release 1.14.0. Bundles PocketSphinx (BSD).
 
+## Downloaded on demand: photoreal presenter engines
+
+The optional SadTalker engine bundles (`sadtalker-cpu`, `sadtalker-cuda`) are
+built by `tools/build-presenter-bundle.ps1`, published as release assets, and
+downloaded with SHA256 verification when chosen in Settings. Each bundle
+carries its own notices file (SadTalker Apache-2.0 with its ethical-use note,
+Python PSF, PyTorch BSD-3 plus NVIDIA CUDA redistributables in the cuda
+variant, GFPGAN Apache-2.0, facexlib MIT, libsndfile LGPL-2.1, a BtbN GPL
+ffmpeg build, and the rest of the bundled packages per their dist-info
+licenses).
+
 ## Downloaded on first run (not redistributed by this project)
 
 - **Piper voice models** from https://huggingface.co/rhasspy/piper-voices (v1.0.0), verified by SHA256:
