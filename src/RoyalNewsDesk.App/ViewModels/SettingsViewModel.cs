@@ -166,6 +166,7 @@ public partial class SettingsViewModel : ObservableObject, ISavable
         _settings.BurnInSubtitles = BurnInSubtitles;
         _settings.StudioAmbience = StudioAmbience;
         _settings.HigherQuality = HigherQuality;
+        _settings.PhotorealPortraitPath = string.IsNullOrWhiteSpace(PortraitPath) ? null : PortraitPath;
         _store.Save(_settings);
     }
 

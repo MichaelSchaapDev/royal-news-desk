@@ -82,7 +82,9 @@ public partial class PresenterEngineOptionViewModel : ObservableObject
         var progress = new Progress<PresenterInstallProgress>(p =>
         {
             ProgressFraction = p.Fraction;
-            BusyText = p.Phase == PresenterInstallPhase.Extracting ? Strings.Settings_EngineExtracting : "";
+            BusyText = p.Phase == PresenterInstallPhase.Extracting
+                ? Strings.Settings_EngineExtracting
+                : p.Fraction.ToString("P0", CultureInfo.CurrentCulture);
         });
         try
         {
