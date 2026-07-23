@@ -80,6 +80,29 @@ public class BroadcastGraphicsTests : IDisposable
     }
 
     [Fact]
+    public void PresenterFrameHasTransparentWindowAndAccent()
+    {
+        var path = Out("presenter_frame.png");
+        _gfx.RenderPresenterFrame(path, _brand);
+
+        using var bitmap = Decode(path);
+        Assert.Equal(840, bitmap.Width);
+        Assert.Equal(840, bitmap.Height);
+
+        // The window is punched out; the video must show through.
+        Assert.Equal(0, bitmap.GetPixel(420, 420).Alpha);
+        Assert.Equal(0, bitmap.GetPixel(60, 60).Alpha);
+
+        // White border on the left edge band.
+        var border = bitmap.GetPixel(20, 420);
+        Assert.True(border.Alpha > 200 && border.Red > 230 && border.Green > 230 && border.Blue > 230, "Border not white: " + border);
+
+        // Gold accent near the bottom edge of the frame.
+        var accent = bitmap.GetPixel(420, 824);
+        Assert.True(accent.Red > 150 && accent.Green > 110 && accent.Blue < 100, "Accent missing: " + accent);
+    }
+
+    [Fact]
     public void ThumbnailRendersWithAndWithoutImage()
     {
         var photo = Out("photo.png");

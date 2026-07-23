@@ -211,6 +211,31 @@ public sealed class BroadcastGraphics(FontCatalog fonts)
         Save(surface, path);
     }
 
+    /// <summary>
+    /// 840x840 correspondent frame for the photoreal presenter: the visual
+    /// language of the image panel with a transparent 780x780 window punched
+    /// out, so the talking-head video shows through it.
+    /// </summary>
+    public void RenderPresenterFrame(string path, BrandStyle brand)
+    {
+        const int size = 840;
+        using var surface = CreateSurface(size, size);
+        var canvas = surface.Canvas;
+
+        var frame = new SKRect(12, 12, size - 12, size - 12);
+        using var shadow = Fill(new SKColor(0, 0, 0, 90));
+        canvas.DrawRoundRect(new SKRect(20, 22, size - 4, size - 2), 18, 18, shadow);
+        using var border = Fill(SKColors.White);
+        canvas.DrawRoundRect(frame, 16, 16, border);
+        using var accent = Fill(brand.Accent);
+        canvas.DrawRoundRect(new SKRect(frame.Left, frame.Bottom - 8, frame.Right, frame.Bottom), 4, 4, accent);
+
+        using var clear = new SKPaint { BlendMode = SKBlendMode.Clear, IsAntialias = true };
+        canvas.DrawRoundRect(new SKRect(30, 30, size - 30, size - 30), 10, 10, clear);
+
+        Save(surface, path);
+    }
+
     /// <summary>1280x720 thumbnail: title left, episode image (if any) right.</summary>
     public void RenderThumbnail(string path, string title, string? imagePath, BrandStyle brand)
     {

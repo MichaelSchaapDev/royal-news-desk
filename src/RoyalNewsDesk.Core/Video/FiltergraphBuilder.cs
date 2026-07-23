@@ -1,5 +1,6 @@
 using System.Text;
 using RoyalNewsDesk.Core.Formatting;
+using RoyalNewsDesk.Core.Presenters;
 
 namespace RoyalNewsDesk.Core.Video;
 
@@ -26,11 +27,21 @@ public static class FiltergraphBuilder
     public const int TickerY = 1010;
     public const double TickerSpeed = 110;
 
+    // Correspondent frame for the photoreal presenter: video window inside a
+    // styled frame, fixed position, clear of the image panels at x=1140.
+    public const int PresenterFrameX = 180;
+    public const int PresenterFrameY = 100;
+    public const int PresenterFrameSize = 840;
+    public const int PresenterVideoSize = 780;
+    public const int PresenterVideoX = PresenterFrameX + 30;
+    public const int PresenterVideoY = PresenterFrameY + 30;
+
     public static BodyRenderPlan Build(
         Timeline timeline,
         int tickerContentWidth,
         bool ambience,
-        bool burnSubtitles)
+        bool burnSubtitles,
+        PresenterTrack presenter)
     {
         var bodyFrames = (int)Math.Round(timeline.BodyDuration * Timeline.Fps, MidpointRounding.AwayFromZero);
         var inputs = new List<string>();
@@ -51,10 +62,21 @@ public static class FiltergraphBuilder
             return inputIndex++;
         }
 
-        // Fixed inputs.
+        // Fixed inputs. [1] is the presenter in either form.
         var bg = AddImageInput("gfx/studio_back.png", loop: !ambience);
-        inputs.AddRange(["-f", "concat", "-safe", "0", "-i", "gfx/anchor/anchor.ffconcat"]);
-        var anchor = inputIndex++;
+        if (presenter is PresenterTrack.Stills stillsTrack)
+        {
+            inputs.AddRange(["-f", "concat", "-safe", "0", "-i", stillsTrack.FfconcatPath]);
+        }
+        else
+        {
+            inputs.AddRange(["-i", ((PresenterTrack.Video)presenter).Mp4Path]);
+        }
+
+        var presenterInput = inputIndex++;
+        var presenterFrame = presenter is PresenterTrack.Video
+            ? AddImageInput("gfx/presenter_frame.png", loop: true)
+            : -1;
         var desk = AddImageInput("gfx/desk_front.png", loop: true);
         var tickerBar = AddImageInput("gfx/ticker_bar.png", loop: true);
         var tickerStrip = AddImageInput("gfx/ticker_strip.png", loop: true);
@@ -88,13 +110,24 @@ public static class FiltergraphBuilder
             graph.Append(Inv.F($"[{bg}:v]fps=25,format=yuv420p[bg];\n"));
         }
 
-        // Anchor with breathing and the panel slide.
-        graph.Append(Inv.F($"[{anchor}:v]fps=25,format=rgba[anchor];\n"));
-        graph.Append("[bg][anchor]overlay=eval=frame:x='")
-            .Append(AnchorXExpression(timeline))
-            .Append("':y='")
-            .Append(Inv.F($"{AnchorY}+2*sin(2*PI*t/7)"))
-            .Append("'[v0];\n");
+        if (presenter is PresenterTrack.Stills)
+        {
+            // The 2D anchor: stills sequence with breathing and the panel slide.
+            graph.Append(Inv.F($"[{presenterInput}:v]fps=25,format=rgba[anchor];\n"));
+            graph.Append("[bg][anchor]overlay=eval=frame:x='")
+                .Append(AnchorXExpression(timeline))
+                .Append("':y='")
+                .Append(Inv.F($"{AnchorY}+2*sin(2*PI*t/7)"))
+                .Append("'[v0];\n");
+        }
+        else
+        {
+            // Photoreal video: cover-fit into the correspondent window; tpad
+            // clones the last frame so a slightly short clip never starves
+            // the overlay before -frames:v truncates the render.
+            graph.Append(Inv.F($"[{presenterInput}:v]fps=25,scale={PresenterVideoSize}:{PresenterVideoSize}:force_original_aspect_ratio=increase,crop={PresenterVideoSize}:{PresenterVideoSize},setsar=1,tpad=stop=-1:stop_mode=clone[pres];\n"));
+            graph.Append(Inv.F($"[bg][pres]overlay=x={PresenterVideoX}:y={PresenterVideoY}[v0];\n"));
+        }
 
         var current = "v0";
         var next = 1;
@@ -106,6 +139,11 @@ public static class FiltergraphBuilder
                 .Replace("{out}", "[" + label + "]", StringComparison.Ordinal));
             current = label;
             return label;
+        }
+
+        if (presenter is PresenterTrack.Video)
+        {
+            Chain(Inv.F($"{{in}}[{presenterFrame}:v]overlay=x={PresenterFrameX}:y={PresenterFrameY}{{out}};\n"));
         }
 
         Chain(Inv.F($"{{in}}[{desk}:v]overlay=x=0:y=800{{out}};\n"));

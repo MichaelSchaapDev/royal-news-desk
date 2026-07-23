@@ -274,7 +274,8 @@ public sealed class EpisodePipeline(
                 timeline,
                 tickerContentWidth,
                 options.StudioAmbience,
-                options.BurnInSubtitles);
+                options.BurnInSubtitles,
+                new Presenters.PresenterTrack.Stills("gfx/anchor/anchor.ffconcat"));
             var bodyProgress = new Progress<double>(f => progress.Report(new StepProgress(
                 PipelineStepId.Assemble, StepState.Running, Fraction: 0.1 + f * 0.8)));
             await composer.RenderBodyAsync(paths.WorkDir, bodyPlan, options.HigherQuality, bodyProgress, ct)
