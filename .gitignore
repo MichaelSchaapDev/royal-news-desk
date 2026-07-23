@@ -1,0 +1,21 @@
+# Build output
+bin/
+obj/
+publish/
+Releases/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# Test results
+*.trx
+TestResults/
+
+# Local tool binaries (fetched by tools/get-tools.ps1, never committed)
+tools/bin/
+
+# Logs and local scratch
+*.log
