@@ -79,6 +79,7 @@ public partial class App : Application
         services.AddTransient<AboutViewModel>();
         services.AddTransient<FirstRunViewModel>();
         services.AddTransient<ProduceViewModel>();
+        services.AddSingleton<UpdateService>();
         _services = services.BuildServiceProvider();
 
         _log = _services.GetRequiredService<ILoggerFactory>().CreateLogger("App");
@@ -102,6 +103,10 @@ public partial class App : Application
         }
 
         MaybeRunScreenshotMode(window, mainVm);
+
+        var updates = _services.GetRequiredService<UpdateService>();
+        _ = updates.CheckAndStageAsync(() =>
+            window.Dispatcher.InvokeAsync(() => mainVm.UpdateReady = true));
     }
 
     /// <summary>

@@ -43,6 +43,16 @@
             Text="{x:Static res:Strings.App_Title}"
             TextWrapping="Wrap" />
 
+          <ui:Button
+            DockPanel.Dock="Bottom"
+            Margin="4,8,4,0"
+            HorizontalAlignment="Stretch"
+            Appearance="Primary"
+            Command="{Binding ApplyUpdateCommand}"
+            Content="{x:Static res:Strings.Update_Restart}"
+            Icon="{ui:SymbolIcon ArrowSync24}"
+            Visibility="{Binding UpdateReady, Converter={StaticResource BoolToVisibility}}" />
+
           <ListBox
             BorderThickness="0"
             Background="Transparent"

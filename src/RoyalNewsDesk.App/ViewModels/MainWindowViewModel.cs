@@ -21,6 +21,13 @@ public partial class MainWindowViewModel : ObservableObject, INavigator
     [ObservableProperty]
     private NavItem? _selectedNavItem;
 
+    [ObservableProperty]
+    private bool _updateReady;
+
+    [CommunityToolkit.Mvvm.Input.RelayCommand]
+    private void ApplyUpdate() =>
+        _services.GetRequiredService<Services.UpdateService>().ApplyAndRestart();
+
     public MainWindowViewModel(IServiceProvider services)
     {
         _services = services;

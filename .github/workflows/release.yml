@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - uses: actions/cache@v4
+        with:
+          path: tools/bin
+          key: tools-${{ hashFiles('tools/tools.lock.json') }}
+
+      - name: Fetch pinned tool binaries
+        run: pwsh tools/get-tools.ps1
+
+      - run: dotnet build -c Release -warnaserror
+
+      - run: dotnet test tests/RoyalNewsDesk.Core.Tests -c Release --no-build
+
+      - name: Publish self-contained
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          dotnet publish src/RoyalNewsDesk.App -c Release -r win-x64 --self-contained true -o publish "/p:Version=$version"
+
+      - name: Verify the publish output is complete
+        shell: pwsh
+        run: |
+          $required = @(
+            "publish/RoyalNewsDesk.App.exe",
+            "publish/tools/ffmpeg/ffmpeg.exe",
+            "publish/tools/ffmpeg/ffprobe.exe",
+            "publish/tools/piper/piper.exe",
+            "publish/tools/rhubarb/rhubarb.exe",
+            "publish/assets/anchor/base.svg",
+            "publish/assets/fonts/IBMPlexSerif-Bold.ttf",
+            "publish/assets/audio/intro-jingle.wav",
+            "publish/nl/RoyalNewsDesk.App.resources.dll"
+          )
+          foreach ($f in $required) {
+            if (-not (Test-Path $f)) { throw "Missing from publish output: $f" }
+          }
+
+      - run: dotnet tool install -g vpk
+
+      - name: Download previous releases for delta packages
+        run: vpk download github --repoUrl https://github.com/${{ github.repository }}
+        continue-on-error: true
+
+      - name: Pack installer
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          vpk pack --packId RoyalNewsDesk --packVersion $version --packDir publish --mainExe RoyalNewsDesk.App.exe --packTitle "Royal News Desk Studio" --packAuthors "Michael Schaap" --icon assets/icon/icon.ico
+
+      - name: Upload to the GitHub release
+        run: vpk upload github --repoUrl https://github.com/${{ github.repository }} --publish --releaseName "Royal News Desk Studio ${{ github.ref_name }}" --tag ${{ github.ref_name }} --token ${{ secrets.GITHUB_TOKEN }}

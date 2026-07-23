@@ -40,6 +40,8 @@ public static class Strings
 
     public static string Produce_DurationFormat => Get(nameof(Produce_DurationFormat));
 
+    public static string Update_Restart => Get(nameof(Update_Restart));
+
     public static string App_Title => Get(nameof(App_Title));
 
     public static string Nav_Episodes => Get(nameof(Nav_Episodes));
