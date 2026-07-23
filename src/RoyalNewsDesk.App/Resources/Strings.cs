@@ -42,6 +42,34 @@ public static class Strings
 
     public static string Update_Restart => Get(nameof(Update_Restart));
 
+    public static string Editor_PresenterStyle => Get(nameof(Editor_PresenterStyle));
+
+    public static string Editor_PresenterAnimated => Get(nameof(Editor_PresenterAnimated));
+
+    public static string Editor_PresenterPhotoreal => Get(nameof(Editor_PresenterPhotoreal));
+
+    public static string Editor_PhotorealNotReadyHint => Get(nameof(Editor_PhotorealNotReadyHint));
+
+    public static string Editor_OpenSettings => Get(nameof(Editor_OpenSettings));
+
+    public static string Settings_Presenter => Get(nameof(Settings_Presenter));
+
+    public static string Settings_PresenterIntro => Get(nameof(Settings_PresenterIntro));
+
+    public static string Settings_EngineExtracting => Get(nameof(Settings_EngineExtracting));
+
+    public static string Settings_EngineNeedsGpu => Get(nameof(Settings_EngineNeedsGpu));
+
+    public static string Settings_Portrait => Get(nameof(Settings_Portrait));
+
+    public static string Settings_PortraitChoose => Get(nameof(Settings_PortraitChoose));
+
+    public static string Settings_PortraitRemove => Get(nameof(Settings_PortraitRemove));
+
+    public static string Settings_PortraitNone => Get(nameof(Settings_PortraitNone));
+
+    public static string Settings_PortraitConsentHint => Get(nameof(Settings_PortraitConsentHint));
+
     public static string App_Title => Get(nameof(App_Title));
 
     public static string Nav_Episodes => Get(nameof(Nav_Episodes));

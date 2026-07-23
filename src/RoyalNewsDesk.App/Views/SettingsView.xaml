@@ -143,6 +143,120 @@
 
       <Border Style="{StaticResource SectionBorder}">
         <StackPanel>
+          <TextBlock Style="{StaticResource SectionHeader}" Text="{x:Static res:Strings.Settings_Presenter}" />
+          <TextBlock
+            Margin="0,0,0,10"
+            FontSize="12"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="{x:Static res:Strings.Settings_PresenterIntro}"
+            TextWrapping="Wrap" />
+
+          <ItemsControl ItemsSource="{Binding PresenterEngines}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type vm:PresenterEngineOptionViewModel}">
+                <Grid Margin="0,4">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <RadioButton
+                      Content="{Binding DisplayName}"
+                      GroupName="PresenterEnginePick"
+                      IsChecked="{Binding IsSelected}" />
+                    <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
+                      <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding StatusText}" />
+                      <TextBlock
+                        Margin="10,0,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding SizeText}" />
+                      <TextBlock
+                        Margin="10,0,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource PaletteRedBrush}"
+                        Text="{x:Static res:Strings.Settings_EngineNeedsGpu}"
+                        Visibility="{Binding NeedsGpu, Converter={StaticResource BoolToVisibility}}" />
+                      <TextBlock
+                        Margin="10,0,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding BusyText}" />
+                    </StackPanel>
+                    <ProgressBar
+                      Height="4"
+                      Margin="28,4,0,0"
+                      Maximum="1"
+                      Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibility}}"
+                      Value="{Binding ProgressFraction, Mode=OneWay}" />
+                  </StackPanel>
+                  <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+                    <ui:Button
+                      Command="{Binding DownloadCommand}"
+                      Content="{x:Static res:Strings.Settings_VoiceDownload}"
+                      Icon="{ui:SymbolIcon ArrowDownload24}"
+                      IsEnabled="{Binding CanDownload}"
+                      Visibility="{Binding IsInstalled, Converter={StaticResource InverseBoolToVisibility}}" />
+                    <ui:Button
+                      Command="{Binding DeleteCommand}"
+                      Content="{x:Static res:Strings.Settings_VoiceDelete}"
+                      IsEnabled="{Binding CanDelete}"
+                      Visibility="{Binding IsInstalled, Converter={StaticResource BoolToVisibility}}" />
+                  </StackPanel>
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+          <TextBlock Style="{StaticResource FieldLabel}" Text="{x:Static res:Strings.Settings_Portrait}" />
+          <StackPanel Orientation="Horizontal">
+            <Border
+              Width="96"
+              Height="96"
+              Background="{DynamicResource ControlFillColorSecondaryBrush}"
+              CornerRadius="8">
+              <Grid>
+                <TextBlock
+                  Margin="6"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  FontSize="11"
+                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                  Text="{x:Static res:Strings.Settings_PortraitNone}"
+                  TextAlignment="Center"
+                  TextWrapping="Wrap"
+                  Visibility="{Binding HasPortrait, Converter={StaticResource InverseBoolToVisibility}}" />
+                <Border CornerRadius="8" Visibility="{Binding HasPortrait, Converter={StaticResource BoolToVisibility}}">
+                  <Image Source="{Binding PortraitPath}" Stretch="UniformToFill" />
+                </Border>
+              </Grid>
+            </Border>
+            <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+              <ui:Button
+                Command="{Binding BrowsePortraitCommand}"
+                Content="{x:Static res:Strings.Settings_PortraitChoose}"
+                Icon="{ui:SymbolIcon Person24}" />
+              <ui:Button
+                Margin="0,6,0,0"
+                Command="{Binding RemovePortraitCommand}"
+                Content="{x:Static res:Strings.Settings_PortraitRemove}"
+                Visibility="{Binding HasPortrait, Converter={StaticResource BoolToVisibility}}" />
+            </StackPanel>
+          </StackPanel>
+          <TextBlock
+            Margin="0,8,0,0"
+            FontSize="12"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="{x:Static res:Strings.Settings_PortraitConsentHint}"
+            TextWrapping="Wrap" />
+        </StackPanel>
+      </Border>
+
+      <Border Style="{StaticResource SectionBorder}">
+        <StackPanel>
           <TextBlock Style="{StaticResource SectionHeader}" Text="{x:Static res:Strings.Settings_Branding}" />
           <TextBlock Style="{StaticResource FieldLabel}" Text="{x:Static res:Strings.Settings_ChannelName}" />
           <ui:TextBox Text="{Binding ChannelName, UpdateSourceTrigger=PropertyChanged}" />

@@ -1,0 +1,35 @@
+Third-party notices for this SadTalker presenter engine bundle
+==============================================================
+
+This bundle is downloaded on demand by Royal News Desk Studio. Everything in
+it is free software; each component keeps its own license.
+
+- SadTalker (engine\): Apache License 2.0, from
+  https://github.com/OpenTalker/SadTalker (the project changed its license to
+  Apache-2.0 and removed the earlier non-commercial restriction). The authors
+  ask that the tool is used responsibly and not to create misleading content
+  of real people without consent.
+- SadTalker model weights (engine\checkpoints\): released by the SadTalker
+  project under the same Apache-2.0 umbrella (release v0.0.2-rc).
+- Python 3.10.11 (python\): PSF License Agreement, from python.org.
+- PyTorch and torchvision: BSD-3-Clause. The CUDA variant embeds NVIDIA
+  CUDA and cuDNN redistributable libraries under NVIDIA's redistribution
+  terms; see the license files inside python\Lib\site-packages\torch.
+- GFPGAN and its weights (cuda variant): Apache License 2.0, from
+  https://github.com/TencentARC/GFPGAN (the v1.4 clean model).
+- facexlib and its weights (detection_Resnet50_Final, alignment_WFLW_4HG,
+  parsing_parsenet): MIT license, from https://github.com/xinntao/facexlib.
+  The alignment model descends from the AdaptiveWingLoss research code,
+  whose original repository does not state an explicit license; it is
+  redistributed here as facexlib redistributes it.
+- basicsr (Apache-2.0), librosa (ISC), numpy/scipy/scikit-image/
+  scikit-learn (BSD-3), numba/llvmlite (BSD-2), opencv-python (Apache-2.0),
+  kornia (Apache-2.0), imageio and imageio-ffmpeg (BSD-2), safetensors
+  (Apache-2.0), Pillow (MIT-CMU), soundfile (BSD-3) with libsndfile
+  (LGPL-2.1), pydub (MIT), tqdm (MPL-2.0/MIT), PyAV (BSD-3), and the other
+  packages in python\Lib\site-packages, each per the LICENSE files in their
+  *.dist-info folders.
+- ffmpeg (bin\ffmpeg.exe): GPL v3 build by BtbN, from
+  https://github.com/BtbN/FFmpeg-Builds; source is available from that page.
+- Microsoft Visual C++ runtime DLLs (python\msvcp140.dll and friends):
+  distributed under the Microsoft Visual Studio redistributable terms.

@@ -366,6 +366,48 @@
   <data name="Warning_W701" xml:space="preserve">
     <value>Lip movement is approximate in this episode.</value>
   </data>
+  <data name="Editor_PresenterStyle" xml:space="preserve">
+    <value>Presenter</value>
+  </data>
+  <data name="Editor_PresenterAnimated" xml:space="preserve">
+    <value>Animated news reader</value>
+  </data>
+  <data name="Editor_PresenterPhotoreal" xml:space="preserve">
+    <value>AI presenter (from a photo)</value>
+  </data>
+  <data name="Editor_PhotorealNotReadyHint" xml:space="preserve">
+    <value>The AI presenter needs a one-time download and a photo. Set both up in Settings.</value>
+  </data>
+  <data name="Editor_OpenSettings" xml:space="preserve">
+    <value>Open Settings</value>
+  </data>
+  <data name="Settings_Presenter" xml:space="preserve">
+    <value>AI presenter</value>
+  </data>
+  <data name="Settings_PresenterIntro" xml:space="preserve">
+    <value>Turn one photo into a speaking presenter. Making a video then takes noticeably longer; without an NVIDIA video card it can take hours.</value>
+  </data>
+  <data name="Settings_EngineExtracting" xml:space="preserve">
+    <value>Unpacking...</value>
+  </data>
+  <data name="Settings_EngineNeedsGpu" xml:space="preserve">
+    <value>Needs an NVIDIA video card</value>
+  </data>
+  <data name="Settings_Portrait" xml:space="preserve">
+    <value>Presenter photo</value>
+  </data>
+  <data name="Settings_PortraitChoose" xml:space="preserve">
+    <value>Choose photo</value>
+  </data>
+  <data name="Settings_PortraitRemove" xml:space="preserve">
+    <value>Remove photo</value>
+  </data>
+  <data name="Settings_PortraitNone" xml:space="preserve">
+    <value>No photo chosen yet</value>
+  </data>
+  <data name="Settings_PortraitConsentHint" xml:space="preserve">
+    <value>Use only a photo you have the rights to, of someone who agrees to appear in your videos.</value>
+  </data>
   <data name="Update_Restart" xml:space="preserve">
     <value>Update ready: restart</value>
   </data>

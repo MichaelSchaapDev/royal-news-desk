@@ -146,6 +146,14 @@ public partial class App : Application
                 case "about":
                     mainVm.OpenAbout();
                     break;
+                case "editor":
+                    var first = _services!.GetRequiredService<IEpisodeStore>().List().FirstOrDefault();
+                    if (first is not null)
+                    {
+                        mainVm.OpenEditor(first.Id);
+                    }
+
+                    break;
             }
 
             await Task.Delay(1500);

@@ -14,9 +14,11 @@ Releases/
 *.trx
 TestResults/
 
-# Local tool binaries and download cache (fetched by tools/get-tools.ps1, never committed)
+# Local tool binaries, download cache, and presenter-bundle build workspace
+# (fetched or built by scripts, never committed)
 tools/bin/
 tools/cache/
+tools/build/
 
 # Logs and local scratch
 *.log

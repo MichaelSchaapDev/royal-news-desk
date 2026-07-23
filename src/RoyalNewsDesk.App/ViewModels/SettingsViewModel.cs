@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -58,7 +59,10 @@ public partial class SettingsViewModel : ObservableObject, ISavable
     [ObservableProperty]
     private bool _showRestartHint;
 
-    public SettingsViewModel(ISettingsStore store, Core.VoiceModels.IVoiceModelManager voiceManager)
+    public SettingsViewModel(
+        ISettingsStore store,
+        Core.VoiceModels.IVoiceModelManager voiceManager,
+        Core.Presenters.IPresenterEngineManager presenterManager)
     {
         _store = store;
         _settings = store.Load();
@@ -76,6 +80,19 @@ public partial class SettingsViewModel : ObservableObject, ISavable
                 }))
             .ToList();
 
+        PresenterEngines = presenterManager.Engines
+            .Select(e => new PresenterEngineOptionViewModel(
+                e,
+                presenterManager,
+                isSelected: e.Id == _settings.PhotorealEngineId,
+                onSelected: id =>
+                {
+                    _settings.PhotorealEngineId = id;
+                    Save();
+                }))
+            .ToList();
+        _portraitPath = _settings.PhotorealPortraitPath;
+
         _language = _settings.Language;
         _isDarkTheme = _settings.Theme == AppTheme.Dark;
         _readingSpeed = _settings.ReadingSpeed;
@@ -91,6 +108,37 @@ public partial class SettingsViewModel : ObservableObject, ISavable
     }
 
     public IReadOnlyList<VoiceOptionViewModel> Voices { get; }
+
+    public IReadOnlyList<PresenterEngineOptionViewModel> PresenterEngines { get; }
+
+    [ObservableProperty]
+    private string? _portraitPath;
+
+    public bool HasPortrait => !string.IsNullOrWhiteSpace(PortraitPath) && File.Exists(PortraitPath);
+
+    partial void OnPortraitPathChanged(string? value) => OnPropertyChanged(nameof(HasPortrait));
+
+    [RelayCommand]
+    private void BrowsePortrait()
+    {
+        var dialog = new OpenFileDialog
+        {
+            Filter = "Images|*.png;*.jpg;*.jpeg",
+            CheckFileExists = true,
+        };
+        if (dialog.ShowDialog() == true)
+        {
+            PortraitPath = dialog.FileName;
+            Save();
+        }
+    }
+
+    [RelayCommand]
+    private void RemovePortrait()
+    {
+        PortraitPath = null;
+        Save();
+    }
 
     public void Save()
     {

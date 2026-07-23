@@ -16,6 +16,7 @@
       <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
       <conv:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
       <conv:CountToVisibilityConverter x:Key="CountToVisibility" />
+      <conv:InverseBoolConverter x:Key="InverseBool" />
 
       <DataTemplate DataType="{x:Type vm:EpisodesViewModel}">
         <views:EpisodesView />

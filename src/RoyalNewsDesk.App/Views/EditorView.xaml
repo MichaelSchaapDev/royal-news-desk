@@ -43,6 +43,38 @@
           PlaceholderText="{x:Static res:Strings.Editor_TitlePlaceholder}"
           Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
 
+        <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.Editor_PresenterStyle}" />
+        <StackPanel Margin="0,6,0,4" Orientation="Horizontal">
+          <RadioButton
+            Content="{x:Static res:Strings.Editor_PresenterAnimated}"
+            GroupName="PresenterStyle"
+            IsChecked="{Binding IsPhotoreal, Converter={StaticResource InverseBool}}" />
+          <RadioButton
+            Margin="16,0,0,0"
+            Content="{x:Static res:Strings.Editor_PresenterPhotoreal}"
+            GroupName="PresenterStyle"
+            IsChecked="{Binding IsPhotoreal}" />
+        </StackPanel>
+        <Border
+          Margin="0,4,0,14"
+          Padding="12,8"
+          Background="{DynamicResource ControlFillColorDefaultBrush}"
+          CornerRadius="6"
+          Visibility="{Binding PhotorealNotReady, Converter={StaticResource BoolToVisibility}}">
+          <StackPanel Orientation="Horizontal">
+            <ui:SymbolIcon Margin="0,0,8,0" Foreground="{DynamicResource PaletteRedBrush}" Symbol="Warning24" />
+            <TextBlock
+              MaxWidth="520"
+              VerticalAlignment="Center"
+              Text="{x:Static res:Strings.Editor_PhotorealNotReadyHint}"
+              TextWrapping="Wrap" />
+            <ui:Button
+              Margin="12,0,0,0"
+              Command="{Binding OpenPresenterSettingsCommand}"
+              Content="{x:Static res:Strings.Editor_OpenSettings}" />
+          </StackPanel>
+        </Border>
+
         <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.Editor_PasteLabel}" />
         <ui:TextBox
           Height="140"

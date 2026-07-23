@@ -366,6 +366,48 @@
   <data name="Warning_W701" xml:space="preserve">
     <value>De mondbewegingen zijn deze keer bij benadering.</value>
   </data>
+  <data name="Editor_PresenterStyle" xml:space="preserve">
+    <value>Presentator</value>
+  </data>
+  <data name="Editor_PresenterAnimated" xml:space="preserve">
+    <value>Geanimeerde nieuwslezer</value>
+  </data>
+  <data name="Editor_PresenterPhotoreal" xml:space="preserve">
+    <value>AI-presentator (van een foto)</value>
+  </data>
+  <data name="Editor_PhotorealNotReadyHint" xml:space="preserve">
+    <value>De AI-presentator heeft een eenmalige download en een foto nodig. Regel dit in Instellingen.</value>
+  </data>
+  <data name="Editor_OpenSettings" xml:space="preserve">
+    <value>Naar Instellingen</value>
+  </data>
+  <data name="Settings_Presenter" xml:space="preserve">
+    <value>AI-presentator</value>
+  </data>
+  <data name="Settings_PresenterIntro" xml:space="preserve">
+    <value>Maak van één foto een sprekende presentator. Een video maken duurt dan merkbaar langer; zonder NVIDIA-videokaart kan het uren duren.</value>
+  </data>
+  <data name="Settings_EngineExtracting" xml:space="preserve">
+    <value>Uitpakken...</value>
+  </data>
+  <data name="Settings_EngineNeedsGpu" xml:space="preserve">
+    <value>Heeft een NVIDIA-videokaart nodig</value>
+  </data>
+  <data name="Settings_Portrait" xml:space="preserve">
+    <value>Presentatorfoto</value>
+  </data>
+  <data name="Settings_PortraitChoose" xml:space="preserve">
+    <value>Foto kiezen</value>
+  </data>
+  <data name="Settings_PortraitRemove" xml:space="preserve">
+    <value>Foto weghalen</value>
+  </data>
+  <data name="Settings_PortraitNone" xml:space="preserve">
+    <value>Nog geen foto gekozen</value>
+  </data>
+  <data name="Settings_PortraitConsentHint" xml:space="preserve">
+    <value>Gebruik alleen een foto waarvan je de rechten hebt, van iemand die ermee instemt in je video's te verschijnen.</value>
+  </data>
   <data name="Update_Restart" xml:space="preserve">
     <value>Update klaar: herstarten</value>
   </data>

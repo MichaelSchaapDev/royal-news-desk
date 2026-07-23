@@ -8,7 +8,11 @@ using RoyalNewsDesk.Core.Storage;
 
 namespace RoyalNewsDesk.App.ViewModels;
 
-public partial class EditorViewModel(IEpisodeStore store, INavigator navigator) : ObservableObject, ISavable
+public partial class EditorViewModel(
+    IEpisodeStore store,
+    INavigator navigator,
+    ISettingsStore settingsStore,
+    Core.Presenters.IPresenterEngineManager presenterManager) : ObservableObject, ISavable
 {
     private Episode? _episode;
 
@@ -18,13 +22,20 @@ public partial class EditorViewModel(IEpisodeStore store, INavigator navigator) 
     [ObservableProperty]
     private string _pasteText = "";
 
-    public ObservableCollection<SegmentViewModel> Segments { get; } = [];
+    [ObservableProperty]
+    private bool _isPhotoreal;
 
+    [ObservableProperty]
+    private bool _photorealNotReady;
+
+    public ObservableCollection<SegmentViewModel> Segments { get; } = [];
 
     public void Load(string episodeId)
     {
         _episode = store.Load(episodeId) ?? throw new InvalidOperationException("Episode not found: " + episodeId);
         Title = _episode.Title;
+        IsPhotoreal = _episode.PresenterStyle == Core.Presenters.PresenterStyle.Photoreal;
+        UpdatePhotorealReadiness();
         Segments.Clear();
         var imagesDir = store.PathsFor(episodeId).ImagesDir;
         foreach (var segment in _episode.Segments)
@@ -41,9 +52,31 @@ public partial class EditorViewModel(IEpisodeStore store, INavigator navigator) 
         }
 
         _episode.Title = Title.Trim();
+        _episode.PresenterStyle = IsPhotoreal
+            ? Core.Presenters.PresenterStyle.Photoreal
+            : Core.Presenters.PresenterStyle.Animated;
         _episode.Segments = Segments.Select(s => s.ToModel()).ToList();
         store.Save(_episode);
     }
+
+    partial void OnIsPhotorealChanged(bool value) => UpdatePhotorealReadiness();
+
+    private void UpdatePhotorealReadiness()
+    {
+        if (!IsPhotoreal)
+        {
+            PhotorealNotReady = false;
+            return;
+        }
+
+        var settings = settingsStore.Load();
+        PhotorealNotReady = !presenterManager.IsInstalled(settings.PhotorealEngineId)
+            || settings.PhotorealPortraitPath is not { Length: > 0 } portrait
+            || !File.Exists(portrait);
+    }
+
+    [RelayCommand]
+    private void OpenPresenterSettings() => navigator.OpenSettings();
 
     [RelayCommand]
     private void AddSegment()
