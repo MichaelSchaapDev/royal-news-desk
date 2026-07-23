@@ -15,6 +15,21 @@
     <ProjectReference Include="..\RoyalNewsDesk.Core\RoyalNewsDesk.Core.csproj" />
   </ItemGroup>
 
+  <!-- Bundle ffmpeg/piper/rhubarb from tools/bin (populated by tools/get-tools.ps1)
+       into the output so the app finds them next to itself, in dev and in publish.
+       The condition keeps CI test builds working without the binaries. -->
+  <ItemGroup Condition="Exists('..\..\tools\bin\ffmpeg\ffmpeg.exe')">
+    <None Include="..\..\tools\bin\**" LinkBase="tools" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Refuse to publish a release without the bundled tools; a broken installer
+       must fail the build, not mom's first video. -->
+  <Target Name="EnsureToolsForPublish" BeforeTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+    <Error
+      Condition="!Exists('..\..\tools\bin\ffmpeg\ffmpeg.exe') Or !Exists('..\..\tools\bin\piper\piper.exe') Or !Exists('..\..\tools\bin\rhubarb\rhubarb.exe')"
+      Text="tools/bin is incomplete. Run tools/get-tools.ps1 before publishing." />
+  </Target>
+
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />

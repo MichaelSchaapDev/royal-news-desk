@@ -58,6 +58,13 @@ public partial class MainWindowViewModel : ObservableObject, INavigator
         ShowPage(vm, navKey: null);
     }
 
+    public void OpenFirstRun()
+    {
+        var vm = _services.GetRequiredService<FirstRunViewModel>();
+        vm.Initialize();
+        ShowPage(vm, navKey: null);
+    }
+
     partial void OnSelectedNavItemChanged(NavItem? value)
     {
         if (_syncingSelection || value is null)

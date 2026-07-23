@@ -58,11 +58,23 @@ public partial class SettingsViewModel : ObservableObject, ISavable
     [ObservableProperty]
     private bool _showRestartHint;
 
-    public SettingsViewModel(ISettingsStore store)
+    public SettingsViewModel(ISettingsStore store, Core.VoiceModels.IVoiceModelManager voiceManager)
     {
         _store = store;
         _settings = store.Load();
         _initialLanguage = _settings.Language;
+
+        Voices = voiceManager.Voices
+            .Select(v => new VoiceOptionViewModel(
+                v,
+                voiceManager,
+                isSelected: v.Id == _settings.VoiceId,
+                onSelected: id =>
+                {
+                    _settings.VoiceId = id;
+                    Save();
+                }))
+            .ToList();
 
         _language = _settings.Language;
         _isDarkTheme = _settings.Theme == AppTheme.Dark;
@@ -77,6 +89,8 @@ public partial class SettingsViewModel : ObservableObject, ISavable
         _studioAmbience = _settings.StudioAmbience;
         _higherQuality = _settings.HigherQuality;
     }
+
+    public IReadOnlyList<VoiceOptionViewModel> Voices { get; }
 
     public void Save()
     {

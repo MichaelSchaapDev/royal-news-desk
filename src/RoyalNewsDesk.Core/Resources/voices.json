@@ -1,0 +1,79 @@
+{
+  "voices": [
+    {
+      "id": "en_GB-cori-high",
+      "displayName": "Cori (British, warm female)",
+      "quality": "high",
+      "sampleRate": 22050,
+      "license": "Dataset: LibriVox, public domain",
+      "files": [
+        {
+          "fileName": "en_GB-cori-high.onnx",
+          "sha256": "470b4dd634c98f8a4850d7626ffc3dfc90774628eeef6605a6dd8f88f30a5903",
+          "sizeBytes": 114219352,
+          "urls": [
+            "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/cori/high/en_GB-cori-high.onnx"
+          ]
+        },
+        {
+          "fileName": "en_GB-cori-high.onnx.json",
+          "sha256": "9e7fb5b5671612c22f3c81cbe46c1ae87b031a4632bcb509e499dad6f1e2adec",
+          "sizeBytes": 4963,
+          "urls": [
+            "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/cori/high/en_GB-cori-high.onnx.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "en_GB-alba-medium",
+      "displayName": "Alba (Scottish, clear female)",
+      "quality": "medium",
+      "sampleRate": 22050,
+      "license": "Dataset: University of Edinburgh, CC BY 4.0",
+      "files": [
+        {
+          "fileName": "en_GB-alba-medium.onnx",
+          "sha256": "401369c4a81d09fdd86c32c5c864440811dbdcc66466cde2d64f7133a66ad03b",
+          "sizeBytes": 63201294,
+          "urls": [
+            "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/alba/medium/en_GB-alba-medium.onnx"
+          ]
+        },
+        {
+          "fileName": "en_GB-alba-medium.onnx.json",
+          "sha256": "aa965a2f02ecced632c2694e1fc72bbff6d65f265fab567ca945918c73dd89f4",
+          "sizeBytes": 4888,
+          "urls": [
+            "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/alba/medium/en_GB-alba-medium.onnx.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "en_GB-northern_english_male-medium",
+      "displayName": "Northern English male",
+      "quality": "medium",
+      "sampleRate": 22050,
+      "license": "Dataset: OpenSLR 83, CC BY-SA 4.0",
+      "files": [
+        {
+          "fileName": "en_GB-northern_english_male-medium.onnx",
+          "sha256": "57a219ae8e638873db7d18893304be5069c42868f392bb95c3ff17f0690d0689",
+          "sizeBytes": 63201294,
+          "urls": [
+            "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/northern_english_male/medium/en_GB-northern_english_male-medium.onnx"
+          ]
+        },
+        {
+          "fileName": "en_GB-northern_english_male-medium.onnx.json",
+          "sha256": "69557ed3d974463453e9b0c09dd99a7ed0e52b8b87b64b357dbeeb2540a97d47",
+          "sizeBytes": 4847,
+          "urls": [
+            "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/northern_english_male/medium/en_GB-northern_english_male-medium.onnx.json"
+          ]
+        }
+      ]
+    }
+  ]
+}

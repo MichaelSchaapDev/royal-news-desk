@@ -5,4 +5,8 @@
     <RootNamespace>RoyalNewsDesk.Core</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\voices.json" />
+  </ItemGroup>
+
 </Project>

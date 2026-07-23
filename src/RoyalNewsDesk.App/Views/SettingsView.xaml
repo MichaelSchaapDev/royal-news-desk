@@ -4,6 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
   xmlns:res="clr-namespace:RoyalNewsDesk.App.Resources"
+  xmlns:vm="clr-namespace:RoyalNewsDesk.App.ViewModels"
   TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
   <UserControl.Resources>
     <Style x:Key="SectionBorder" TargetType="Border">
@@ -64,6 +65,56 @@
       <Border Style="{StaticResource SectionBorder}">
         <StackPanel>
           <TextBlock Style="{StaticResource SectionHeader}" Text="{x:Static res:Strings.Settings_Voice}" />
+
+          <ItemsControl ItemsSource="{Binding Voices}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type vm:VoiceOptionViewModel}">
+                <Grid Margin="0,4">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <RadioButton
+                      Content="{Binding DisplayName}"
+                      GroupName="VoicePick"
+                      IsChecked="{Binding IsSelected}" />
+                    <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
+                      <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding StatusText}" />
+                      <TextBlock
+                        Margin="10,0,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding SizeText}" />
+                    </StackPanel>
+                    <ProgressBar
+                      Height="4"
+                      Margin="28,4,0,0"
+                      Maximum="1"
+                      Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibility}}"
+                      Value="{Binding ProgressFraction, Mode=OneWay}" />
+                  </StackPanel>
+                  <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+                    <ui:Button
+                      Command="{Binding DownloadCommand}"
+                      Content="{x:Static res:Strings.Settings_VoiceDownload}"
+                      Icon="{ui:SymbolIcon ArrowDownload24}"
+                      IsEnabled="{Binding CanDownload}"
+                      Visibility="{Binding IsInstalled, Converter={StaticResource InverseBoolToVisibility}}" />
+                    <ui:Button
+                      Command="{Binding DeleteCommand}"
+                      Content="{x:Static res:Strings.Settings_VoiceDelete}"
+                      IsEnabled="{Binding CanDelete}"
+                      Visibility="{Binding IsInstalled, Converter={StaticResource BoolToVisibility}}" />
+                  </StackPanel>
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
           <TextBlock Style="{StaticResource FieldLabel}" Text="{x:Static res:Strings.Settings_ReadingSpeed}" />
           <Grid>
             <Grid.ColumnDefinitions>

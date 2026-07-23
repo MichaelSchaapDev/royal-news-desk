@@ -4,7 +4,8 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
   xmlns:vm="clr-namespace:RoyalNewsDesk.App.ViewModels"
-  xmlns:views="clr-namespace:RoyalNewsDesk.App.Views">
+  xmlns:views="clr-namespace:RoyalNewsDesk.App.Views"
+  xmlns:conv="clr-namespace:RoyalNewsDesk.App.Converters">
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -13,6 +14,7 @@
       </ResourceDictionary.MergedDictionaries>
 
       <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+      <conv:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
 
       <DataTemplate DataType="{x:Type vm:EpisodesViewModel}">
         <views:EpisodesView />
@@ -25,6 +27,9 @@
       </DataTemplate>
       <DataTemplate DataType="{x:Type vm:AboutViewModel}">
         <views:AboutView />
+      </DataTemplate>
+      <DataTemplate DataType="{x:Type vm:FirstRunViewModel}">
+        <views:FirstRunView />
       </DataTemplate>
     </ResourceDictionary>
   </Application.Resources>

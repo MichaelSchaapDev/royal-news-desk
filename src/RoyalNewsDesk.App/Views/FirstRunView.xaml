@@ -1,0 +1,106 @@
+<UserControl
+  x:Class="RoyalNewsDesk.App.Views.FirstRunView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+  xmlns:res="clr-namespace:RoyalNewsDesk.App.Resources"
+  TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+  <Grid>
+    <Border
+      MaxWidth="560"
+      Padding="32,28"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Background="{DynamicResource ControlFillColorDefaultBrush}"
+      BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+      BorderThickness="1"
+      CornerRadius="12">
+      <StackPanel>
+        <TextBlock
+          FontSize="28"
+          FontWeight="SemiBold"
+          Text="{x:Static res:Strings.FirstRun_Title}" />
+        <TextBlock
+          Margin="0,12,0,0"
+          Text="{x:Static res:Strings.FirstRun_Body}"
+          TextWrapping="Wrap" />
+
+        <Border
+          Margin="0,20,0,0"
+          Padding="14,10"
+          Background="{DynamicResource ControlFillColorSecondaryBrush}"
+          CornerRadius="8">
+          <StackPanel Orientation="Horizontal">
+            <ui:SymbolIcon FontSize="20" Symbol="MicSparkle24" />
+            <StackPanel Margin="12,0,0,0">
+              <TextBlock FontWeight="SemiBold" Text="{Binding VoiceName}" />
+              <TextBlock
+                FontSize="12"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="{Binding VoiceSizeText}" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+
+        <ui:Button
+          Margin="0,20,0,0"
+          HorizontalAlignment="Stretch"
+          Appearance="Primary"
+          Command="{Binding DownloadCommand}"
+          Content="{x:Static res:Strings.FirstRun_Download}"
+          Icon="{ui:SymbolIcon ArrowDownload24}"
+          Visibility="{Binding IsIdle, Converter={StaticResource BoolToVisibility}}" />
+
+        <StackPanel Margin="0,20,0,0" Visibility="{Binding IsDownloading, Converter={StaticResource BoolToVisibility}}">
+          <ProgressBar Maximum="1" Value="{Binding ProgressFraction, Mode=OneWay}" />
+          <TextBlock
+            Margin="0,8,0,0"
+            HorizontalAlignment="Center"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="{Binding ProgressText}" />
+        </StackPanel>
+
+        <StackPanel Margin="0,20,0,0" Visibility="{Binding IsDone, Converter={StaticResource BoolToVisibility}}">
+          <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <ui:SymbolIcon FontSize="20" Foreground="Green" Symbol="CheckmarkCircle24" />
+            <TextBlock Margin="8,0,0,0" Text="{x:Static res:Strings.FirstRun_Done}" />
+          </StackPanel>
+          <ui:Button
+            Margin="0,14,0,0"
+            HorizontalAlignment="Stretch"
+            Appearance="Primary"
+            Command="{Binding ContinueCommand}"
+            Content="{x:Static res:Strings.FirstRun_Continue}"
+            Icon="{ui:SymbolIcon ArrowRight24}" />
+        </StackPanel>
+
+        <StackPanel Margin="0,20,0,0" Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}">
+          <TextBlock
+            Foreground="{DynamicResource PaletteRedBrush}"
+            Text="{x:Static res:Strings.FirstRun_Failed}"
+            TextWrapping="Wrap" />
+          <TextBlock
+            Margin="0,6,0,0"
+            FontSize="11"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="{Binding ErrorDetail}"
+            TextWrapping="Wrap" />
+          <ui:Button
+            Margin="0,12,0,0"
+            HorizontalAlignment="Stretch"
+            Command="{Binding DownloadCommand}"
+            Content="{x:Static res:Strings.FirstRun_Retry}"
+            Icon="{ui:SymbolIcon ArrowClockwise24}" />
+        </StackPanel>
+
+        <TextBlock
+          Margin="0,16,0,0"
+          FontSize="12"
+          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+          Text="{x:Static res:Strings.FirstRun_ToolsProblem}"
+          TextWrapping="Wrap"
+          Visibility="{Binding HasToolProblems, Converter={StaticResource BoolToVisibility}}" />
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

@@ -10,7 +10,9 @@ using RoyalNewsDesk.Core.Models;
 using RoyalNewsDesk.Core.Processes;
 using RoyalNewsDesk.Core.Storage;
 using RoyalNewsDesk.Core.Tools;
+using RoyalNewsDesk.Core.VoiceModels;
 using Serilog;
+using System.Net.Http;
 using Wpf.Ui.Appearance;
 using AppStrings = RoyalNewsDesk.App.Resources.Strings;
 
@@ -56,12 +58,16 @@ public partial class App : Application
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IToolLocator, InstalledToolLocator>();
         services.AddSingleton<ToolHealthCheck>();
+        services.AddSingleton(VoiceCatalog.LoadEmbedded());
+        services.AddSingleton(new HttpClient { Timeout = TimeSpan.FromMinutes(30) });
+        services.AddSingleton<IVoiceModelManager, VoiceModelManager>();
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<INavigator>(sp => sp.GetRequiredService<MainWindowViewModel>());
         services.AddTransient<EpisodesViewModel>();
         services.AddTransient<EditorViewModel>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<AboutViewModel>();
+        services.AddTransient<FirstRunViewModel>();
         _services = services.BuildServiceProvider();
 
         _log = _services.GetRequiredService<ILoggerFactory>().CreateLogger("App");
@@ -73,7 +79,17 @@ public partial class App : Application
         var window = new MainWindow(mainVm);
         MainWindow = window;
         window.Show();
-        mainVm.OpenEpisodes();
+
+        var voiceManager = _services.GetRequiredService<IVoiceModelManager>();
+        if (voiceManager.IsInstalled(settings.VoiceId))
+        {
+            mainVm.OpenEpisodes();
+        }
+        else
+        {
+            mainVm.OpenFirstRun();
+        }
+
         MaybeRunScreenshotMode(window, mainVm);
     }
 

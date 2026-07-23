@@ -126,4 +126,32 @@ public static class Strings
     public static string Error_Title => Get(nameof(Error_Title));
 
     public static string Error_Body => Get(nameof(Error_Body));
+
+    public static string FirstRun_Title => Get(nameof(FirstRun_Title));
+
+    public static string FirstRun_Body => Get(nameof(FirstRun_Body));
+
+    public static string FirstRun_SizeFormat => Get(nameof(FirstRun_SizeFormat));
+
+    public static string FirstRun_Download => Get(nameof(FirstRun_Download));
+
+    public static string FirstRun_DownloadingFormat => Get(nameof(FirstRun_DownloadingFormat));
+
+    public static string FirstRun_Done => Get(nameof(FirstRun_Done));
+
+    public static string FirstRun_Continue => Get(nameof(FirstRun_Continue));
+
+    public static string FirstRun_Failed => Get(nameof(FirstRun_Failed));
+
+    public static string FirstRun_Retry => Get(nameof(FirstRun_Retry));
+
+    public static string FirstRun_ToolsProblem => Get(nameof(FirstRun_ToolsProblem));
+
+    public static string Settings_VoiceInstalled => Get(nameof(Settings_VoiceInstalled));
+
+    public static string Settings_VoiceNotInstalled => Get(nameof(Settings_VoiceNotInstalled));
+
+    public static string Settings_VoiceDownload => Get(nameof(Settings_VoiceDownload));
+
+    public static string Settings_VoiceDelete => Get(nameof(Settings_VoiceDelete));
 }
