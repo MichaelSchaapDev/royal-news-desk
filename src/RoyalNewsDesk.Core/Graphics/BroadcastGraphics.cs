@@ -211,29 +211,6 @@ public sealed class BroadcastGraphics(FontCatalog fonts)
         Save(surface, path);
     }
 
-    /// <summary>Small translucent crown for the corner of the frame.</summary>
-    public void RenderLogoBug(string path, BrandStyle brand)
-    {
-        const int size = 150;
-        using var surface = CreateSurface(size, size);
-        DrawCrown(surface.Canvas, brand.Accent.WithAlpha(150), size / 2f, size / 2f, 0.9f);
-        Save(surface, path);
-    }
-
-    /// <summary>Channel name plate for the desk front (transparent background).</summary>
-    public void RenderDeskBrand(string path, BrandStyle brand)
-    {
-        const int width = 500;
-        const int height = 110;
-        using var surface = CreateSurface(width, height);
-        var label = brand.ChannelName.ToUpperInvariant();
-        var size = TextLayout.FitSize(fonts.HeadlineBold, label, width - 40, 44, 20);
-        using var font = new SKFont(fonts.HeadlineBold, size);
-        using var paint = Fill(brand.Accent);
-        TextLayout.DrawCentered(surface.Canvas, label, width / 2f, height / 2f + size * 0.36f, font, paint);
-        Save(surface, path);
-    }
-
     /// <summary>1280x720 thumbnail: title left, episode image (if any) right.</summary>
     public void RenderThumbnail(string path, string title, string? imagePath, BrandStyle brand)
     {

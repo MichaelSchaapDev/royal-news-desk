@@ -72,7 +72,6 @@ public class BroadcastGraphicsTests : IDisposable
         _gfx.RenderOutroCard(Out("outro.png"), _brand);
         _gfx.RenderTickerBar(Out("bar.png"));
         _gfx.RenderTickerBlock(Out("block.png"), _brand);
-        _gfx.RenderDeskBrand(Out("desk.png"), _brand);
 
         using var title = Decode(Out("title.png"));
         Assert.Equal(BroadcastGraphics.CardWidth, title.Width);

@@ -56,11 +56,9 @@ public static class FiltergraphBuilder
         inputs.AddRange(["-f", "concat", "-safe", "0", "-i", "gfx/anchor/anchor.ffconcat"]);
         var anchor = inputIndex++;
         var desk = AddImageInput("gfx/desk_front.png", loop: true);
-        var deskBrand = AddImageInput("gfx/desk_brand.png", loop: true);
         var tickerBar = AddImageInput("gfx/ticker_bar.png", loop: true);
         var tickerStrip = AddImageInput("gfx/ticker_strip.png", loop: true);
         var tickerBlock = AddImageInput("gfx/ticker_block.png", loop: true);
-        var logo = AddImageInput("gfx/logo_bug.png", loop: true);
 
         var lowerThirdInputs = new Dictionary<int, int>();
         var panelInputs = new Dictionary<int, int>();
@@ -111,7 +109,6 @@ public static class FiltergraphBuilder
         }
 
         Chain(Inv.F($"{{in}}[{desk}:v]overlay=x=0:y=800{{out}};\n"));
-        Chain(Inv.F($"{{in}}[{deskBrand}:v]overlay=x=710:y=920{{out}};\n"));
 
         // Lower thirds: fade the alpha, slide up, show only inside the window.
         foreach (var segment in timeline.Segments.Where(s => s.HasLowerThird))
@@ -139,7 +136,6 @@ public static class FiltergraphBuilder
         Chain(Inv.F($"{{in}}[{tickerBar}:v]overlay=x=0:y={TickerY}{{out}};\n"));
         Chain(Inv.F($"{{in}}[{tickerStrip}:v]overlay=eval=frame:x='-mod(t*{TickerSpeed:0.0},{tickerContentWidth})':y={TickerY}{{out}};\n"));
         Chain(Inv.F($"{{in}}[{tickerBlock}:v]overlay=x=0:y={TickerY}{{out}};\n"));
-        Chain(Inv.F($"{{in}}[{logo}:v]overlay=x=1730:y=40{{out}};\n"));
 
         if (burnSubtitles)
         {

@@ -10,9 +10,9 @@ Two projects, one rule: `RoyalNewsDesk.App` (WPF) depends on `RoyalNewsDesk.Core
 2. **PrepareEpisode**: free-space check, fresh work folder, parse the script into a `SpeechPlan` (soft warnings, one fatal case: no text).
 3. **Voice**: Piper speaks each sentence into its own wav; `VoiceTrackAssembler` stitches them with fixed gaps and derives the `Timeline` from the same sample counts; two-pass loudnorm; `MasterAudioMixer` lays jingle, voice and sting on one 48 kHz stereo track.
 4. **LipSync**: one Rhubarb pass over the voice track; on failure, synthetic visemes keep the episode alive.
-5. **Graphics**: SkiaSharp renders studio rasters, lower thirds, ticker strip (seamless loop), desk plate, cards and the logo bug.
+5. **Graphics**: SkiaSharp renders studio rasters, lower thirds, ticker strip (seamless loop), and the intro and outro cards.
 6. **AnchorAnimation**: mouth cues plus deterministic blinks become frame-exact pose runs, written as an ffconcat stills list next to 18 pose PNGs.
-7. **Assemble**: ffmpeg renders intro, outro and the body (one filter graph from `FiltergraphBuilder`, written to a script file), then concats with stream copy and muxes the master audio with faststart.
+7. **Assemble**: ffmpeg renders intro, outro and the body (one filter graph from `FiltergraphBuilder` covering the anchor, lower thirds, panels and ticker, written to a script file), then concats with stream copy and muxes the master audio with faststart.
 8. **Subtitles**: SRT from the timeline; optional styled ASS burned into the body.
 9. **Thumbnail**: 1280x720 PNG with the title and the first episode photo.
 10. **Export**: `OutputValidator` probes the file (codecs, geometry, duration, loudness, faststart); only a passing file gets copied to the user's Videos folder.

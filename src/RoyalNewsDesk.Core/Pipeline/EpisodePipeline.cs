@@ -207,10 +207,8 @@ public sealed class EpisodePipeline(
             RasterizeSvg(rasterizer, Path.Combine(assetsDir, "studio", "background.svg"), Path.Combine(paths.GfxDir, "studio_back.png"), 1920, 1080, opaque: true);
             RasterizeSvg(rasterizer, Path.Combine(assetsDir, "studio", "desk-front.svg"), Path.Combine(paths.GfxDir, "desk_front.png"), 1920, 280, opaque: false);
 
-            gfx.RenderDeskBrand(Path.Combine(paths.GfxDir, "desk_brand.png"), brand);
             gfx.RenderTickerBar(Path.Combine(paths.GfxDir, "ticker_bar.png"));
             gfx.RenderTickerBlock(Path.Combine(paths.GfxDir, "ticker_block.png"), brand);
-            gfx.RenderLogoBug(Path.Combine(paths.GfxDir, "logo_bug.png"), brand);
 
             var tickerItems = episode.TickerItems.Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
             if (tickerItems.Count == 0)
