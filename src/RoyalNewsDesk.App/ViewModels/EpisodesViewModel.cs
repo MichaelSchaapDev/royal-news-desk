@@ -29,7 +29,7 @@ public partial class EpisodesViewModel(
         foreach (var summary in store.List())
         {
             var title = string.IsNullOrWhiteSpace(summary.Title)
-                ? Strings.Episodes_NoOutput
+                ? Strings.Episodes_Untitled
                 : summary.Title;
             var created = summary.CreatedUtc.ToLocalTime()
                 .ToString("d MMMM yyyy", CultureInfo.CurrentCulture);

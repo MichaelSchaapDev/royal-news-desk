@@ -62,6 +62,8 @@ public static class Strings
 
     public static string Episodes_Open => Get(nameof(Episodes_Open));
 
+    public static string Episodes_Untitled => Get(nameof(Episodes_Untitled));
+
     public static string Episodes_DeleteConfirmTitle => Get(nameof(Episodes_DeleteConfirmTitle));
 
     public static string Episodes_DeleteConfirmText => Get(nameof(Episodes_DeleteConfirmText));

@@ -39,6 +39,9 @@
   <data name="Episodes_NoOutput" xml:space="preserve">
     <value>Concept</value>
   </data>
+  <data name="Episodes_Untitled" xml:space="preserve">
+    <value>(zonder titel)</value>
+  </data>
   <data name="Episodes_Open" xml:space="preserve">
     <value>Openen</value>
   </data>
