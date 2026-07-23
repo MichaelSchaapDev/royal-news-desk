@@ -14,8 +14,9 @@ Releases/
 *.trx
 TestResults/
 
-# Local tool binaries (fetched by tools/get-tools.ps1, never committed)
+# Local tool binaries and download cache (fetched by tools/get-tools.ps1, never committed)
 tools/bin/
+tools/cache/
 
 # Logs and local scratch
 *.log

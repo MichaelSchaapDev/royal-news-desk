@@ -1,0 +1,29 @@
+{
+  "tools": [
+    {
+      "name": "ffmpeg",
+      "url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-23-14-16/ffmpeg-n8.1.2-30-g45f1910444-win64-gpl-8.1.zip",
+      "sha256": "d17223d6fe8e3d5b329587570aefba1f643b716f38edbf3fc7316b631fc780c2",
+      "copy": [
+        { "from": "ffmpeg-n8.1.2-30-g45f1910444-win64-gpl-8.1/bin/ffmpeg.exe", "to": "ffmpeg.exe" },
+        { "from": "ffmpeg-n8.1.2-30-g45f1910444-win64-gpl-8.1/bin/ffprobe.exe", "to": "ffprobe.exe" }
+      ]
+    },
+    {
+      "name": "piper",
+      "url": "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_windows_amd64.zip",
+      "sha256": "f3c58906402b24f3a96d92145f58acba6d86c9b5db896d207f78dc80811efcea",
+      "copy": [
+        { "from": "piper/", "to": "" }
+      ]
+    },
+    {
+      "name": "rhubarb",
+      "url": "https://github.com/DanielSWolf/rhubarb-lip-sync/releases/download/v1.14.0/Rhubarb-Lip-Sync-1.14.0-Windows.zip",
+      "sha256": "62fa416a8d5e382a3828ee4bef358ce520d0b4cabdeaea75a7ac266d098d1fe3",
+      "copy": [
+        { "from": "Rhubarb-Lip-Sync-1.14.0-Windows/", "to": "" }
+      ]
+    }
+  ]
+}
