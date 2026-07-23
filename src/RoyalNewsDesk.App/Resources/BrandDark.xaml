@@ -1,0 +1,13 @@
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Brand colors tuned for dark surfaces. The light twin lives in BrandLight.xaml. -->
+  <SolidColorBrush x:Key="GoldAccentBrush" Color="#D9B23D" />
+  <SolidColorBrush x:Key="GoldAccentSoftBrush" Color="#26C9A227" />
+  <SolidColorBrush x:Key="StatusGoodBrush" Color="#58C287" />
+  <SolidColorBrush x:Key="StatusGoodSoftBrush" Color="#2258C287" />
+  <SolidColorBrush x:Key="ChipNeutralBrush" Color="#1FFFFFFF" />
+  <SolidColorBrush x:Key="ChipNeutralTextBrush" Color="#B9C0CC" />
+  <SolidColorBrush x:Key="CardHoverBrush" Color="#0DFFFFFF" />
+</ResourceDictionary>

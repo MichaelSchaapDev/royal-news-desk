@@ -16,63 +16,151 @@
   WindowCornerPreference="Round"
   WindowStartupLocation="CenterScreen">
   <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="248" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
 
-    <ui:TitleBar Grid.Row="0" Title="{x:Static res:Strings.App_Title}" />
+    <!-- Brand sidebar: navy in both themes; the studio identity lives here. -->
+    <Border Grid.Column="0">
+      <Border.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+          <GradientStop Offset="0" Color="#1D2C55" />
+          <GradientStop Offset="1" Color="#131F3E" />
+        </LinearGradientBrush>
+      </Border.Background>
+      <DockPanel Margin="14,20,14,16">
 
-    <Grid Grid.Row="1">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="230" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
+        <!-- Wordmark -->
+        <StackPanel DockPanel.Dock="Top" Margin="12,2,8,26" Orientation="Horizontal">
+          <Path
+            Width="22"
+            Height="20"
+            VerticalAlignment="Center"
+            Data="{StaticResource CrownGeometry}"
+            Fill="{StaticResource BrandGoldBrush}"
+            Stretch="Uniform" />
+          <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+            <TextBlock
+              FontFamily="{DynamicResource DisplayFontFamily}"
+              FontSize="16"
+              FontWeight="Medium"
+              Foreground="{StaticResource SidebarTextBrush}"
+              Text="{x:Static res:Strings.Brand_Name}" />
+            <TextBlock
+              FontSize="10"
+              FontWeight="SemiBold"
+              Foreground="{StaticResource BrandGoldBrush}"
+              Text="{x:Static res:Strings.Brand_Studio}"
+              Typography.Capitals="AllSmallCaps" />
+          </StackPanel>
+        </StackPanel>
 
-      <Border
-        Grid.Column="0"
-        Padding="10,14"
-        Background="{DynamicResource ControlFillColorDefaultBrush}">
-        <DockPanel>
-          <TextBlock
-            DockPanel.Dock="Top"
-            Margin="12,0,0,18"
-            FontSize="15"
-            FontWeight="SemiBold"
-            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-            Text="{x:Static res:Strings.App_Title}"
-            TextWrapping="Wrap" />
-
+        <!-- Version + update at the bottom -->
+        <StackPanel DockPanel.Dock="Bottom">
           <ui:Button
-            DockPanel.Dock="Bottom"
-            Margin="4,8,4,0"
+            Margin="0,10,0,8"
             HorizontalAlignment="Stretch"
-            Appearance="Primary"
+            Background="{StaticResource BrandGoldBrush}"
             Command="{Binding ApplyUpdateCommand}"
             Content="{x:Static res:Strings.Update_Restart}"
+            Foreground="#182448"
             Icon="{ui:SymbolIcon ArrowSync24}"
             Visibility="{Binding UpdateReady, Converter={StaticResource BoolToVisibility}}" />
+          <TextBlock
+            Margin="12,0,0,2"
+            FontSize="11"
+            Foreground="{StaticResource SidebarTextDimBrush}"
+            Text="{Binding VersionText}" />
+        </StackPanel>
 
-          <ListBox
-            BorderThickness="0"
-            Background="Transparent"
-            ItemsSource="{Binding NavItems}"
-            SelectedItem="{Binding SelectedNavItem}">
-            <ListBox.ItemTemplate>
-              <DataTemplate DataType="{x:Type vm:NavItem}">
-                <StackPanel Margin="4,6" Orientation="Horizontal">
-                  <ui:SymbolIcon FontSize="18" Symbol="{Binding Icon}" />
-                  <TextBlock Margin="12,0,0,0" FontSize="14" Text="{Binding Label}" />
-                </StackPanel>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-        </DockPanel>
-      </Border>
+        <!-- Navigation -->
+        <ListBox
+          Background="Transparent"
+          BorderThickness="0"
+          ItemsSource="{Binding NavItems}"
+          KeyboardNavigation.DirectionalNavigation="Cycle"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          SelectedItem="{Binding SelectedNavItem}">
+          <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem">
+              <Setter Property="Margin" Value="0,2" />
+              <Setter Property="Padding" Value="0" />
+              <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+              <Setter Property="Foreground" Value="{StaticResource SidebarTextDimBrush}" />
+              <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="ListBoxItem">
+                    <Border
+                      x:Name="Pill"
+                      Background="Transparent"
+                      CornerRadius="8">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto" />
+                          <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle
+                          x:Name="Indicator"
+                          Grid.Column="0"
+                          Width="3"
+                          Height="18"
+                          Margin="4,0,0,0"
+                          Fill="{StaticResource BrandGoldBrush}"
+                          Opacity="0"
+                          RadiusX="1.5"
+                          RadiusY="1.5" />
+                        <ContentPresenter Grid.Column="1" Margin="9,10,12,10" />
+                      </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                      <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="Pill" Property="Background" Value="{StaticResource SidebarHoverBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource SidebarTextBrush}" />
+                      </Trigger>
+                      <Trigger Property="IsSelected" Value="True">
+                        <Setter TargetName="Pill" Property="Background" Value="{StaticResource SidebarSelectedBrush}" />
+                        <Setter TargetName="Indicator" Property="Opacity" Value="1" />
+                        <Setter Property="Foreground" Value="{StaticResource SidebarTextBrush}" />
+                      </Trigger>
+                      <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                        <Setter TargetName="Pill" Property="Background" Value="{StaticResource SidebarSelectedBrush}" />
+                      </Trigger>
+                    </ControlTemplate.Triggers>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </ListBox.ItemContainerStyle>
+          <ListBox.ItemTemplate>
+            <DataTemplate DataType="{x:Type vm:NavItem}">
+              <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon
+                  VerticalAlignment="Center"
+                  FontSize="17"
+                  Symbol="{Binding Icon}" />
+                <TextBlock
+                  Margin="12,0,0,0"
+                  VerticalAlignment="Center"
+                  FontSize="13.5"
+                  FontWeight="SemiBold"
+                  Text="{Binding Label}" />
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+    </Border>
 
-      <ContentControl
-        Grid.Column="1"
-        Content="{Binding CurrentPage}" />
+    <!-- Content column with its own title bar row -->
+    <Grid Grid.Column="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <ui:TitleBar Grid.Row="0" ShowMaximize="True" ShowMinimize="True" />
+      <ContentControl Grid.Row="1" Content="{Binding CurrentPage}" />
     </Grid>
   </Grid>
 </ui:FluentWindow>

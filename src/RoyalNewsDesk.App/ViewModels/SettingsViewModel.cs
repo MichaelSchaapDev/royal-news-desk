@@ -172,7 +172,7 @@ public partial class SettingsViewModel : ObservableObject, ISavable
 
     partial void OnIsDarkThemeChanged(bool value)
     {
-        ApplicationThemeManager.Apply(value ? ApplicationTheme.Dark : ApplicationTheme.Light);
+        App.ApplyTheme(value);
         Save();
     }
 

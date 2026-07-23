@@ -18,6 +18,88 @@
       <conv:CountToVisibilityConverter x:Key="CountToVisibility" />
       <conv:InverseBoolConverter x:Key="InverseBool" />
 
+      <!-- Brand constants that hold in both themes. -->
+      <SolidColorBrush x:Key="SidebarTopBrush" Color="#1D2C55" />
+      <SolidColorBrush x:Key="SidebarBottomBrush" Color="#131F3E" />
+      <SolidColorBrush x:Key="SidebarTextBrush" Color="#F2F5FC" />
+      <SolidColorBrush x:Key="SidebarTextDimBrush" Color="#93A1C4" />
+      <SolidColorBrush x:Key="SidebarHoverBrush" Color="#12FFFFFF" />
+      <SolidColorBrush x:Key="SidebarSelectedBrush" Color="#1AFFFFFF" />
+      <SolidColorBrush x:Key="BrandGoldBrush" Color="#C9A227" />
+      <SolidColorBrush x:Key="BrandNavyBrush" Color="#1B2A55" />
+
+      <!-- The same crown as the studio bug: three points over a band. -->
+      <Geometry x:Key="CrownGeometry">M2,15 L2,5 L6.5,9.5 L11,2 L15.5,9.5 L20,5 L20,15 Z M2,17 L20,17 L20,20 L2,20 Z</Geometry>
+
+      <!-- Page scaffolding -->
+      <Thickness x:Key="PagePadding">44,30,44,44</Thickness>
+      <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="ContentMaxWidth">960</sys:Double>
+
+      <Style x:Key="PageKicker" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GoldAccentBrush}" />
+        <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
+        <Setter Property="Margin" Value="1,0,0,2" />
+      </Style>
+
+      <Style x:Key="PageTitle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource DisplayFontFamily}" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+      </Style>
+
+      <Style x:Key="PageSubtitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Margin" Value="1,6,0,0" />
+      </Style>
+
+      <Style x:Key="SectionLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        <Setter Property="Margin" Value="1,0,0,10" />
+      </Style>
+
+      <Style x:Key="CardBorder" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="24,20" />
+      </Style>
+
+      <Style x:Key="ChipBorder" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource ChipNeutralBrush}" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="9,3" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+      </Style>
+
+      <Style x:Key="ChipText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource ChipNeutralTextBrush}" />
+      </Style>
+
+      <Style x:Key="FieldLabelBase" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="Margin" Value="1,0,0,6" />
+      </Style>
+
+      <Style x:Key="HintText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+      </Style>
+
       <DataTemplate DataType="{x:Type vm:EpisodesViewModel}">
         <views:EpisodesView />
       </DataTemplate>

@@ -41,6 +41,18 @@ public partial class MainWindowViewModel : ObservableObject, INavigator
 
     public IReadOnlyList<NavItem> NavItems { get; }
 
+    public string VersionText { get; } = BuildVersionText();
+
+    private static string BuildVersionText()
+    {
+        var info = System.Reflection.Assembly.GetExecutingAssembly()
+            .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
+            .OfType<System.Reflection.AssemblyInformationalVersionAttribute>()
+            .FirstOrDefault()?.InformationalVersion ?? "0.0.0";
+        var plus = info.IndexOf('+', StringComparison.Ordinal);
+        return "v" + (plus > 0 ? info[..plus] : info);
+    }
+
     public void OpenEpisodes()
     {
         var vm = _services.GetRequiredService<EpisodesViewModel>();

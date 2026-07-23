@@ -43,12 +43,22 @@ public partial class App : Application
         var settingsStore = new JsonSettingsStore(_paths);
         var settings = settingsStore.Load();
 
-        var uiCulture = new CultureInfo(settings.Language == "en" ? "en" : "nl");
+        // Dev overrides for --screenshot runs; never persisted.
+        var language = ReadArg("--lang") ?? settings.Language;
+        var darkTheme = ReadArg("--theme") is { } t
+            ? t == "dark"
+            : settings.Theme == AppTheme.Dark;
+
+        var uiCulture = new CultureInfo(language == "en" ? "en" : "nl");
         CultureInfo.DefaultThreadCurrentUICulture = uiCulture;
         Thread.CurrentThread.CurrentUICulture = uiCulture;
 
-        ApplicationThemeManager.Apply(
-            settings.Theme == AppTheme.Dark ? ApplicationTheme.Dark : ApplicationTheme.Light);
+        var fontsDir = Path.Combine(AppContext.BaseDirectory, "assets", "fonts");
+        var fontsUri = new Uri(fontsDir + Path.DirectorySeparatorChar);
+        Resources["DisplayFontFamily"] = new System.Windows.Media.FontFamily(fontsUri, "./#IBM Plex Serif, Georgia, serif");
+        Resources["SansFontFamily"] = new System.Windows.Media.FontFamily(fontsUri, "./#IBM Plex Sans, Segoe UI, sans-serif");
+
+        ApplyTheme(darkTheme);
 
         var services = new ServiceCollection();
         services.AddLogging(builder => builder.AddSerilog(serilog, dispose: true));
@@ -119,23 +129,69 @@ public partial class App : Application
             window.Dispatcher.InvokeAsync(() => mainVm.UpdateReady = true));
     }
 
+    private static string? ReadArg(string name)
+    {
+        var args = Environment.GetCommandLineArgs();
+        var index = Array.IndexOf(args, name);
+        return index >= 0 && index + 1 < args.Length ? args[index + 1] : null;
+    }
+
+    /// <summary>
+    /// Applies the Fluent theme plus the pieces it does not know about:
+    /// the royal accent color and the theme-tuned brand brushes.
+    /// Also called when the theme toggle in Settings flips.
+    /// </summary>
+    public static void ApplyTheme(bool dark)
+    {
+        var theme = dark ? ApplicationTheme.Dark : ApplicationTheme.Light;
+        ApplicationThemeManager.Apply(theme);
+        // The automatic dark palette drains 30-65 points of saturation from
+        // the base color, which turns royal blue into gray lavender. Hand the
+        // dark theme an explicit ramp instead; light derives fine on its own.
+        if (dark)
+        {
+            ApplicationAccentColorManager.Apply(
+                System.Windows.Media.Color.FromRgb(0x4E, 0x67, 0xBD),
+                System.Windows.Media.Color.FromRgb(0x7C, 0x93, 0xE0),
+                System.Windows.Media.Color.FromRgb(0x54, 0x70, 0xC6),
+                System.Windows.Media.Color.FromRgb(0x43, 0x5C, 0xA8));
+        }
+        else
+        {
+            ApplicationAccentColorManager.Apply(
+                System.Windows.Media.Color.FromRgb(0x24, 0x40, 0x7C),
+                theme);
+        }
+
+        var dictionaries = Current.Resources.MergedDictionaries;
+        var brandUri = new Uri(
+            dark ? "Resources/BrandDark.xaml" : "Resources/BrandLight.xaml",
+            UriKind.Relative);
+        var existing = dictionaries.FirstOrDefault(d =>
+            d.Source is { OriginalString: var s } && s.Contains("Brand", StringComparison.Ordinal));
+        if (existing is not null)
+        {
+            dictionaries.Remove(existing);
+        }
+
+        dictionaries.Add(new ResourceDictionary { Source = brandUri });
+    }
+
     /// <summary>
     /// Dev helper: --screenshot &lt;path.png&gt; renders the window with WPF's own
     /// compositor and exits. Used for automated UI checks and doc screenshots,
     /// where OS-level capture is unreliable on hybrid-GPU machines.
+    /// Combine with --page, --theme light|dark and --lang en|nl.
     /// </summary>
     private void MaybeRunScreenshotMode(System.Windows.Window window, MainWindowViewModel mainVm)
     {
-        var args = Environment.GetCommandLineArgs();
-        var index = Array.IndexOf(args, "--screenshot");
-        if (index < 0 || index + 1 >= args.Length)
+        var targetPath = ReadArg("--screenshot");
+        if (targetPath is null)
         {
             return;
         }
 
-        var targetPath = args[index + 1];
-        var pageIndex = Array.IndexOf(args, "--page");
-        var page = pageIndex >= 0 && pageIndex + 1 < args.Length ? args[pageIndex + 1] : "episodes";
+        var page = ReadArg("--page") ?? "episodes";
         window.Dispatcher.InvokeAsync(async () =>
         {
             switch (page)
@@ -145,6 +201,9 @@ public partial class App : Application
                     break;
                 case "about":
                     mainVm.OpenAbout();
+                    break;
+                case "firstrun":
+                    mainVm.OpenFirstRun();
                     break;
                 case "editor":
                     var first = _services!.GetRequiredService<IEpisodeStore>().List().FirstOrDefault();

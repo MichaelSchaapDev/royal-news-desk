@@ -72,6 +72,10 @@ public static class Strings
 
     public static string App_Title => Get(nameof(App_Title));
 
+    public static string Brand_Name => Get(nameof(Brand_Name));
+
+    public static string Brand_Studio => Get(nameof(Brand_Studio));
+
     public static string Nav_Episodes => Get(nameof(Nav_Episodes));
 
     public static string Nav_Settings => Get(nameof(Nav_Settings));
