@@ -246,8 +246,17 @@
   <data name="Step_Graphics" xml:space="preserve">
     <value>Titels en balken worden getekend</value>
   </data>
-  <data name="Step_AnchorAnimation" xml:space="preserve">
-    <value>De nieuwslezer wordt geanimeerd</value>
+  <data name="Step_Presenter" xml:space="preserve">
+    <value>De presentator wordt gemaakt</value>
+  </data>
+  <data name="PipelineError_PresenterModelMissing" xml:space="preserve">
+    <value>De AI-presentator is nog niet gedownload. Ga naar Instellingen.</value>
+  </data>
+  <data name="PipelineError_PortraitMissing" xml:space="preserve">
+    <value>Er is nog geen presentatorfoto gekozen. Kies er een in Instellingen.</value>
+  </data>
+  <data name="Warning_W801" xml:space="preserve">
+    <value>De AI-presentator kon deze keer niet worden gemaakt; de geanimeerde nieuwslezer nam het over.</value>
   </data>
   <data name="Step_Assemble" xml:space="preserve">
     <value>De video wordt in elkaar gezet</value>

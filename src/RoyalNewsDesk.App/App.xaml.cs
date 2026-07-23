@@ -63,13 +63,23 @@ public partial class App : Application
         services.AddSingleton<IVoiceModelManager, VoiceModelManager>();
         services.AddSingleton<RoyalNewsDesk.Core.Tts.ITtsEngine, RoyalNewsDesk.Core.Tts.PiperTtsEngine>();
         services.AddSingleton<RoyalNewsDesk.Core.LipSync.ILipSyncEngine, RoyalNewsDesk.Core.LipSync.RhubarbLipSyncEngine>();
+        services.AddSingleton(RoyalNewsDesk.Core.Presenters.PresenterCatalog.LoadEmbedded());
+        services.AddSingleton<RoyalNewsDesk.Core.Presenters.IPresenterEngineManager,
+            RoyalNewsDesk.Core.Presenters.PresenterEngineManager>();
         services.AddSingleton(sp => new RoyalNewsDesk.Core.Pipeline.EpisodePipeline(
             sp.GetRequiredService<IProcessRunner>(),
             sp.GetRequiredService<IToolLocator>(),
             sp.GetRequiredService<IVoiceModelManager>(),
+            sp.GetRequiredService<RoyalNewsDesk.Core.Presenters.IPresenterEngineManager>(),
             sp.GetRequiredService<IEpisodeStore>(),
             sp.GetRequiredService<RoyalNewsDesk.Core.Tts.ITtsEngine>(),
             sp.GetRequiredService<RoyalNewsDesk.Core.LipSync.ILipSyncEngine>(),
+            new RoyalNewsDesk.Core.Presenters.AnimatedPresenterEngine(
+                Path.Combine(AppContext.BaseDirectory, "assets")),
+            new RoyalNewsDesk.Core.Presenters.SadTalkerPresenterEngine(
+                sp.GetRequiredService<IProcessRunner>(),
+                sp.GetRequiredService<IToolLocator>(),
+                sp.GetRequiredService<RoyalNewsDesk.Core.Presenters.IPresenterEngineManager>()),
             Path.Combine(AppContext.BaseDirectory, "assets")));
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<INavigator>(sp => sp.GetRequiredService<MainWindowViewModel>());

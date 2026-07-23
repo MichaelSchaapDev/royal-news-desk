@@ -246,8 +246,17 @@
   <data name="Step_Graphics" xml:space="preserve">
     <value>Drawing titles and banners</value>
   </data>
-  <data name="Step_AnchorAnimation" xml:space="preserve">
-    <value>Animating the news reader</value>
+  <data name="Step_Presenter" xml:space="preserve">
+    <value>Creating the presenter</value>
+  </data>
+  <data name="PipelineError_PresenterModelMissing" xml:space="preserve">
+    <value>The AI presenter is not downloaded yet. Go to Settings.</value>
+  </data>
+  <data name="PipelineError_PortraitMissing" xml:space="preserve">
+    <value>No presenter photo is set. Choose one in Settings.</value>
+  </data>
+  <data name="Warning_W801" xml:space="preserve">
+    <value>The AI presenter could not be created this time; the animated news reader stepped in.</value>
   </data>
   <data name="Step_Assemble" xml:space="preserve">
     <value>Putting the video together</value>

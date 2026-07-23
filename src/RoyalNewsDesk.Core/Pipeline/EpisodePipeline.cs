@@ -23,9 +23,12 @@ public sealed class EpisodePipeline(
     IProcessRunner runner,
     IToolLocator locator,
     IVoiceModelManager voiceManager,
+    Presenters.IPresenterEngineManager presenterManager,
     IEpisodeStore store,
     ITtsEngine ttsEngine,
     ILipSyncEngine lipSyncEngine,
+    Presenters.IPresenterEngine animatedPresenter,
+    Presenters.IPresenterEngine photorealPresenter,
     string assetsDir)
 {
     private const long RequiredFreeBytes = 2L * 1024 * 1024 * 1024;
@@ -52,7 +55,9 @@ public sealed class EpisodePipeline(
         SpeechPlan plan = null!;
         Timeline timeline = null!;
         IReadOnlyList<SubtitleCue> cues = null!;
-        MouthCueTrack mouthTrack = null!;
+        MouthCueTrack? mouthTrack = null;
+        Presenters.PresenterTrack presenterTrack = null!;
+        var style = episode.PresenterStyle;
         var tickerContentWidth = 0;
         var outputName = "";
 
@@ -75,6 +80,26 @@ public sealed class EpisodePipeline(
                     PipelineStepId.CheckTools,
                     PipelineErrorCode.VoiceModelMissing,
                     episode.VoiceId);
+            }
+
+            if (style == Presenters.PresenterStyle.Photoreal)
+            {
+                if (!presenterManager.IsInstalled(options.PhotorealEngineId))
+                {
+                    throw new PipelineException(
+                        PipelineStepId.CheckTools,
+                        PipelineErrorCode.PresenterModelMissing,
+                        options.PhotorealEngineId);
+                }
+
+                if (string.IsNullOrWhiteSpace(options.PhotorealPortraitPath)
+                    || !File.Exists(options.PhotorealPortraitPath))
+                {
+                    throw new PipelineException(
+                        PipelineStepId.CheckTools,
+                        PipelineErrorCode.PortraitMissing,
+                        options.PhotorealPortraitPath ?? "(not set)");
+                }
             }
         }).ConfigureAwait(false);
 
@@ -175,6 +200,14 @@ public sealed class EpisodePipeline(
         // LipSync
         await RunStepAsync(PipelineStepId.LipSync, progress, ct, async () =>
         {
+            if (style == Presenters.PresenterStyle.Photoreal)
+            {
+                // The photoreal engine reads the audio itself. If it crashes
+                // later, the fallback synthesizes visemes from the timeline
+                // rather than re-running Rhubarb here.
+                return;
+            }
+
             var transcript = Path.Combine(paths.VisemeDir, "transcript.txt");
             await File.WriteAllLinesAsync(transcript, plan.AllSentences.Select(s => s.Text), ct)
                 .ConfigureAwait(false);
@@ -242,17 +275,59 @@ public sealed class EpisodePipeline(
 
             gfx.RenderTitleCard(Path.Combine(paths.GfxDir, "intro_card.png"), plan.Title, brand);
             gfx.RenderOutroCard(Path.Combine(paths.GfxDir, "outro_card.png"), brand);
+            if (style == Presenters.PresenterStyle.Photoreal)
+            {
+                gfx.RenderPresenterFrame(Path.Combine(paths.GfxDir, "presenter_frame.png"), brand);
+            }
+
             return Task.CompletedTask;
         }).ConfigureAwait(false);
 
-        // AnchorAnimation
-        await RunStepAsync(PipelineStepId.AnchorAnimation, progress, ct, () =>
+        // Presenter
+        await RunStepAsync(PipelineStepId.Presenter, progress, ct, async () =>
         {
-            var blinks = BlinkScheduler.Schedule(plan.Title, timeline.BodyDuration);
-            var intervals = AnchorTimelineBuilder.Build(mouthTrack, blinks, timeline.BodyDuration);
-            AnchorStateRenderer.RenderAll(Path.Combine(assetsDir, "anchor"), paths.AnchorDir);
-            AnchorTimelineBuilder.WriteFfconcat(Path.Combine(paths.AnchorDir, "anchor.ffconcat"), intervals);
-            return Task.CompletedTask;
+            var presenterProgress = new Progress<double>(f => progress.Report(new StepProgress(
+                PipelineStepId.Presenter, StepState.Running, Fraction: f)));
+
+            if (style == Presenters.PresenterStyle.Photoreal)
+            {
+                try
+                {
+                    presenterTrack = await photorealPresenter.RenderAsync(
+                        new Presenters.PresenterRequest
+                        {
+                            Paths = paths,
+                            BodyDuration = timeline.BodyDuration,
+                            BlinkSeed = plan.Title,
+                            PortraitPath = options.PhotorealPortraitPath,
+                            AudioWavPath = Path.Combine(paths.AudioDir, "voice_norm.wav"),
+                            EngineId = options.PhotorealEngineId,
+                        },
+                        presenterProgress,
+                        ct).ConfigureAwait(false);
+                    return;
+                }
+                catch (Presenters.PresenterRenderException ex)
+                {
+                    warnings.Add(new PipelineWarning("W801", null, ex.Detail));
+                }
+            }
+
+            // The normal animated path, and the photoreal soft fallback.
+            mouthTrack ??= FallbackVisemes.FromSentences(
+                timeline.Sentences.Select(s => (timeline.ToBodyLocal(s.Start), timeline.ToBodyLocal(s.End))),
+                timeline.BodyDuration);
+
+            presenterTrack = await animatedPresenter.RenderAsync(
+                new Presenters.PresenterRequest
+                {
+                    Paths = paths,
+                    BodyDuration = timeline.BodyDuration,
+                    BlinkSeed = plan.Title,
+                    MouthCues = mouthTrack,
+                },
+                presenterProgress,
+                ct).ConfigureAwait(false);
         }).ConfigureAwait(false);
 
         // Assemble
@@ -275,7 +350,7 @@ public sealed class EpisodePipeline(
                 tickerContentWidth,
                 options.StudioAmbience,
                 options.BurnInSubtitles,
-                new Presenters.PresenterTrack.Stills("gfx/anchor/anchor.ffconcat"));
+                presenterTrack);
             var bodyProgress = new Progress<double>(f => progress.Report(new StepProgress(
                 PipelineStepId.Assemble, StepState.Running, Fraction: 0.1 + f * 0.8)));
             await composer.RenderBodyAsync(paths.WorkDir, bodyPlan, options.HigherQuality, bodyProgress, ct)
@@ -381,6 +456,8 @@ public sealed class EpisodePipeline(
     private static (PipelineErrorCode Code, string Detail) MapException(Exception ex) => ex switch
     {
         ScriptEmptyException => (PipelineErrorCode.ScriptEmpty, ex.Message),
+        Presenters.PresenterRenderException presenter =>
+            (PipelineErrorCode.ToolFailed, presenter.EngineId + ": " + presenter.Detail),
         ToolExecutionException tool => (PipelineErrorCode.ToolFailed, tool.Tool + ": " + tool.Detail),
         ProcessStartException { Reason: ProcessStartFailure.VirusBlocked or ProcessStartFailure.AccessDenied } start =>
             (PipelineErrorCode.ToolBlocked, start.Message),

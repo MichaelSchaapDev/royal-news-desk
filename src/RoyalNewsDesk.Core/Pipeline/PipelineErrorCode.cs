@@ -7,6 +7,8 @@ public enum PipelineErrorCode
     ToolMissing,
     ToolBlocked,
     VoiceModelMissing,
+    PresenterModelMissing,
+    PortraitMissing,
     ToolFailed,
     DiskFull,
     AccessDenied,

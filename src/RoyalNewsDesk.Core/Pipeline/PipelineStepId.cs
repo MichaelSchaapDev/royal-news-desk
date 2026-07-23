@@ -11,7 +11,7 @@ public enum PipelineStepId
     Voice,
     LipSync,
     Graphics,
-    AnchorAnimation,
+    Presenter,
     Assemble,
     Subtitles,
     Thumbnail,
