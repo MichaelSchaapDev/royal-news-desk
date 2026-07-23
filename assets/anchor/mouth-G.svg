@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- G: upper teeth on lower lip (F, V). -->
+  <path d="M 366 342 C 384 335 416 335 434 342 C 434 352 366 352 366 342 Z" fill="#C4756B" />
+  <rect x="374" y="342" width="52" height="9" rx="3" fill="#FDFDFD" />
+  <path d="M 372 352 C 388 360 412 360 428 352 C 414 364 386 364 372 352 Z" fill="#B5655C" />
+</svg>

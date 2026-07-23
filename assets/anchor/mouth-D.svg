@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- D: wide open (AA). -->
+  <ellipse cx="400" cy="352" rx="34" ry="25" fill="#C4756B" />
+  <ellipse cx="400" cy="354" rx="28" ry="20" fill="#6B3230" />
+  <path d="M 378 340 L 422 340 C 422 347 378 347 378 340 Z" fill="#FDFDFD" />
+  <path d="M 382 368 C 390 358 410 358 418 368 C 410 374 390 374 382 368 Z" fill="#C05A52" />
+</svg>

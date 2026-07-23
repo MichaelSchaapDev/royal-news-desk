@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- Eyes open. Positions must match eyes-closed.svg. -->
+  <!-- left eye -->
+  <ellipse cx="356" cy="262" rx="26" ry="17" fill="#FFFFFF" />
+  <circle cx="356" cy="263" r="11" fill="#5D4634" />
+  <circle cx="356" cy="263" r="5" fill="#241A14" />
+  <circle cx="360" cy="259" r="2.6" fill="#FFFFFF" />
+  <path d="M 330 256 C 340 246 372 246 382 256" fill="none" stroke="#3A2C24" stroke-width="6" stroke-linecap="round" />
+
+  <!-- right eye -->
+  <ellipse cx="444" cy="262" rx="26" ry="17" fill="#FFFFFF" />
+  <circle cx="444" cy="263" r="11" fill="#5D4634" />
+  <circle cx="444" cy="263" r="5" fill="#241A14" />
+  <circle cx="448" cy="259" r="2.6" fill="#FFFFFF" />
+  <path d="M 418 256 C 428 246 460 246 470 256" fill="none" stroke="#3A2C24" stroke-width="6" stroke-linecap="round" />
+</svg>

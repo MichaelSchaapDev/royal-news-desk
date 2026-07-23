@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- H: L sound, tongue up behind the teeth. -->
+  <ellipse cx="400" cy="351" rx="26" ry="18" fill="#C4756B" />
+  <ellipse cx="400" cy="352" rx="20" ry="13" fill="#6B3230" />
+  <path d="M 386 344 C 392 338 408 338 414 344 C 410 352 390 352 386 344 Z" fill="#C05A52" />
+</svg>

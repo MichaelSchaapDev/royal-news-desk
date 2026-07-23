@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- C: relaxed open (EH, AE). -->
+  <ellipse cx="400" cy="350" rx="26" ry="17" fill="#C4756B" />
+  <ellipse cx="400" cy="351" rx="20" ry="12" fill="#6B3230" />
+  <path d="M 384 343 L 416 343 C 416 348 384 348 384 343 Z" fill="#FDFDFD" />
+</svg>

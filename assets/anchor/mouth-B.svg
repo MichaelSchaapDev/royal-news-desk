@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- B: slightly open, upper teeth visible (most consonants, EE). -->
+  <path d="M 362 340 C 382 332 418 332 438 340 C 438 356 362 356 362 340 Z" fill="#C4756B" />
+  <path d="M 368 344 C 385 340 415 340 432 344 C 432 356 368 356 368 344 Z" fill="#6B3230" />
+  <rect x="372" y="342" width="56" height="8" rx="3" fill="#FDFDFD" />
+  <path d="M 362 354 C 382 362 418 362 438 354 C 420 364 380 364 362 354 Z" fill="#B5655C" />
+</svg>

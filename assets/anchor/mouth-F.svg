@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- F: puckered (UW, OO, W). -->
+  <ellipse cx="400" cy="350" rx="15" ry="14" fill="#C4756B" />
+  <ellipse cx="400" cy="350" rx="8" ry="8" fill="#6B3230" />
+  <path d="M 385 342 C 392 338 408 338 415 342" fill="none" stroke="#B5655C" stroke-width="4" stroke-linecap="round" />
+</svg>

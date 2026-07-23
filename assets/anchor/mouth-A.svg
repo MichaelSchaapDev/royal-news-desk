@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- A: closed and pressed (P, B, M). Fuller lips, straight line. -->
+  <path d="M 362 346 C 380 338 420 338 438 346 C 420 352 380 352 362 346 Z" fill="#C4756B" />
+  <path d="M 362 350 C 380 358 420 358 438 350 C 420 356 380 356 362 350 Z" fill="#B5655C" />
+  <path d="M 362 348 L 438 348" stroke="#8E4E46" stroke-width="4" stroke-linecap="round" />
+</svg>

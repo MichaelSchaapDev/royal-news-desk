@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <!-- Virtual news studio backdrop, 1920x1080. Deep navy with a large
+       screen wall, soft key light, and gold accents. -->
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0D1630" />
+      <stop offset="0.6" stop-color="#152449" />
+      <stop offset="1" stop-color="#0B1328" />
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1B2F5E" />
+      <stop offset="1" stop-color="#122142" />
+    </linearGradient>
+    <linearGradient id="floorGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#20355F" />
+      <stop offset="1" stop-color="#0B1328" />
+    </linearGradient>
+    <radialGradient id="keylight" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0" stop-color="#31497F" stop-opacity="0.85" />
+      <stop offset="0.55" stop-color="#22355F" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#0D1630" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#wall)" />
+
+  <!-- screen wall -->
+  <rect x="200" y="80" width="1520" height="700" rx="24" fill="url(#screen)" />
+  <rect x="200" y="80" width="1520" height="700" rx="24" fill="none" stroke="#2C4278" stroke-width="4" />
+
+  <!-- world map hint: simplified graticule -->
+  <g stroke="#3A5590" stroke-width="3" fill="none" opacity="0.55">
+    <ellipse cx="960" cy="430" rx="520" ry="270" />
+    <ellipse cx="960" cy="430" rx="330" ry="270" />
+    <ellipse cx="960" cy="430" rx="120" ry="270" />
+    <path d="M 440 430 L 1480 430" />
+    <path d="M 480 310 C 700 250 1220 250 1440 310" />
+    <path d="M 480 550 C 700 610 1220 610 1440 550" />
+  </g>
+
+  <!-- crown motif, top right of the screen -->
+  <g transform="translate(1470,150)" opacity="0.9">
+    <path d="M 0 60 L 12 18 L 40 44 L 62 6 L 84 44 L 112 18 L 124 60 Z" fill="#C9A227" />
+    <rect x="0" y="64" width="124" height="14" rx="6" fill="#C9A227" />
+    <circle cx="12" cy="14" r="7" fill="#C9A227" />
+    <circle cx="62" cy="2" r="7" fill="#C9A227" />
+    <circle cx="112" cy="14" r="7" fill="#C9A227" />
+  </g>
+
+  <!-- side light strips -->
+  <rect x="60" y="120" width="10" height="640" rx="5" fill="#C9A227" opacity="0.8" />
+  <rect x="1850" y="120" width="10" height="640" rx="5" fill="#C9A227" opacity="0.8" />
+  <rect x="96" y="180" width="6" height="520" rx="3" fill="#3A5590" />
+  <rect x="1818" y="180" width="6" height="520" rx="3" fill="#3A5590" />
+
+  <!-- key light on the presenter position -->
+  <rect width="1920" height="1080" fill="url(#keylight)" />
+
+  <!-- floor -->
+  <rect x="0" y="780" width="1920" height="300" fill="url(#floorGlow)" />
+  <path d="M 0 780 L 1920 780" stroke="#31497F" stroke-width="3" opacity="0.6" />
+</svg>

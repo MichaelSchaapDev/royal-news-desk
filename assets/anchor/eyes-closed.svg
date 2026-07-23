@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- Eyes closed: soft lids with lash hint, same positions as eyes-open. -->
+  <path d="M 332 262 C 342 258 370 258 380 262" fill="none" stroke="#D69B72" stroke-width="4" stroke-linecap="round" />
+  <path d="M 330 264 C 340 272 372 272 382 264" fill="none" stroke="#3A2C24" stroke-width="6" stroke-linecap="round" />
+
+  <path d="M 420 262 C 430 258 458 258 468 262" fill="none" stroke="#D69B72" stroke-width="4" stroke-linecap="round" />
+  <path d="M 418 264 C 428 272 460 272 470 264" fill="none" stroke="#3A2C24" stroke-width="6" stroke-linecap="round" />
+</svg>

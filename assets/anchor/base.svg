@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 980">
+  <!-- Anchor base layer: everything except eyes and mouth.
+       Shared canvas 800x980; eyes-*.svg and mouth-*.svg overlay this. -->
+
+  <!-- hair, back volume -->
+  <path d="M 400 96
+           C 290 96 218 168 210 268
+           C 204 350 214 420 234 470
+           C 250 512 260 540 258 470
+           L 258 330
+           C 258 220 320 168 400 168
+           C 480 168 542 220 542 330
+           L 542 470
+           C 540 540 550 512 566 470
+           C 586 420 596 350 590 268
+           C 582 168 510 96 400 96 Z"
+        fill="#43322A" />
+
+  <!-- neck -->
+  <rect x="362" y="360" width="76" height="90" fill="#EEC39A" />
+  <path d="M 362 380 C 375 402 425 402 438 380 L 438 420 L 362 420 Z" fill="#DEAB80" />
+
+  <!-- shoulders and blazer -->
+  <path d="M 400 428
+           C 320 428 260 452 218 492
+           C 176 532 150 600 142 700
+           L 132 980 L 668 980 L 658 700
+           C 650 600 624 532 582 492
+           C 540 452 480 428 400 428 Z"
+        fill="#22356B" />
+  <!-- blouse -->
+  <path d="M 348 440 L 400 545 L 452 440 C 436 430 364 430 348 440 Z" fill="#F7F5F2" />
+  <!-- lapels -->
+  <path d="M 348 440 L 400 545 L 330 620 C 302 540 310 470 348 440 Z" fill="#1B2A55" />
+  <path d="M 452 440 L 400 545 L 470 620 C 498 540 490 470 452 440 Z" fill="#1B2A55" />
+  <!-- brand pin, gold -->
+  <circle cx="330" cy="620" r="9" fill="#C9A227" />
+
+  <!-- ears -->
+  <ellipse cx="296" cy="292" rx="20" ry="26" fill="#EEC39A" />
+  <ellipse cx="504" cy="292" rx="20" ry="26" fill="#EEC39A" />
+  <!-- earrings, gold -->
+  <circle cx="296" cy="322" r="7" fill="#C9A227" />
+  <circle cx="504" cy="322" r="7" fill="#C9A227" />
+
+  <!-- face -->
+  <ellipse cx="400" cy="278" rx="106" ry="126" fill="#EEC39A" />
+  <!-- chin and cheek soft shadow -->
+  <path d="M 330 330 C 345 392 455 392 470 330 C 455 372 345 372 330 330 Z" fill="#DEAB80" opacity="0.5" />
+
+  <!-- nose -->
+  <path d="M 400 282 C 398 300 394 310 390 316 C 396 322 406 322 411 315"
+        fill="none" stroke="#D69B72" stroke-width="5" stroke-linecap="round" />
+
+  <!-- eyebrows -->
+  <path d="M 318 232 C 335 220 362 219 380 227" fill="none" stroke="#3A2C24" stroke-width="9" stroke-linecap="round" />
+  <path d="M 420 227 C 438 219 465 220 482 232" fill="none" stroke="#3A2C24" stroke-width="9" stroke-linecap="round" />
+
+  <!-- hair, front framing -->
+  <path d="M 400 108
+           C 302 108 240 170 240 260
+           C 240 300 248 330 252 344
+           C 262 310 270 280 292 258
+           C 322 228 330 208 336 188
+           C 360 206 452 210 486 186
+           C 494 212 506 240 522 262
+           C 538 284 546 314 550 342
+           C 556 326 560 300 560 260
+           C 560 170 498 108 400 108 Z"
+        fill="#4A372E" />
+  <!-- hair shine -->
+  <path d="M 300 150 C 330 122 380 116 400 116 C 360 128 330 142 312 168 Z" fill="#5C463C" opacity="0.8" />
+</svg>

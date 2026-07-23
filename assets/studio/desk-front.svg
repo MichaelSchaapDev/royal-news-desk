@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 280">
+  <!-- Desk front, overlays the bottom of the frame so the anchor sits behind it. -->
+  <defs>
+    <linearGradient id="deskFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2A52" />
+      <stop offset="1" stop-color="#0C1428" />
+    </linearGradient>
+    <linearGradient id="deskTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E4478" />
+      <stop offset="1" stop-color="#22356B" />
+    </linearGradient>
+  </defs>
+
+  <!-- desk top edge -->
+  <path d="M 80 40 C 500 8 1420 8 1840 40 L 1840 74 C 1420 44 500 44 80 74 Z" fill="url(#deskTop)" />
+  <path d="M 80 40 C 500 8 1420 8 1840 40" fill="none" stroke="#C9A227" stroke-width="6" />
+
+  <!-- desk face -->
+  <path d="M 80 70 C 500 40 1420 40 1840 70 L 1840 280 L 80 280 Z" fill="url(#deskFace)" />
+
+  <!-- sheen -->
+  <path d="M 340 62 L 560 54 L 430 280 L 250 280 Z" fill="#26386B" opacity="0.35" />
+  <path d="M 1310 54 L 1420 58 L 1560 280 L 1420 280 Z" fill="#26386B" opacity="0.25" />
+
+  <!-- brand plate; the channel name graphic lands on top of this -->
+  <rect x="710" y="120" width="500" height="110" rx="16" fill="#0A1122" />
+  <rect x="710" y="120" width="500" height="110" rx="16" fill="none" stroke="#C9A227" stroke-width="3" opacity="0.9" />
+</svg>
