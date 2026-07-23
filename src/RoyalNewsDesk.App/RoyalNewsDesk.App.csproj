@@ -8,6 +8,7 @@
     <AssemblyName>RoyalNewsDesk.App</AssemblyName>
     <StartupObject>RoyalNewsDesk.App.Program</StartupObject>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\assets\icon\icon.ico</ApplicationIcon>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
