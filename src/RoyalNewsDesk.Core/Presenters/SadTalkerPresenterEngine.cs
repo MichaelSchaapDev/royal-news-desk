@@ -19,17 +19,20 @@ public sealed partial class SadTalkerPresenterEngine(
     IPresenterEngineManager manager) : IPresenterEngine
 {
     // Stage label → (order, weight without enhancer, weight with enhancer).
+    // Labels as SadTalker prints them; each tqdm desc already ends in a colon,
+    // so rendered lines carry a double colon ("Face Renderer::  40%|...").
     private static readonly (string Label, double Plain, double Enhanced)[] Stages =
     [
         ("landmark Det", 0.02, 0.01),
         ("3DMM Extraction", 0.03, 0.02),
-        ("mel", 0.05, 0.02),
+        ("mel", 0.03, 0.01),
+        ("audio2exp", 0.02, 0.01),
         ("Face Renderer", 0.70, 0.40),
         ("Face Enhancer", 0.00, 0.40),
         ("seamlessClone", 0.20, 0.15),
     ];
 
-    [GeneratedRegex(@"^\s*(?<stage>[A-Za-z3 ]+?):\s*(?<pct>\d+)%\|")]
+    [GeneratedRegex(@"^\s*(?<stage>[A-Za-z0-9 ]+?):{1,2}\s*(?<pct>\d+)%\|")]
     private static partial Regex TqdmLine();
 
     public async Task<PresenterTrack> RenderAsync(

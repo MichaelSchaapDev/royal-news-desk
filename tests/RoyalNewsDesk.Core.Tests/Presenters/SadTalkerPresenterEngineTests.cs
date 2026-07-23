@@ -48,8 +48,13 @@ public class SadTalkerPresenterEngineTests
 
             if (exe == "python.exe")
             {
-                spec.OnErrorLine?.Invoke("landmark Det: 100%|##########| 1/1 [00:00<00:00]");
-                spec.OnErrorLine?.Invoke("Face Renderer: 50%|#####     | 5/10 [00:05<00:05]");
+                // Real SadTalker lines: each tqdm desc ends in ':', so the
+                // rendered line carries a double colon.
+                spec.OnErrorLine?.Invoke("landmark Det:: 100%|##########| 1/1 [00:00<00:00]");
+                spec.OnErrorLine?.Invoke("3DMM Extraction In Video:: 100%|##########| 1/1 [00:00<00:00]");
+                spec.OnErrorLine?.Invoke("mel:: 100%|##########| 8/8 [00:00<00:00]");
+                spec.OnErrorLine?.Invoke("audio2exp:: 100%|##########| 1/1 [00:00<00:00]");
+                spec.OnErrorLine?.Invoke("Face Renderer:: 50%|#####     | 5/10 [00:05<00:05]");
                 if (PythonFails)
                 {
                     return Task.FromResult(new ProcessResult(1, "", "Traceback: boom", TimeSpan.FromSeconds(1)));
