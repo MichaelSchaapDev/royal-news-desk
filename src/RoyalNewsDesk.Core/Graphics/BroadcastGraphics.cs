@@ -181,6 +181,45 @@ public sealed class BroadcastGraphics(FontCatalog fonts)
         Save(surface, path);
     }
 
+    /// <summary>700x520 framed episode image for the side panel, ready to overlay.</summary>
+    public void RenderImagePanel(string path, string imagePath, BrandStyle brand)
+    {
+        const int width = 700;
+        const int height = 520;
+        using var surface = CreateSurface(width, height);
+        var canvas = surface.Canvas;
+
+        var frame = new SKRect(10, 10, width - 10, height - 10);
+        using var shadow = Fill(new SKColor(0, 0, 0, 90));
+        canvas.DrawRoundRect(new SKRect(16, 18, width - 4, height - 2), 16, 16, shadow);
+        using var border = Fill(SKColors.White);
+        canvas.DrawRoundRect(frame, 14, 14, border);
+        using var accent = Fill(brand.Accent);
+        canvas.DrawRoundRect(new SKRect(frame.Left, frame.Bottom - 8, frame.Right, frame.Bottom), 4, 4, accent);
+
+        using var bitmap = SKBitmap.Decode(imagePath);
+        if (bitmap is not null)
+        {
+            using var image = SKImage.FromBitmap(bitmap);
+            var inner = new SKRect(frame.Left + 8, frame.Top + 8, frame.Right - 8, frame.Bottom - 14);
+            canvas.Save();
+            canvas.ClipRoundRect(new SKRoundRect(inner, 8), antialias: true);
+            DrawCover(canvas, image, inner);
+            canvas.Restore();
+        }
+
+        Save(surface, path);
+    }
+
+    /// <summary>Small translucent crown for the corner of the frame.</summary>
+    public void RenderLogoBug(string path, BrandStyle brand)
+    {
+        const int size = 150;
+        using var surface = CreateSurface(size, size);
+        DrawCrown(surface.Canvas, brand.Accent.WithAlpha(150), size / 2f, size / 2f, 0.9f);
+        Save(surface, path);
+    }
+
     /// <summary>Channel name plate for the desk front (transparent background).</summary>
     public void RenderDeskBrand(string path, BrandStyle brand)
     {

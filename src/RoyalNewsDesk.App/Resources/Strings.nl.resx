@@ -225,6 +225,135 @@
   <data name="Settings_VoiceDelete" xml:space="preserve">
     <value>Weghalen</value>
   </data>
+  <data name="Step_CheckTools" xml:space="preserve">
+    <value>De studio wordt klaargezet</value>
+  </data>
+  <data name="Step_PrepareEpisode" xml:space="preserve">
+    <value>Het script wordt gelezen</value>
+  </data>
+  <data name="Step_Voice" xml:space="preserve">
+    <value>De nieuwslezer spreekt de tekst in</value>
+  </data>
+  <data name="Step_Voice_Progress" xml:space="preserve">
+    <value>De nieuwslezer spreekt de tekst in ({0} van {1})</value>
+  </data>
+  <data name="Step_LipSync" xml:space="preserve">
+    <value>Mondbewegingen worden berekend</value>
+  </data>
+  <data name="Step_Graphics" xml:space="preserve">
+    <value>Titels en balken worden getekend</value>
+  </data>
+  <data name="Step_AnchorAnimation" xml:space="preserve">
+    <value>De nieuwslezer wordt geanimeerd</value>
+  </data>
+  <data name="Step_Assemble" xml:space="preserve">
+    <value>De video wordt in elkaar gezet</value>
+  </data>
+  <data name="Step_Subtitles" xml:space="preserve">
+    <value>Ondertitels worden gemaakt</value>
+  </data>
+  <data name="Step_Thumbnail" xml:space="preserve">
+    <value>De miniatuur wordt gemaakt</value>
+  </data>
+  <data name="Step_Export" xml:space="preserve">
+    <value>De video wordt gecontroleerd en opgeslagen</value>
+  </data>
+  <data name="PipelineError_ToolMissing" xml:space="preserve">
+    <value>Een hulpprogramma ontbreekt. Installeer de app opnieuw.</value>
+  </data>
+  <data name="PipelineError_ToolBlocked" xml:space="preserve">
+    <value>Je antivirus houdt een hulpprogramma tegen. Wacht een minuut en probeer het opnieuw.</value>
+  </data>
+  <data name="PipelineError_VoiceModelMissing" xml:space="preserve">
+    <value>De stem is nog niet gedownload. Ga naar Instellingen.</value>
+  </data>
+  <data name="PipelineError_ToolFailed" xml:space="preserve">
+    <value>Een hulpprogramma is onverwacht gestopt.</value>
+  </data>
+  <data name="PipelineError_DiskFull" xml:space="preserve">
+    <value>Niet genoeg schijfruimte. Maak ongeveer 2 GB vrij en probeer het opnieuw.</value>
+  </data>
+  <data name="PipelineError_AccessDenied" xml:space="preserve">
+    <value>Windows blokkeerde de toegang tot een map.</value>
+  </data>
+  <data name="PipelineError_ImageUnreadable" xml:space="preserve">
+    <value>Een afbeelding kon niet worden gelezen.</value>
+  </data>
+  <data name="PipelineError_ScriptEmpty" xml:space="preserve">
+    <value>Het script bevat nog geen gesproken tekst. Schrijf of importeer eerst een script.</value>
+  </data>
+  <data name="PipelineError_OutputInvalid" xml:space="preserve">
+    <value>De afgeronde video kwam niet door de controle en is daarom niet opgeleverd.</value>
+  </data>
+  <data name="PipelineError_Canceled" xml:space="preserve">
+    <value>Gestopt.</value>
+  </data>
+  <data name="PipelineError_Unknown" xml:space="preserve">
+    <value>Er ging iets onverwachts mis.</value>
+  </data>
+  <data name="Produce_Header" xml:space="preserve">
+    <value>Je video wordt gemaakt</value>
+  </data>
+  <data name="Produce_Cancel" xml:space="preserve">
+    <value>Stoppen</value>
+  </data>
+  <data name="Produce_DoneHeader" xml:space="preserve">
+    <value>Je video is klaar!</value>
+  </data>
+  <data name="Produce_OpenFolder" xml:space="preserve">
+    <value>Map openen</value>
+  </data>
+  <data name="Produce_Again" xml:space="preserve">
+    <value>Opnieuw maken</value>
+  </data>
+  <data name="Produce_FailedHeader" xml:space="preserve">
+    <value>Dat is niet gelukt</value>
+  </data>
+  <data name="Produce_Retry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
+  <data name="Produce_Warnings" xml:space="preserve">
+    <value>Opmerkingen bij deze aflevering</value>
+  </data>
+  <data name="Produce_DurationFormat" xml:space="preserve">
+    <value>Duur: {0}</value>
+  </data>
+  <data name="Warning_W101" xml:space="preserve">
+    <value>Een extra TITLE-regel is overgeslagen.</value>
+  </data>
+  <data name="Warning_W102" xml:space="preserve">
+    <value>Een kop was leeg.</value>
+  </data>
+  <data name="Warning_W103" xml:space="preserve">
+    <value>Een segment zonder tekst is overgeslagen: {0}</value>
+  </data>
+  <data name="Warning_W201" xml:space="preserve">
+    <value>Afbeelding niet gevonden; dat segment speelt zonder foto: {0}</value>
+  </data>
+  <data name="Warning_W202" xml:space="preserve">
+    <value>Een [IMAGE]-regel in de tekst wordt genegeerd; gebruik de afbeeldingsknoppen.</value>
+  </data>
+  <data name="Warning_W301" xml:space="preserve">
+    <value>Een pauze is begrensd tussen 0,2 en 5 seconden: {0}</value>
+  </data>
+  <data name="Warning_W302" xml:space="preserve">
+    <value>Een pauzewaarde was onleesbaar; de normale pauze is gebruikt: {0}</value>
+  </data>
+  <data name="Warning_W401" xml:space="preserve">
+    <value>Een onbekende instructie is overgeslagen: {0}</value>
+  </data>
+  <data name="Warning_W402" xml:space="preserve">
+    <value>Tekst tussen haakjes midden in een zin is niet voorgelezen.</value>
+  </data>
+  <data name="Warning_W501" xml:space="preserve">
+    <value>Een erg lange zin is opgeknipt voor een betere voordracht.</value>
+  </data>
+  <data name="Warning_W601" xml:space="preserve">
+    <value>De geluidscontrole is overgeslagen; het geluid kan iets zachter zijn.</value>
+  </data>
+  <data name="Warning_W701" xml:space="preserve">
+    <value>De mondbewegingen zijn deze keer bij benadering.</value>
+  </data>
   <data name="Error_Title" xml:space="preserve">
     <value>Er ging iets mis</value>
   </data>

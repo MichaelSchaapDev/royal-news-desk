@@ -20,7 +20,6 @@ public partial class EditorViewModel(IEpisodeStore store, INavigator navigator) 
 
     public ObservableCollection<SegmentViewModel> Segments { get; } = [];
 
-    public bool CanProduce => false; // Wired up when the pipeline lands.
 
     public void Load(string episodeId)
     {
@@ -135,9 +134,15 @@ public partial class EditorViewModel(IEpisodeStore store, INavigator navigator) 
         navigator.OpenEpisodes();
     }
 
-    [RelayCommand(CanExecute = nameof(CanProduce))]
+    [RelayCommand]
     private void Produce()
     {
-        // Arrives with the pipeline milestone.
+        if (_episode is null)
+        {
+            return;
+        }
+
+        Save();
+        navigator.OpenProduce(_episode.Id);
     }
 }

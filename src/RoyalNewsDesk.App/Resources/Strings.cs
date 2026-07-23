@@ -17,6 +17,29 @@ public static class Strings
     private static string Get(string key) =>
         Rm.GetString(key, CultureInfo.CurrentUICulture) ?? key;
 
+    /// <summary>Dynamic lookup for generated key families (Step_*, PipelineError_*, Warning_*).</summary>
+    public static string ByName(string key) => Get(key);
+
+    public static string Produce_Header => Get(nameof(Produce_Header));
+
+    public static string Produce_Cancel => Get(nameof(Produce_Cancel));
+
+    public static string Produce_DoneHeader => Get(nameof(Produce_DoneHeader));
+
+    public static string Produce_OpenFolder => Get(nameof(Produce_OpenFolder));
+
+    public static string Produce_Again => Get(nameof(Produce_Again));
+
+    public static string Produce_FailedHeader => Get(nameof(Produce_FailedHeader));
+
+    public static string Produce_Retry => Get(nameof(Produce_Retry));
+
+    public static string Produce_Warnings => Get(nameof(Produce_Warnings));
+
+    public static string Step_Voice_Progress => Get(nameof(Step_Voice_Progress));
+
+    public static string Produce_DurationFormat => Get(nameof(Produce_DurationFormat));
+
     public static string App_Title => Get(nameof(App_Title));
 
     public static string Nav_Episodes => Get(nameof(Nav_Episodes));

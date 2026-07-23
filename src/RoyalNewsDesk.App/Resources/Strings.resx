@@ -225,6 +225,135 @@
   <data name="Settings_VoiceDelete" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="Step_CheckTools" xml:space="preserve">
+    <value>Checking the studio tools</value>
+  </data>
+  <data name="Step_PrepareEpisode" xml:space="preserve">
+    <value>Reading the script</value>
+  </data>
+  <data name="Step_Voice" xml:space="preserve">
+    <value>Recording the voice-over</value>
+  </data>
+  <data name="Step_Voice_Progress" xml:space="preserve">
+    <value>Recording the voice-over ({0} of {1})</value>
+  </data>
+  <data name="Step_LipSync" xml:space="preserve">
+    <value>Calculating lip movements</value>
+  </data>
+  <data name="Step_Graphics" xml:space="preserve">
+    <value>Drawing titles and banners</value>
+  </data>
+  <data name="Step_AnchorAnimation" xml:space="preserve">
+    <value>Animating the news reader</value>
+  </data>
+  <data name="Step_Assemble" xml:space="preserve">
+    <value>Putting the video together</value>
+  </data>
+  <data name="Step_Subtitles" xml:space="preserve">
+    <value>Writing subtitles</value>
+  </data>
+  <data name="Step_Thumbnail" xml:space="preserve">
+    <value>Making the thumbnail</value>
+  </data>
+  <data name="Step_Export" xml:space="preserve">
+    <value>Checking and saving the video</value>
+  </data>
+  <data name="PipelineError_ToolMissing" xml:space="preserve">
+    <value>A helper program is missing. Reinstall the app.</value>
+  </data>
+  <data name="PipelineError_ToolBlocked" xml:space="preserve">
+    <value>Your antivirus is holding up a helper program. Wait a minute and try again.</value>
+  </data>
+  <data name="PipelineError_VoiceModelMissing" xml:space="preserve">
+    <value>The voice is not downloaded yet. Go to Settings.</value>
+  </data>
+  <data name="PipelineError_ToolFailed" xml:space="preserve">
+    <value>A helper program stopped unexpectedly.</value>
+  </data>
+  <data name="PipelineError_DiskFull" xml:space="preserve">
+    <value>Not enough disk space. Free up about 2 GB and try again.</value>
+  </data>
+  <data name="PipelineError_AccessDenied" xml:space="preserve">
+    <value>Windows blocked access to a folder.</value>
+  </data>
+  <data name="PipelineError_ImageUnreadable" xml:space="preserve">
+    <value>An image could not be read.</value>
+  </data>
+  <data name="PipelineError_ScriptEmpty" xml:space="preserve">
+    <value>The script has no spoken text yet. Write or import a script first.</value>
+  </data>
+  <data name="PipelineError_OutputInvalid" xml:space="preserve">
+    <value>The finished video did not pass its checks, so it was not delivered.</value>
+  </data>
+  <data name="PipelineError_Canceled" xml:space="preserve">
+    <value>Stopped.</value>
+  </data>
+  <data name="PipelineError_Unknown" xml:space="preserve">
+    <value>Something unexpected went wrong.</value>
+  </data>
+  <data name="Produce_Header" xml:space="preserve">
+    <value>Making your video</value>
+  </data>
+  <data name="Produce_Cancel" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Produce_DoneHeader" xml:space="preserve">
+    <value>Your video is ready!</value>
+  </data>
+  <data name="Produce_OpenFolder" xml:space="preserve">
+    <value>Open folder</value>
+  </data>
+  <data name="Produce_Again" xml:space="preserve">
+    <value>Make it again</value>
+  </data>
+  <data name="Produce_FailedHeader" xml:space="preserve">
+    <value>That did not work</value>
+  </data>
+  <data name="Produce_Retry" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="Produce_Warnings" xml:space="preserve">
+    <value>Notes about this episode</value>
+  </data>
+  <data name="Produce_DurationFormat" xml:space="preserve">
+    <value>Length: {0}</value>
+  </data>
+  <data name="Warning_W101" xml:space="preserve">
+    <value>An extra TITLE line was skipped.</value>
+  </data>
+  <data name="Warning_W102" xml:space="preserve">
+    <value>A headline was empty.</value>
+  </data>
+  <data name="Warning_W103" xml:space="preserve">
+    <value>A segment without text was skipped: {0}</value>
+  </data>
+  <data name="Warning_W201" xml:space="preserve">
+    <value>Image not found, so that segment plays without a picture: {0}</value>
+  </data>
+  <data name="Warning_W202" xml:space="preserve">
+    <value>An [IMAGE] line in the text is ignored; use the image buttons instead.</value>
+  </data>
+  <data name="Warning_W301" xml:space="preserve">
+    <value>A pause was capped between 0.2 and 5 seconds: {0}</value>
+  </data>
+  <data name="Warning_W302" xml:space="preserve">
+    <value>A pause value was unreadable, so the normal pause was used: {0}</value>
+  </data>
+  <data name="Warning_W401" xml:space="preserve">
+    <value>An unknown instruction was skipped: {0}</value>
+  </data>
+  <data name="Warning_W402" xml:space="preserve">
+    <value>Text between brackets inside a sentence was not read aloud.</value>
+  </data>
+  <data name="Warning_W501" xml:space="preserve">
+    <value>A very long sentence was split for better delivery.</value>
+  </data>
+  <data name="Warning_W601" xml:space="preserve">
+    <value>The loudness check was skipped; sound may be a touch quieter.</value>
+  </data>
+  <data name="Warning_W701" xml:space="preserve">
+    <value>Lip movement is approximate in this episode.</value>
+  </data>
   <data name="Error_Title" xml:space="preserve">
     <value>Something went wrong</value>
   </data>

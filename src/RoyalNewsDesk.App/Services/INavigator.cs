@@ -12,4 +12,6 @@ public interface INavigator
     void OpenEditor(string episodeId);
 
     void OpenFirstRun();
+
+    void OpenProduce(string episodeId);
 }

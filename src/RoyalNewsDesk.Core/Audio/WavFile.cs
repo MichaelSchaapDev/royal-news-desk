@@ -69,6 +69,18 @@ public static class WavFile
         return new WavInfo(sampleRate, channels, bitsPerSample, dataBytes);
     }
 
+    /// <summary>Reads interleaved 16-bit PCM samples of any channel count.</summary>
+    public static (short[] Samples, int Channels, int SampleRate) ReadPcm16Interleaved(string path)
+    {
+        var info = ReadInfo(path);
+        if (info.BitsPerSample != 16)
+        {
+            throw new InvalidDataException("Expected 16-bit PCM: " + path);
+        }
+
+        return (ReadDataChunk(path), info.Channels, info.SampleRate);
+    }
+
     /// <summary>Reads the raw 16-bit PCM samples of a mono wav.</summary>
     public static short[] ReadMonoPcm16(string path)
     {
@@ -77,6 +89,12 @@ public static class WavFile
         {
             throw new InvalidDataException("Expected 16-bit mono PCM: " + path);
         }
+
+        return ReadDataChunk(path);
+    }
+
+    private static short[] ReadDataChunk(string path)
+    {
 
         using var stream = File.OpenRead(path);
         Span<byte> header = stackalloc byte[12];

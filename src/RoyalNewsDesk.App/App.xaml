@@ -15,6 +15,7 @@
 
       <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
       <conv:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
+      <conv:CountToVisibilityConverter x:Key="CountToVisibility" />
 
       <DataTemplate DataType="{x:Type vm:EpisodesViewModel}">
         <views:EpisodesView />
@@ -30,6 +31,9 @@
       </DataTemplate>
       <DataTemplate DataType="{x:Type vm:FirstRunViewModel}">
         <views:FirstRunView />
+      </DataTemplate>
+      <DataTemplate DataType="{x:Type vm:ProduceViewModel}">
+        <views:ProduceView />
       </DataTemplate>
     </ResourceDictionary>
   </Application.Resources>

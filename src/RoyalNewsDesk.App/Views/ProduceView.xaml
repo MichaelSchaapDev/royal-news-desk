@@ -1,0 +1,147 @@
+<UserControl
+  x:Class="RoyalNewsDesk.App.Views.ProduceView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+  xmlns:res="clr-namespace:RoyalNewsDesk.App.Resources"
+  xmlns:vm="clr-namespace:RoyalNewsDesk.App.ViewModels"
+  TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+  <Grid Margin="28,20,28,20">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="440" />
+      <ColumnDefinition Width="28" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <StackPanel Grid.Column="0">
+      <Grid Margin="0,0,0,14">
+        <TextBlock FontSize="24" FontWeight="SemiBold" Text="{x:Static res:Strings.Produce_Header}" />
+        <ui:Button
+          HorizontalAlignment="Right"
+          Command="{Binding CancelCommand}"
+          Content="{x:Static res:Strings.Produce_Cancel}"
+          Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibility}}" />
+      </Grid>
+
+      <ItemsControl ItemsSource="{Binding Steps}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate DataType="{x:Type vm:StepRowViewModel}">
+            <Border Margin="0,0,0,6" Padding="10,8" CornerRadius="6" Background="{DynamicResource ControlFillColorDefaultBrush}">
+              <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                  <ui:SymbolIcon
+                    FontSize="16"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Symbol="Circle24"
+                    Visibility="{Binding IsPending, Converter={StaticResource BoolToVisibility}}" />
+                  <ui:ProgressRing
+                    Width="16"
+                    Height="16"
+                    IsIndeterminate="True"
+                    Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibility}}" />
+                  <ui:SymbolIcon
+                    FontSize="16"
+                    Foreground="Green"
+                    Symbol="CheckmarkCircle24"
+                    Visibility="{Binding IsSucceeded, Converter={StaticResource BoolToVisibility}}" />
+                  <ui:SymbolIcon
+                    FontSize="16"
+                    Foreground="{DynamicResource PaletteRedBrush}"
+                    Symbol="DismissCircle24"
+                    Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}" />
+                  <TextBlock Margin="10,0,0,0" Text="{Binding Text}" TextWrapping="Wrap" />
+                </StackPanel>
+                <ProgressBar
+                  Height="4"
+                  Margin="26,6,0,0"
+                  Maximum="1"
+                  Visibility="{Binding HasFraction, Converter={StaticResource BoolToVisibility}}"
+                  Value="{Binding Fraction, Mode=OneWay}" />
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      <StackPanel Margin="0,10,0,0" Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}">
+        <TextBlock
+          FontSize="16"
+          FontWeight="SemiBold"
+          Foreground="{DynamicResource PaletteRedBrush}"
+          Text="{x:Static res:Strings.Produce_FailedHeader}" />
+        <TextBlock Margin="0,6,0,0" Text="{Binding FailText}" TextWrapping="Wrap" />
+        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+          <ui:Button
+            Appearance="Primary"
+            Command="{Binding AgainCommand}"
+            Content="{x:Static res:Strings.Produce_Retry}"
+            Icon="{ui:SymbolIcon ArrowClockwise24}" />
+          <ui:Button
+            Margin="8,0,0,0"
+            Command="{Binding GoBackCommand}"
+            Content="{x:Static res:Strings.Common_Back}" />
+        </StackPanel>
+      </StackPanel>
+    </StackPanel>
+
+    <StackPanel Grid.Column="2">
+      <StackPanel Visibility="{Binding IsDone, Converter={StaticResource BoolToVisibility}}">
+        <TextBlock FontSize="24" FontWeight="SemiBold" Text="{x:Static res:Strings.Produce_DoneHeader}" />
+        <TextBlock
+          Margin="0,4,0,10"
+          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+          Text="{Binding DurationText}" />
+        <Border Background="Black" CornerRadius="8" ClipToBounds="True">
+          <MediaElement
+            x:Name="Player"
+            Height="360"
+            LoadedBehavior="Manual"
+            ScrubbingEnabled="True"
+            Source="{Binding VideoUri}"
+            Stretch="Uniform" />
+        </Border>
+        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+          <ui:Button
+            Click="OnPlayClick"
+            Content="▶"
+            FontSize="14" />
+          <ui:Button
+            Margin="8,0,0,0"
+            Click="OnPauseClick"
+            Content="⏸"
+            FontSize="14" />
+          <ui:Button
+            Margin="16,0,0,0"
+            Appearance="Primary"
+            Command="{Binding OpenFolderCommand}"
+            Content="{x:Static res:Strings.Produce_OpenFolder}"
+            Icon="{ui:SymbolIcon FolderOpen24}" />
+          <ui:Button
+            Margin="8,0,0,0"
+            Command="{Binding AgainCommand}"
+            Content="{x:Static res:Strings.Produce_Again}" />
+          <ui:Button
+            Margin="8,0,0,0"
+            Command="{Binding GoBackCommand}"
+            Content="{x:Static res:Strings.Common_Back}" />
+        </StackPanel>
+      </StackPanel>
+
+      <StackPanel Margin="0,18,0,0" Visibility="{Binding Warnings.Count, Converter={StaticResource CountToVisibility}}">
+        <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.Produce_Warnings}" />
+        <ItemsControl Margin="0,6,0,0" ItemsSource="{Binding Warnings}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock
+                Margin="0,2"
+                FontSize="12"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="{Binding}"
+                TextWrapping="Wrap" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>

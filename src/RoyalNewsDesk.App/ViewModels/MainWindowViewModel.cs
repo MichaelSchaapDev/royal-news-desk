@@ -65,6 +65,13 @@ public partial class MainWindowViewModel : ObservableObject, INavigator
         ShowPage(vm, navKey: null);
     }
 
+    public void OpenProduce(string episodeId)
+    {
+        var vm = _services.GetRequiredService<ProduceViewModel>();
+        ShowPage(vm, navKey: null);
+        vm.Start(episodeId);
+    }
+
     partial void OnSelectedNavItemChanged(NavItem? value)
     {
         if (_syncingSelection || value is null)
@@ -88,9 +95,19 @@ public partial class MainWindowViewModel : ObservableObject, INavigator
 
     private void ShowPage(object page, string? navKey)
     {
+        if (ReferenceEquals(CurrentPage, page))
+        {
+            return;
+        }
+
         if (CurrentPage is ISavable savable)
         {
             savable.Save();
+        }
+
+        if (CurrentPage is ILeavable leavable)
+        {
+            leavable.OnLeaving();
         }
 
         CurrentPage = page;

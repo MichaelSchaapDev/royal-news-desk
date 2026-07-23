@@ -61,6 +61,16 @@ public partial class App : Application
         services.AddSingleton(VoiceCatalog.LoadEmbedded());
         services.AddSingleton(new HttpClient { Timeout = TimeSpan.FromMinutes(30) });
         services.AddSingleton<IVoiceModelManager, VoiceModelManager>();
+        services.AddSingleton<RoyalNewsDesk.Core.Tts.ITtsEngine, RoyalNewsDesk.Core.Tts.PiperTtsEngine>();
+        services.AddSingleton<RoyalNewsDesk.Core.LipSync.ILipSyncEngine, RoyalNewsDesk.Core.LipSync.RhubarbLipSyncEngine>();
+        services.AddSingleton(sp => new RoyalNewsDesk.Core.Pipeline.EpisodePipeline(
+            sp.GetRequiredService<IProcessRunner>(),
+            sp.GetRequiredService<IToolLocator>(),
+            sp.GetRequiredService<IVoiceModelManager>(),
+            sp.GetRequiredService<IEpisodeStore>(),
+            sp.GetRequiredService<RoyalNewsDesk.Core.Tts.ITtsEngine>(),
+            sp.GetRequiredService<RoyalNewsDesk.Core.LipSync.ILipSyncEngine>(),
+            Path.Combine(AppContext.BaseDirectory, "assets")));
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<INavigator>(sp => sp.GetRequiredService<MainWindowViewModel>());
         services.AddTransient<EpisodesViewModel>();
@@ -68,6 +78,7 @@ public partial class App : Application
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<AboutViewModel>();
         services.AddTransient<FirstRunViewModel>();
+        services.AddTransient<ProduceViewModel>();
         _services = services.BuildServiceProvider();
 
         _log = _services.GetRequiredService<ILoggerFactory>().CreateLogger("App");
