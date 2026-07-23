@@ -5,13 +5,13 @@
       "displayName": "SadTalker (works on any PC, slow)",
       "license": "SadTalker Apache-2.0; bundle notices inside the download",
       "entrypoint": "python/python.exe",
-      "extractedSizeBytes": 3400000000,
+      "extractedSizeBytes": 2380646813,
       "requiresNvidiaGpu": false,
       "files": [
         {
           "fileName": "sadtalker-cpu-v1-runtime-1.zip",
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-          "sizeBytes": 0,
+          "sha256": "f52cc4743aeba11c622fa1d8e1f77618b49e43ca5e79e30a5de4f665789485ca",
+          "sizeBytes": 352498949,
           "urls": [
             "https://github.com/MichaelSchaapDev/royal-news-desk/releases/download/presenter-engines-v1/sadtalker-cpu-v1-runtime-1.zip"
           ],
@@ -19,8 +19,8 @@
         },
         {
           "fileName": "sadtalker-cpu-v1-weights-1.zip",
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-          "sizeBytes": 0,
+          "sha256": "ad8098f78c8f48ec6bcedef50ab39504d34bb016583705ee0a029dd7270df18d",
+          "sizeBytes": 1339740723,
           "urls": [
             "https://github.com/MichaelSchaapDev/royal-news-desk/releases/download/presenter-engines-v1/sadtalker-cpu-v1-weights-1.zip"
           ],
@@ -33,13 +33,13 @@
       "displayName": "SadTalker (NVIDIA video card, fast)",
       "license": "SadTalker Apache-2.0; bundle notices inside the download",
       "entrypoint": "python/python.exe",
-      "extractedSizeBytes": 9800000000,
+      "extractedSizeBytes": 7018751981,
       "requiresNvidiaGpu": true,
       "files": [
         {
           "fileName": "sadtalker-cuda-v1-runtime-1.zip",
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-          "sizeBytes": 0,
+          "sha256": "a30d26856d23c59343e1095b2d0b6ea0b07de7b83ed46ff6393ee229f54c1922",
+          "sizeBytes": 2017231581,
           "urls": [
             "https://github.com/MichaelSchaapDev/royal-news-desk/releases/download/presenter-engines-v1/sadtalker-cuda-v1-runtime-1.zip"
           ],
@@ -47,8 +47,8 @@
         },
         {
           "fileName": "sadtalker-cuda-v1-runtime-2.zip",
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-          "sizeBytes": 0,
+          "sha256": "9ca63623ff54b2f98f54a1f7ee08f516175cb8fa901f5fc5f2f1e2975a67055b",
+          "sizeBytes": 618947210,
           "urls": [
             "https://github.com/MichaelSchaapDev/royal-news-desk/releases/download/presenter-engines-v1/sadtalker-cuda-v1-runtime-2.zip"
           ],
@@ -56,10 +56,19 @@
         },
         {
           "fileName": "sadtalker-cuda-v1-weights-1.zip",
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-          "sizeBytes": 0,
+          "sha256": "1bc677ab01626ca673ea1b20a64584c62cc14e14bf869eecc40f258085007985",
+          "sizeBytes": 1761703916,
           "urls": [
             "https://github.com/MichaelSchaapDev/royal-news-desk/releases/download/presenter-engines-v1/sadtalker-cuda-v1-weights-1.zip"
+          ],
+          "extract": true
+        },
+        {
+          "fileName": "sadtalker-cuda-v1-weights-2.zip",
+          "sha256": "e10ba413e34b924f60f7b215d0745e448a4585cb80f06a9f595e893afd7fd8c2",
+          "sizeBytes": 737245256,
+          "urls": [
+            "https://github.com/MichaelSchaapDev/royal-news-desk/releases/download/presenter-engines-v1/sadtalker-cuda-v1-weights-2.zip"
           ],
           "extract": true
         }
