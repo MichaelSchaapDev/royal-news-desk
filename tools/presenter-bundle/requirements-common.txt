@@ -19,8 +19,10 @@ yacs==0.1.8
 pyyaml==6.0.1
 joblib==1.1.0
 scikit-image==0.19.3
-facexlib==0.3.0
+# facexlib installs separately with --no-deps: it declares filterpy (a broken
+# sdist) as a dependency, which must go in by hand first.
 safetensors==0.4.3
+Pillow==10.3.0
 # av deliberately omitted: SadTalker only imports it in training code
 # (src/face3d/models/arcface_torch), never on the inference path, and its
 # Windows wheels are unreliable.
