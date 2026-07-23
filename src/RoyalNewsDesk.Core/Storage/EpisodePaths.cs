@@ -30,6 +30,9 @@ public sealed class EpisodePaths(string root)
 
     public string PartsDir => Path.Combine(WorkDir, "parts");
 
+    /// <summary>Photoreal presenter intermediates (raw and normalized video).</summary>
+    public string PresenterDir => Path.Combine(WorkDir, "presenter");
+
     public string SubDir => Path.Combine(WorkDir, "sub");
 
     /// <summary>Deliverables, copied to the user's output folder on export.</summary>
@@ -53,5 +56,6 @@ public sealed class EpisodePaths(string root)
         Directory.CreateDirectory(FontsDir);
         Directory.CreateDirectory(PartsDir);
         Directory.CreateDirectory(SubDir);
+        Directory.CreateDirectory(PresenterDir);
     }
 }

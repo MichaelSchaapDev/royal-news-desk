@@ -42,6 +42,23 @@ public class SettingsStoreTests
         Assert.Equal("nl", loaded.Language);
         Assert.Equal(AppTheme.Light, loaded.Theme);
         Assert.False(string.IsNullOrWhiteSpace(loaded.OutputFolder));
+        Assert.Equal("sadtalker-cpu", loaded.PhotorealEngineId);
+        Assert.Null(loaded.PhotorealPortraitPath);
+    }
+
+    [Fact]
+    public void PhotorealSettingsRoundTrip()
+    {
+        using var temp = new TempDir();
+        var store = new JsonSettingsStore(new AppPaths(temp.Path));
+        var settings = store.Load();
+        settings.PhotorealEngineId = "sadtalker-cuda";
+        settings.PhotorealPortraitPath = @"C:\fotos\presentator.png";
+        store.Save(settings);
+
+        var loaded = store.Load();
+        Assert.Equal("sadtalker-cuda", loaded.PhotorealEngineId);
+        Assert.Equal(@"C:\fotos\presentator.png", loaded.PhotorealPortraitPath);
     }
 
     [Fact]

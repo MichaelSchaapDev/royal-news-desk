@@ -44,6 +44,21 @@ public sealed class ProcessRunner : IProcessRunner
             startInfo.ArgumentList.Add(argument);
         }
 
+        if (spec.EnvironmentOverrides is not null)
+        {
+            foreach (var (key, value) in spec.EnvironmentOverrides)
+            {
+                if (value is null)
+                {
+                    startInfo.Environment.Remove(key);
+                }
+                else
+                {
+                    startInfo.Environment[key] = value;
+                }
+            }
+        }
+
         using var process = new Process();
         process.StartInfo = startInfo;
 

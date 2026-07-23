@@ -15,6 +15,12 @@ public sealed record ProcessSpec
     /// <summary>Watchdog. When it expires the process tree is killed and the result reports TimedOut.</summary>
     public TimeSpan? Timeout { get; init; }
 
+    /// <summary>
+    /// Environment variables applied over the inherited environment. A null
+    /// value removes the variable. Setting PATH here replaces PATH outright.
+    /// </summary>
+    public IReadOnlyDictionary<string, string?>? EnvironmentOverrides { get; init; }
+
     /// <summary>Called for every stdout line (used to parse ffmpeg -progress).</summary>
     public Action<string>? OnOutputLine { get; init; }
 

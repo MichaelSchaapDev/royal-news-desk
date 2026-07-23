@@ -35,4 +35,10 @@ public sealed class AppSettings
 
     /// <summary>Slower x264 preset for slightly better quality.</summary>
     public bool HigherQuality { get; set; }
+
+    /// <summary>Photoreal engine id from the presenter catalog.</summary>
+    public string PhotorealEngineId { get; set; } = "sadtalker-cpu";
+
+    /// <summary>Absolute path to the presenter portrait photo; null until chosen.</summary>
+    public string? PhotorealPortraitPath { get; set; }
 }

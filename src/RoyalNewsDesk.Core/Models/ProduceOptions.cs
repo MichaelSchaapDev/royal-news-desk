@@ -13,6 +13,10 @@ public sealed record ProduceOptions
 
     public double ReadingSpeed { get; init; } = 1.0;
 
+    public string PhotorealEngineId { get; init; } = "sadtalker-cpu";
+
+    public string? PhotorealPortraitPath { get; init; }
+
     public static ProduceOptions From(AppSettings settings) => new()
     {
         KeepWorkFiles = settings.KeepWorkFiles,
@@ -20,5 +24,7 @@ public sealed record ProduceOptions
         StudioAmbience = settings.StudioAmbience,
         HigherQuality = settings.HigherQuality,
         ReadingSpeed = settings.ReadingSpeed,
+        PhotorealEngineId = settings.PhotorealEngineId,
+        PhotorealPortraitPath = settings.PhotorealPortraitPath,
     };
 }

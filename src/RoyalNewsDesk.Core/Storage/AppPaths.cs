@@ -23,6 +23,9 @@ public sealed class AppPaths
 
     public string ModelsRoot => Path.Combine(DataRoot, "models");
 
+    /// <summary>Downloaded photoreal presenter engines, one folder per engine id.</summary>
+    public string PresentersRoot => Path.Combine(DataRoot, "presenters");
+
     public string EpisodesRoot => Path.Combine(DataRoot, "episodes");
 
     public string LogsRoot => Path.Combine(DataRoot, "logs");
@@ -47,6 +50,7 @@ public sealed class AppPaths
     {
         Directory.CreateDirectory(DataRoot);
         Directory.CreateDirectory(ModelsRoot);
+        Directory.CreateDirectory(PresentersRoot);
         Directory.CreateDirectory(EpisodesRoot);
         Directory.CreateDirectory(LogsRoot);
     }

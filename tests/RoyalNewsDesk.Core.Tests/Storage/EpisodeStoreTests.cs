@@ -44,6 +44,38 @@ public class EpisodeStoreTests
     }
 
     [Fact]
+    public void LegacyEpisodeWithoutPresenterStyleLoadsAsAnimated()
+    {
+        using var temp = new TempDir();
+        var store = new JsonEpisodeStore(new AppPaths(temp.Path));
+        var paths = store.PathsFor("legacy-01");
+        paths.EnsureCreated();
+        File.WriteAllText(paths.EpisodeFile, """
+            { "schemaVersion": 1, "id": "legacy-01", "title": "Old", "voiceId": "v", "segments": [], "tickerItems": [] }
+            """);
+
+        var loaded = store.Load("legacy-01");
+
+        Assert.NotNull(loaded);
+        Assert.Equal(Core.Presenters.PresenterStyle.Animated, loaded.PresenterStyle);
+    }
+
+    [Fact]
+    public void PhotorealStyleRoundTrips()
+    {
+        using var temp = new TempDir();
+        var store = new JsonEpisodeStore(new AppPaths(temp.Path));
+        var episode = store.CreateNew(DateTime.UtcNow, "v");
+        episode.PresenterStyle = Core.Presenters.PresenterStyle.Photoreal;
+        store.Save(episode);
+
+        var loaded = store.Load(episode.Id);
+        Assert.NotNull(loaded);
+        Assert.Equal(Core.Presenters.PresenterStyle.Photoreal, loaded.PresenterStyle);
+        Assert.Contains("\"presenterStyle\": \"photoreal\"", File.ReadAllText(store.PathsFor(episode.Id).EpisodeFile), StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void DeleteRemovesTheFolder()
     {
         using var temp = new TempDir();
