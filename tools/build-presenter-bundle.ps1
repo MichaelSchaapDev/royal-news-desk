@@ -298,7 +298,9 @@ if ($Upload) {
     Write-Host "=== Uploading to release $releaseTag ==="
     gh release view $releaseTag --repo MichaelSchaapDev/royal-news-desk 2>$null
     if ($LASTEXITCODE -ne 0) {
-        gh release create $releaseTag --repo MichaelSchaapDev/royal-news-desk --title "Presenter engines v1" --notes "SadTalker presenter engine bundles downloaded by the app on demand. Not a program release."
+        # --latest=false keeps /releases/latest (the app download link and the
+        # updater feed) pointed at the newest program release, not this one.
+        gh release create $releaseTag --repo MichaelSchaapDev/royal-news-desk --latest=false --title "Presenter engines v1" --notes "SadTalker presenter engine bundles downloaded by the app on demand. Not a program release."
     }
     foreach ($p in $parts) {
         gh release upload $releaseTag $p --repo MichaelSchaapDev/royal-news-desk --clobber
