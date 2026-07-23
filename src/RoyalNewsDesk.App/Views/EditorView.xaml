@@ -1,0 +1,132 @@
+<UserControl
+  x:Class="RoyalNewsDesk.App.Views.EditorView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+  xmlns:res="clr-namespace:RoyalNewsDesk.App.Resources"
+  xmlns:vm="clr-namespace:RoyalNewsDesk.App.ViewModels"
+  x:Name="Root"
+  TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+  <Grid Margin="28,20,28,20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0" Margin="0,0,0,16">
+      <StackPanel Orientation="Horizontal">
+        <ui:Button
+          Command="{Binding GoBackCommand}"
+          Content="{x:Static res:Strings.Common_Back}"
+          Icon="{ui:SymbolIcon ArrowLeft24}" />
+      </StackPanel>
+      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+        <ui:Button
+          Margin="0,0,8,0"
+          Command="{Binding SaveEditsCommand}"
+          Content="{x:Static res:Strings.Common_Save}"
+          Icon="{ui:SymbolIcon Save24}" />
+        <ui:Button
+          Appearance="Primary"
+          Command="{Binding ProduceCommand}"
+          Content="{x:Static res:Strings.Editor_Produce}"
+          Icon="{ui:SymbolIcon Play24}" />
+      </StackPanel>
+    </Grid>
+
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel MaxWidth="860" HorizontalAlignment="Stretch">
+
+        <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.Editor_TitleLabel}" />
+        <ui:TextBox
+          Margin="0,6,0,18"
+          PlaceholderText="{x:Static res:Strings.Editor_TitlePlaceholder}"
+          Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.Editor_PasteLabel}" />
+        <ui:TextBox
+          Height="140"
+          Margin="0,6,0,8"
+          AcceptsReturn="True"
+          TextWrapping="Wrap"
+          VerticalScrollBarVisibility="Auto"
+          Text="{Binding PasteText, UpdateSourceTrigger=PropertyChanged}" />
+        <ui:Button
+          Margin="0,0,0,20"
+          Command="{Binding ImportCommand}"
+          Content="{x:Static res:Strings.Editor_Import}"
+          Icon="{ui:SymbolIcon TextBulletListLtr24}" />
+
+        <Grid Margin="0,0,0,8">
+          <TextBlock
+            FontSize="18"
+            FontWeight="SemiBold"
+            Text="{x:Static res:Strings.Editor_Segments}" />
+          <ui:Button
+            HorizontalAlignment="Right"
+            Command="{Binding AddSegmentCommand}"
+            Content="{x:Static res:Strings.Editor_AddSegment}"
+            Icon="{ui:SymbolIcon Add24}" />
+        </Grid>
+
+        <ItemsControl ItemsSource="{Binding Segments}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type vm:SegmentViewModel}">
+              <Border
+                Margin="0,0,0,12"
+                Padding="16,12"
+                Background="{DynamicResource ControlFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel>
+                  <Grid>
+                    <TextBlock
+                      FontWeight="SemiBold"
+                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                      Text="{Binding Id}" />
+                    <ui:Button
+                      HorizontalAlignment="Right"
+                      Appearance="Secondary"
+                      Command="{Binding DataContext.RemoveSegmentCommand, ElementName=Root}"
+                      CommandParameter="{Binding}"
+                      Icon="{ui:SymbolIcon Delete24}"
+                      ToolTip="{x:Static res:Strings.Common_Delete}" />
+                  </Grid>
+
+                  <TextBlock Margin="0,8,0,0" Text="{x:Static res:Strings.Editor_HeadlineLabel}" />
+                  <ui:TextBox Margin="0,4,0,0" Text="{Binding Headline, UpdateSourceTrigger=PropertyChanged}" />
+
+                  <TextBlock Margin="0,10,0,0" Text="{x:Static res:Strings.Editor_BodyLabel}" />
+                  <ui:TextBox
+                    MinHeight="90"
+                    Margin="0,4,0,0"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto"
+                    Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}" />
+
+                  <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <ui:Button
+                      Command="{Binding PickImageCommand}"
+                      Content="{x:Static res:Strings.Editor_PickImage}"
+                      Icon="{ui:SymbolIcon Image24}" />
+                    <ui:Button
+                      Margin="8,0,0,0"
+                      Command="{Binding RemoveImageCommand}"
+                      Content="{x:Static res:Strings.Editor_RemoveImage}"
+                      Visibility="{Binding HasImage, Converter={StaticResource BoolToVisibility}}" />
+                    <TextBlock
+                      Margin="12,6,0,0"
+                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                      Text="{Binding ImageFile}" />
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

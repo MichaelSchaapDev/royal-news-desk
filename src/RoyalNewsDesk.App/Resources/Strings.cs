@@ -1,0 +1,129 @@
+using System.Globalization;
+using System.Resources;
+
+namespace RoyalNewsDesk.App.Resources;
+
+/// <summary>
+/// Hand-written accessor over Strings.resx / Strings.nl.resx. Kept by hand
+/// because the build-time resx generator does not survive WPF's two-pass
+/// XAML compilation. Adding a string means: add it to both resx files and
+/// add one property here.
+/// </summary>
+public static class Strings
+{
+    private static readonly ResourceManager Rm =
+        new("RoyalNewsDesk.App.Resources.Strings", typeof(Strings).Assembly);
+
+    private static string Get(string key) =>
+        Rm.GetString(key, CultureInfo.CurrentUICulture) ?? key;
+
+    public static string App_Title => Get(nameof(App_Title));
+
+    public static string Nav_Episodes => Get(nameof(Nav_Episodes));
+
+    public static string Nav_Settings => Get(nameof(Nav_Settings));
+
+    public static string Nav_About => Get(nameof(Nav_About));
+
+    public static string Episodes_Header => Get(nameof(Episodes_Header));
+
+    public static string Episodes_New => Get(nameof(Episodes_New));
+
+    public static string Episodes_Empty => Get(nameof(Episodes_Empty));
+
+    public static string Episodes_HasOutput => Get(nameof(Episodes_HasOutput));
+
+    public static string Episodes_NoOutput => Get(nameof(Episodes_NoOutput));
+
+    public static string Episodes_Open => Get(nameof(Episodes_Open));
+
+    public static string Episodes_DeleteConfirmTitle => Get(nameof(Episodes_DeleteConfirmTitle));
+
+    public static string Episodes_DeleteConfirmText => Get(nameof(Episodes_DeleteConfirmText));
+
+    public static string Common_Cancel => Get(nameof(Common_Cancel));
+
+    public static string Common_Delete => Get(nameof(Common_Delete));
+
+    public static string Common_Save => Get(nameof(Common_Save));
+
+    public static string Common_Back => Get(nameof(Common_Back));
+
+    public static string Editor_TitleLabel => Get(nameof(Editor_TitleLabel));
+
+    public static string Editor_TitlePlaceholder => Get(nameof(Editor_TitlePlaceholder));
+
+    public static string Editor_PasteLabel => Get(nameof(Editor_PasteLabel));
+
+    public static string Editor_Import => Get(nameof(Editor_Import));
+
+    public static string Editor_Segments => Get(nameof(Editor_Segments));
+
+    public static string Editor_AddSegment => Get(nameof(Editor_AddSegment));
+
+    public static string Editor_HeadlineLabel => Get(nameof(Editor_HeadlineLabel));
+
+    public static string Editor_BodyLabel => Get(nameof(Editor_BodyLabel));
+
+    public static string Editor_PickImage => Get(nameof(Editor_PickImage));
+
+    public static string Editor_RemoveImage => Get(nameof(Editor_RemoveImage));
+
+    public static string Editor_Produce => Get(nameof(Editor_Produce));
+
+    public static string Settings_Header => Get(nameof(Settings_Header));
+
+    public static string Settings_Language => Get(nameof(Settings_Language));
+
+    public static string Settings_RestartHint => Get(nameof(Settings_RestartHint));
+
+    public static string Settings_RestartNow => Get(nameof(Settings_RestartNow));
+
+    public static string Settings_Theme => Get(nameof(Settings_Theme));
+
+    public static string Settings_ThemeLight => Get(nameof(Settings_ThemeLight));
+
+    public static string Settings_ThemeDark => Get(nameof(Settings_ThemeDark));
+
+    public static string Settings_Voice => Get(nameof(Settings_Voice));
+
+    public static string Settings_ReadingSpeed => Get(nameof(Settings_ReadingSpeed));
+
+    public static string Settings_ReadingSpeedHint => Get(nameof(Settings_ReadingSpeedHint));
+
+    public static string Settings_Branding => Get(nameof(Settings_Branding));
+
+    public static string Settings_ChannelName => Get(nameof(Settings_ChannelName));
+
+    public static string Settings_Tagline => Get(nameof(Settings_Tagline));
+
+    public static string Settings_PrimaryColor => Get(nameof(Settings_PrimaryColor));
+
+    public static string Settings_AccentColor => Get(nameof(Settings_AccentColor));
+
+    public static string Settings_OutputFolder => Get(nameof(Settings_OutputFolder));
+
+    public static string Settings_Browse => Get(nameof(Settings_Browse));
+
+    public static string Settings_Production => Get(nameof(Settings_Production));
+
+    public static string Settings_KeepWorkFiles => Get(nameof(Settings_KeepWorkFiles));
+
+    public static string Settings_BurnInSubtitles => Get(nameof(Settings_BurnInSubtitles));
+
+    public static string Settings_StudioAmbience => Get(nameof(Settings_StudioAmbience));
+
+    public static string Settings_HigherQuality => Get(nameof(Settings_HigherQuality));
+
+    public static string Settings_Saved => Get(nameof(Settings_Saved));
+
+    public static string About_Header => Get(nameof(About_Header));
+
+    public static string About_Version => Get(nameof(About_Version));
+
+    public static string About_MadeFor => Get(nameof(About_MadeFor));
+
+    public static string Error_Title => Get(nameof(Error_Title));
+
+    public static string Error_Body => Get(nameof(Error_Body));
+}

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>Royal News Desk Studio</value>
+  </data>
+  <data name="Nav_Episodes" xml:space="preserve">
+    <value>Afleveringen</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="Episodes_Header" xml:space="preserve">
+    <value>Jouw afleveringen</value>
+  </data>
+  <data name="Episodes_New" xml:space="preserve">
+    <value>Nieuwe aflevering</value>
+  </data>
+  <data name="Episodes_Empty" xml:space="preserve">
+    <value>Nog geen afleveringen. Klik op 'Nieuwe aflevering' om te beginnen.</value>
+  </data>
+  <data name="Episodes_HasOutput" xml:space="preserve">
+    <value>Video klaar</value>
+  </data>
+  <data name="Episodes_NoOutput" xml:space="preserve">
+    <value>Concept</value>
+  </data>
+  <data name="Episodes_Open" xml:space="preserve">
+    <value>Openen</value>
+  </data>
+  <data name="Episodes_DeleteConfirmTitle" xml:space="preserve">
+    <value>Aflevering verwijderen?</value>
+  </data>
+  <data name="Episodes_DeleteConfirmText" xml:space="preserve">
+    <value>Dit verwijdert de aflevering en de bijbehorende bestanden. Dit kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>Terug</value>
+  </data>
+  <data name="Editor_TitleLabel" xml:space="preserve">
+    <value>Titel van de aflevering</value>
+  </data>
+  <data name="Editor_TitlePlaceholder" xml:space="preserve">
+    <value>Bijvoorbeeld: Koninklijke week in beeld</value>
+  </data>
+  <data name="Editor_PasteLabel" xml:space="preserve">
+    <value>Plak hier je volledige script</value>
+  </data>
+  <data name="Editor_Import" xml:space="preserve">
+    <value>Verdeel in segmenten</value>
+  </data>
+  <data name="Editor_Segments" xml:space="preserve">
+    <value>Segmenten</value>
+  </data>
+  <data name="Editor_AddSegment" xml:space="preserve">
+    <value>Segment toevoegen</value>
+  </data>
+  <data name="Editor_HeadlineLabel" xml:space="preserve">
+    <value>Kop (komt in de balk in beeld)</value>
+  </data>
+  <data name="Editor_BodyLabel" xml:space="preserve">
+    <value>Gesproken tekst</value>
+  </data>
+  <data name="Editor_PickImage" xml:space="preserve">
+    <value>Afbeelding kiezen</value>
+  </data>
+  <data name="Editor_RemoveImage" xml:space="preserve">
+    <value>Afbeelding weghalen</value>
+  </data>
+  <data name="Editor_Produce" xml:space="preserve">
+    <value>Video maken</value>
+  </data>
+  <data name="Settings_Header" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Taal van de app</value>
+  </data>
+  <data name="Settings_RestartHint" xml:space="preserve">
+    <value>De nieuwe taal wordt gebruikt na een herstart.</value>
+  </data>
+  <data name="Settings_RestartNow" xml:space="preserve">
+    <value>Nu herstarten</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="Settings_ThemeLight" xml:space="preserve">
+    <value>Licht</value>
+  </data>
+  <data name="Settings_ThemeDark" xml:space="preserve">
+    <value>Donker</value>
+  </data>
+  <data name="Settings_Voice" xml:space="preserve">
+    <value>Stem</value>
+  </data>
+  <data name="Settings_ReadingSpeed" xml:space="preserve">
+    <value>Voorleessnelheid</value>
+  </data>
+  <data name="Settings_ReadingSpeedHint" xml:space="preserve">
+    <value>1,0 is normaal. Hoger is langzamer en rustiger.</value>
+  </data>
+  <data name="Settings_Branding" xml:space="preserve">
+    <value>Kanaalstijl</value>
+  </data>
+  <data name="Settings_ChannelName" xml:space="preserve">
+    <value>Naam van het kanaal</value>
+  </data>
+  <data name="Settings_Tagline" xml:space="preserve">
+    <value>Slogan</value>
+  </data>
+  <data name="Settings_PrimaryColor" xml:space="preserve">
+    <value>Hoofdkleur (#RRGGBB)</value>
+  </data>
+  <data name="Settings_AccentColor" xml:space="preserve">
+    <value>Accentkleur (#RRGGBB)</value>
+  </data>
+  <data name="Settings_OutputFolder" xml:space="preserve">
+    <value>Map voor afgeronde video's</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Bladeren...</value>
+  </data>
+  <data name="Settings_Production" xml:space="preserve">
+    <value>Productie</value>
+  </data>
+  <data name="Settings_KeepWorkFiles" xml:space="preserve">
+    <value>Werkbestanden bewaren (voor probleemoplossing)</value>
+  </data>
+  <data name="Settings_BurnInSubtitles" xml:space="preserve">
+    <value>Ondertitels vast in beeld zetten</value>
+  </data>
+  <data name="Settings_StudioAmbience" xml:space="preserve">
+    <value>Subtiele camerabeweging in de studio</value>
+  </data>
+  <data name="Settings_HigherQuality" xml:space="preserve">
+    <value>Hogere kwaliteit (langzamer renderen)</value>
+  </data>
+  <data name="Settings_Saved" xml:space="preserve">
+    <value>Opgeslagen</value>
+  </data>
+  <data name="About_Header" xml:space="preserve">
+    <value>Over deze app</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Versie</value>
+  </data>
+  <data name="About_MadeFor" xml:space="preserve">
+    <value>Maakt van een geschreven script een compleet nieuwsvideo, van stem tot ondertitels.</value>
+  </data>
+  <data name="Error_Title" xml:space="preserve">
+    <value>Er ging iets mis</value>
+  </data>
+  <data name="Error_Body" xml:space="preserve">
+    <value>De app liep tegen een onverwacht probleem aan. Details staan in het logbestand:
+{0}
+Stuur dat bestand naar Michael als het vaker gebeurt.</value>
+  </data>
+</root>

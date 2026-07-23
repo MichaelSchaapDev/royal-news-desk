@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>Royal News Desk Studio</value>
+  </data>
+  <data name="Nav_Episodes" xml:space="preserve">
+    <value>Episodes</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Episodes_Header" xml:space="preserve">
+    <value>Your episodes</value>
+  </data>
+  <data name="Episodes_New" xml:space="preserve">
+    <value>New episode</value>
+  </data>
+  <data name="Episodes_Empty" xml:space="preserve">
+    <value>No episodes yet. Click 'New episode' to start.</value>
+  </data>
+  <data name="Episodes_HasOutput" xml:space="preserve">
+    <value>Video ready</value>
+  </data>
+  <data name="Episodes_NoOutput" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="Episodes_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Episodes_DeleteConfirmTitle" xml:space="preserve">
+    <value>Delete episode?</value>
+  </data>
+  <data name="Episodes_DeleteConfirmText" xml:space="preserve">
+    <value>This removes the episode and its files. This cannot be undone.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Editor_TitleLabel" xml:space="preserve">
+    <value>Episode title</value>
+  </data>
+  <data name="Editor_TitlePlaceholder" xml:space="preserve">
+    <value>For example: Royal week in review</value>
+  </data>
+  <data name="Editor_PasteLabel" xml:space="preserve">
+    <value>Paste your full script here</value>
+  </data>
+  <data name="Editor_Import" xml:space="preserve">
+    <value>Split into segments</value>
+  </data>
+  <data name="Editor_Segments" xml:space="preserve">
+    <value>Segments</value>
+  </data>
+  <data name="Editor_AddSegment" xml:space="preserve">
+    <value>Add segment</value>
+  </data>
+  <data name="Editor_HeadlineLabel" xml:space="preserve">
+    <value>Headline (shown in the lower third)</value>
+  </data>
+  <data name="Editor_BodyLabel" xml:space="preserve">
+    <value>Spoken text</value>
+  </data>
+  <data name="Editor_PickImage" xml:space="preserve">
+    <value>Choose image</value>
+  </data>
+  <data name="Editor_RemoveImage" xml:space="preserve">
+    <value>Remove image</value>
+  </data>
+  <data name="Editor_Produce" xml:space="preserve">
+    <value>Make video</value>
+  </data>
+  <data name="Settings_Header" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>App language</value>
+  </data>
+  <data name="Settings_RestartHint" xml:space="preserve">
+    <value>The new language is used after a restart.</value>
+  </data>
+  <data name="Settings_RestartNow" xml:space="preserve">
+    <value>Restart now</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_ThemeLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_Voice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="Settings_ReadingSpeed" xml:space="preserve">
+    <value>Reading speed</value>
+  </data>
+  <data name="Settings_ReadingSpeedHint" xml:space="preserve">
+    <value>1.0 is normal. Higher is slower and calmer.</value>
+  </data>
+  <data name="Settings_Branding" xml:space="preserve">
+    <value>Channel branding</value>
+  </data>
+  <data name="Settings_ChannelName" xml:space="preserve">
+    <value>Channel name</value>
+  </data>
+  <data name="Settings_Tagline" xml:space="preserve">
+    <value>Tagline</value>
+  </data>
+  <data name="Settings_PrimaryColor" xml:space="preserve">
+    <value>Main color (#RRGGBB)</value>
+  </data>
+  <data name="Settings_AccentColor" xml:space="preserve">
+    <value>Accent color (#RRGGBB)</value>
+  </data>
+  <data name="Settings_OutputFolder" xml:space="preserve">
+    <value>Folder for finished videos</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="Settings_Production" xml:space="preserve">
+    <value>Production</value>
+  </data>
+  <data name="Settings_KeepWorkFiles" xml:space="preserve">
+    <value>Keep working files (for troubleshooting)</value>
+  </data>
+  <data name="Settings_BurnInSubtitles" xml:space="preserve">
+    <value>Burn subtitles into the video</value>
+  </data>
+  <data name="Settings_StudioAmbience" xml:space="preserve">
+    <value>Subtle camera movement in the studio</value>
+  </data>
+  <data name="Settings_HigherQuality" xml:space="preserve">
+    <value>Higher quality (slower rendering)</value>
+  </data>
+  <data name="Settings_Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="About_Header" xml:space="preserve">
+    <value>About this app</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="About_MadeFor" xml:space="preserve">
+    <value>Turns a written script into a finished news video, from voice to subtitles.</value>
+  </data>
+  <data name="Error_Title" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="Error_Body" xml:space="preserve">
+    <value>The app hit an unexpected problem. Details are in the log file:
+{0}
+Send that file to Michael if it keeps happening.</value>
+  </data>
+</root>

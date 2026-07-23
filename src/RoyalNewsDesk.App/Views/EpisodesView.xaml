@@ -1,0 +1,89 @@
+<UserControl
+  x:Class="RoyalNewsDesk.App.Views.EpisodesView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+  xmlns:res="clr-namespace:RoyalNewsDesk.App.Resources"
+  xmlns:vm="clr-namespace:RoyalNewsDesk.App.ViewModels"
+  x:Name="Root"
+  TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+  <Grid Margin="28,20,28,20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0" Margin="0,0,0,16">
+      <TextBlock
+        FontSize="26"
+        FontWeight="SemiBold"
+        Text="{x:Static res:Strings.Episodes_Header}" />
+      <ui:Button
+        HorizontalAlignment="Right"
+        Appearance="Primary"
+        Command="{Binding NewEpisodeCommand}"
+        Content="{x:Static res:Strings.Episodes_New}"
+        Icon="{ui:SymbolIcon Add24}" />
+    </Grid>
+
+    <TextBlock
+      Grid.Row="1"
+      Margin="0,24,0,0"
+      FontSize="14"
+      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+      Text="{x:Static res:Strings.Episodes_Empty}"
+      Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}" />
+
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <ItemsControl ItemsSource="{Binding Episodes}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate DataType="{x:Type vm:EpisodeRow}">
+            <Border
+              Margin="0,0,0,10"
+              Padding="16,12"
+              Background="{DynamicResource ControlFillColorDefaultBrush}"
+              BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+              BorderThickness="1"
+              CornerRadius="8">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                  <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding Title}" />
+                  <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                    <TextBlock
+                      FontSize="12"
+                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                      Text="{Binding CreatedText}" />
+                    <TextBlock
+                      Margin="12,0,0,0"
+                      FontSize="12"
+                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                      Text="{Binding StatusText}" />
+                  </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                  <ui:Button
+                    Margin="0,0,8,0"
+                    Command="{Binding DataContext.OpenCommand, ElementName=Root}"
+                    CommandParameter="{Binding}"
+                    Content="{x:Static res:Strings.Episodes_Open}"
+                    Icon="{ui:SymbolIcon Open24}" />
+                  <ui:Button
+                    Command="{Binding DataContext.DeleteCommand, ElementName=Root}"
+                    CommandParameter="{Binding}"
+                    Content="{x:Static res:Strings.Common_Delete}"
+                    Icon="{ui:SymbolIcon Delete24}" />
+                </StackPanel>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+  </Grid>
+</UserControl>
