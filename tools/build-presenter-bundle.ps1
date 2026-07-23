@@ -69,10 +69,13 @@ New-Item -ItemType Directory -Force $work, $outDir | Out-Null
 # --- 1. Python embeddable + pip -------------------------------------------
 $pyZip = Get-Cached $pythonZipUrl "python-3.10.11-embed-amd64.zip"
 Expand-Archive $pyZip (Join-Path $work "python")
+# ..\engine puts SadTalker's own modules (src.*) on sys.path: embeddable
+# Python ignores the working directory, so the layout bakes it in instead.
 Set-Content -Path (Join-Path $work "python\python310._pth") -Encoding ascii -Value @"
 python310.zip
 .
 Lib\site-packages
+..\engine
 import site
 "@
 $getPip = Get-Cached $getPipUrl "get-pip.py"
@@ -82,10 +85,41 @@ Invoke-Python @($getPip, "pip==24.0", "setuptools==69.5.1", "wheel==0.43.0", "--
 if ($Variant -eq "cpu") { $torchIndex = "https://download.pytorch.org/whl/cpu" } else { $torchIndex = "https://download.pytorch.org/whl/cu121" }
 Invoke-Python @("-m", "pip", "install", "torch==2.1.2", "torchvision==0.16.2", "--index-url", $torchIndex, "--no-warn-script-location")
 Invoke-Python @("-m", "pip", "install", "-r", (Join-Path $bundleSrc "requirements-common.txt"), "--no-warn-script-location")
-Invoke-Python @("-m", "pip", "install", "filterpy==1.4.5", "--no-deps", "--no-build-isolation", "--no-warn-script-location")
+
+# Some pure-python sdists have setup.py files that import their own package,
+# which can never work under embeddable Python (the ._pth removes the current
+# directory from sys.path). Vendor those straight into site-packages.
+function Install-PurePackage {
+    param([string]$Name, [string]$Version, [string]$PackageDir, [string]$VersionFileBody)
+    $meta = Invoke-RestMethod "https://pypi.org/pypi/$Name/$Version/json"
+    $sdist = $meta.urls | Where-Object { $_.packagetype -eq "sdist" } | Select-Object -First 1
+    $archive = Get-Cached $sdist.url $sdist.filename
+    $extract = Join-Path $cache "$Name-$Version-extract"
+    if (Test-Path $extract) { Remove-Item -Recurse -Force $extract }
+    if ($sdist.filename.EndsWith(".zip")) {
+        Expand-Archive $archive $extract
+    }
+    else {
+        New-Item -ItemType Directory -Force $extract | Out-Null
+        tar -xzf $archive -C $extract
+        if ($LASTEXITCODE -ne 0) { throw "tar failed for $Name" }
+    }
+    $pkg = Get-ChildItem $extract -Recurse -Directory | Where-Object { $_.Name -eq $PackageDir -and (Test-Path (Join-Path $_.FullName "__init__.py")) } | Select-Object -First 1
+    if ($null -eq $pkg) { throw "package dir $PackageDir not found in $Name sdist" }
+    $target = Join-Path $work "python\Lib\site-packages\$PackageDir"
+    if (Test-Path $target) { Remove-Item -Recurse -Force $target }
+    Copy-Item $pkg.FullName $target -Recurse
+    if ($VersionFileBody) {
+        Set-Content -Path (Join-Path $target "version.py") -Value $VersionFileBody -Encoding ascii
+    }
+    Write-Host "[vendored] $Name $Version"
+}
+
+Install-PurePackage "filterpy" "1.4.5" "filterpy" $null
+Install-PurePackage "face_alignment" "1.3.5" "face_alignment" $null
 Invoke-Python @("-m", "pip", "install", "facexlib==0.3.0", "--no-deps", "--no-warn-script-location")
-Invoke-Python @("-m", "pip", "install", "face_alignment==1.3.5", "--no-deps", "--no-build-isolation", "--no-warn-script-location")
-Invoke-Python @("-m", "pip", "install", "basicsr==1.4.2", "gfpgan==1.3.8", "--no-deps", "--no-build-isolation", "--no-warn-script-location")
+Install-PurePackage "basicsr" "1.4.2" "basicsr" "__version__ = '1.4.2'`n__gitsha__ = 'unknown'`nversion_info = (1, 4, 2)`n"
+Install-PurePackage "gfpgan" "1.3.8" "gfpgan" "__version__ = '1.3.8'`n__gitsha__ = 'unknown'`nversion_info = (1, 3, 8)`n"
 
 # pip check: only tb-nightly/gradio complaints are acceptable ("requires"
 # lines can also name packages we intentionally satisfied out of band).
