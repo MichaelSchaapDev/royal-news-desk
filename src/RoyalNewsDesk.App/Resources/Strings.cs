@@ -71,6 +71,14 @@ public static class Strings
 
     public static string Editor_Produce => Get(nameof(Editor_Produce));
 
+    public static string Editor_LoadExample => Get(nameof(Editor_LoadExample));
+
+    public static string Editor_ImportConfirmTitle => Get(nameof(Editor_ImportConfirmTitle));
+
+    public static string Editor_ImportConfirmText => Get(nameof(Editor_ImportConfirmText));
+
+    public static string Common_Continue => Get(nameof(Common_Continue));
+
     public static string Settings_Header => Get(nameof(Settings_Header));
 
     public static string Settings_Language => Get(nameof(Settings_Language));

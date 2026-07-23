@@ -51,11 +51,18 @@
           TextWrapping="Wrap"
           VerticalScrollBarVisibility="Auto"
           Text="{Binding PasteText, UpdateSourceTrigger=PropertyChanged}" />
-        <ui:Button
-          Margin="0,0,0,20"
-          Command="{Binding ImportCommand}"
-          Content="{x:Static res:Strings.Editor_Import}"
-          Icon="{ui:SymbolIcon TextBulletListLtr24}" />
+        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+          <ui:Button
+            Command="{Binding ImportCommand}"
+            Content="{x:Static res:Strings.Editor_Import}"
+            Icon="{ui:SymbolIcon TextBulletListLtr24}" />
+          <ui:Button
+            Margin="8,0,0,0"
+            Appearance="Secondary"
+            Command="{Binding LoadExampleCommand}"
+            Content="{x:Static res:Strings.Editor_LoadExample}"
+            Icon="{ui:SymbolIcon DocumentText24}" />
+        </StackPanel>
 
         <Grid Margin="0,0,0,8">
           <TextBlock

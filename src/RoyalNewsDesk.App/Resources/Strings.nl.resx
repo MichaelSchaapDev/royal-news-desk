@@ -93,6 +93,18 @@
   <data name="Editor_Produce" xml:space="preserve">
     <value>Video maken</value>
   </data>
+  <data name="Editor_LoadExample" xml:space="preserve">
+    <value>Voorbeeldscript laden</value>
+  </data>
+  <data name="Editor_ImportConfirmTitle" xml:space="preserve">
+    <value>Segmenten vervangen?</value>
+  </data>
+  <data name="Editor_ImportConfirmText" xml:space="preserve">
+    <value>Het verdelen van het script vervangt de huidige segmenten.</value>
+  </data>
+  <data name="Common_Continue" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
   <data name="Settings_Header" xml:space="preserve">
     <value>Instellingen</value>
   </data>

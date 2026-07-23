@@ -15,6 +15,10 @@
     <ProjectReference Include="..\RoyalNewsDesk.Core\RoyalNewsDesk.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\assets\**" LinkBase="assets" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!-- Bundle ffmpeg/piper/rhubarb from tools/bin (populated by tools/get-tools.ps1)
        into the output so the app finds them next to itself, in dev and in publish.
        The condition keeps CI test builds working without the binaries. -->

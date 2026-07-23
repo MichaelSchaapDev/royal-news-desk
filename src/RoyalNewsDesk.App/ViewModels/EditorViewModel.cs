@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RoyalNewsDesk.App.Services;
@@ -64,12 +65,67 @@ public partial class EditorViewModel(IEpisodeStore store, INavigator navigator) 
     [RelayCommand]
     private void SaveEdits() => Save();
 
-    public bool CanImport => false; // The script parser lands in a later milestone.
-
-    [RelayCommand(CanExecute = nameof(CanImport))]
-    private void Import()
+    [RelayCommand]
+    private async Task ImportAsync()
     {
-        // Arrives with the script parser milestone.
+        if (_episode is null || string.IsNullOrWhiteSpace(PasteText))
+        {
+            return;
+        }
+
+        if (Segments.Any(s => !string.IsNullOrWhiteSpace(s.Body)))
+        {
+            var confirm = new Wpf.Ui.Controls.MessageBox
+            {
+                Title = Resources.Strings.Editor_ImportConfirmTitle,
+                Content = Resources.Strings.Editor_ImportConfirmText,
+                PrimaryButtonText = Resources.Strings.Common_Continue,
+                CloseButtonText = Resources.Strings.Common_Cancel,
+            };
+            if (await confirm.ShowDialogAsync() != Wpf.Ui.Controls.MessageBoxResult.Primary)
+            {
+                return;
+            }
+        }
+
+        var imported = Core.Script.ScriptImporter.Import(PasteText);
+        if (imported.Segments.Count == 0)
+        {
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(imported.Title))
+        {
+            Title = imported.Title!;
+        }
+
+        Segments.Clear();
+        var imagesDir = store.PathsFor(_episode.Id).ImagesDir;
+        var index = 1;
+        foreach (var segment in imported.Segments)
+        {
+            var model = new Segment
+            {
+                Id = "seg-" + index.ToString("00", System.Globalization.CultureInfo.InvariantCulture),
+                Headline = segment.Headline,
+                Body = segment.Body,
+            };
+            Segments.Add(new SegmentViewModel(model, imagesDir));
+            index++;
+        }
+
+        PasteText = "";
+        Save();
+    }
+
+    [RelayCommand]
+    private void LoadExample()
+    {
+        var samplePath = Path.Combine(AppContext.BaseDirectory, "assets", "sample-script.txt");
+        if (File.Exists(samplePath))
+        {
+            PasteText = File.ReadAllText(samplePath);
+        }
     }
 
     [RelayCommand]
