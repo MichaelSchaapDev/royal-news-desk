@@ -12,6 +12,14 @@ Free. Offline after a one-time voice download. No accounts, no API keys.
 
 Windows SmartScreen warns about new apps from small publishers. Click "More info", then "Run anyway". The Dutch user guide walks through this with pictures: [docs/handleiding-nl.md](docs/handleiding-nl.md).
 
+Double-clicking installs to the user profile on the system drive. To install on another drive or partition, run the installer from a terminal with a target folder; updates keep using that location:
+
+```bash
+./RoyalNewsDesk-win-Setup.exe --installto "D:\Apps\Royal News Desk"
+```
+
+The big AI downloads (voices and presenter engines) have their own home: pick a folder on any drive under Settings, Storage, and the app moves existing downloads along.
+
 ## What it does
 
 1. You paste your script. `#` lines become headlines, `[PAUSE]` inserts a pause, and you attach a photo per segment with a button.

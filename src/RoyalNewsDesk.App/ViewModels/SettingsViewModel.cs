@@ -303,7 +303,19 @@ public partial class SettingsViewModel : ObservableObject, ISavable
         _settings.AiStorageFolder = isDefault ? null : target;
         _paths.AiRootOverride = _settings.AiStorageFolder;
         _paths.EnsureCreated();
-        _store.Save(_settings);
+
+        // A portrait chosen from inside the AI folder moved along with it.
+        if (PortraitPath is { Length: > 0 } portrait)
+        {
+            var old = Path.TrimEndingDirectorySeparator(current);
+            var full = Path.GetFullPath(portrait);
+            if (full.StartsWith(old + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+            {
+                PortraitPath = Path.Combine(target, Path.GetRelativePath(old, full));
+            }
+        }
+
+        Save();
         AiStorageText = _paths.AiRoot;
         OnPropertyChanged(nameof(AiStorageIsCustom));
         foreach (var voice in Voices)

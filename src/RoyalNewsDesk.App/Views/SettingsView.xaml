@@ -243,7 +243,7 @@
                   TextWrapping="Wrap"
                   Visibility="{Binding HasPortrait, Converter={StaticResource InverseBoolToVisibility}}" />
                 <Border CornerRadius="8" Visibility="{Binding HasPortrait, Converter={StaticResource BoolToVisibility}}">
-                  <Image Source="{Binding PortraitPath}" Stretch="UniformToFill" />
+                  <Image Source="{Binding PortraitPath, Converter={StaticResource PathToImage}}" Stretch="UniformToFill" />
                 </Border>
               </Grid>
             </Border>

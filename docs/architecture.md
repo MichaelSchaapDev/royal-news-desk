@@ -38,7 +38,7 @@ The seams are interfaces in Core: `ITtsEngine` (swap Piper for ElevenLabs), `ILi
 
 | What | Where |
 |---|---|
-| Install (Velopack) | `%LOCALAPPDATA%\RoyalNewsDesk\current\` |
-| Settings, voices, episodes, logs | `%LOCALAPPDATA%\RoyalNewsDeskStudio\` |
-| Photoreal presenter engines | `%LOCALAPPDATA%\RoyalNewsDeskStudio\presenters\` |
+| Install (Velopack) | `%LOCALAPPDATA%\RoyalNewsDesk\current\` by default; `Setup.exe --installto <dir>` puts it anywhere and updates follow |
+| Settings, episodes, logs | `%LOCALAPPDATA%\RoyalNewsDeskStudio\` |
+| Voices and presenter engines | `models\` and `presenters\` under the same root, or under `AiStorageFolder` when set; `AppPaths.AiRootOverride` applies it, `AiStorageMover` relocates existing downloads with copy-then-delete |
 | Finished videos | `%USERPROFILE%\Videos\Royal News Desk\` |

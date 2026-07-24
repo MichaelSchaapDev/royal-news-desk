@@ -268,7 +268,7 @@
                             RadiusY="5"
                             Rect="0,0,72,40" />
                         </Border.Clip>
-                        <Image Source="{Binding ImagePath}" Stretch="UniformToFill" />
+                        <Image Source="{Binding ImagePath, Converter={StaticResource PathToImage}}" Stretch="UniformToFill" />
                       </Border>
                       <TextBlock
                         Margin="12,0,0,0"

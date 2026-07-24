@@ -9,6 +9,8 @@ Deze app maakt van jouw geschreven script een complete nieuwsvideo: een stem lee
 3. Windows laat mogelijk een blauw scherm zien: "Windows heeft uw pc beschermd". Dat gebeurt bij elke nieuwe app van een kleine maker. Klik op **Meer informatie** en dan op **Toch uitvoeren**.
 4. De app installeert zichzelf en start vanzelf. Er komt een snelkoppeling in je startmenu.
 
+**Op een andere schijf installeren?** Open een opdrachtvenster in je downloadmap en start het installatiebestand met een doelmap, bijvoorbeeld: `RoyalNewsDesk-win-Setup.exe --installto "D:\Apps\Royal News Desk"`. Updates blijven daarna vanzelf op die plek.
+
 ## 2. De eerste keer
 
 Bij de eerste start downloadt de app de stem van de nieuwslezer (eenmalig, ongeveer 114 MB). Klik op **Stem downloaden** en wacht tot de balk vol is. Daarna klik je op **Aan de slag**.
@@ -56,6 +58,7 @@ Onder **Instellingen** kun je aanpassen:
 - de stem en de voorleessnelheid;
 - de naam, slogan en kleuren van je kanaal;
 - de map waar video's terechtkomen;
+- de map waar de grote AI-bestanden staan (de stemmen en de AI-presentator); kies bij Opslag een map op een schijf met ruimte en de app verhuist bestaande downloads mee;
 - ondertitels vast in beeld branden (standaard uit; YouTube kan ze los tonen).
 
 ## 7. De AI-presentator (optioneel)

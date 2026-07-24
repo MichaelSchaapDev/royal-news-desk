@@ -127,7 +127,7 @@
                           Stretch="Uniform" />
                       </Border>
                       <Image
-                        Source="{Binding ThumbnailPath}"
+                        Source="{Binding ThumbnailPath, Converter={StaticResource PathToImage}}"
                         Stretch="UniformToFill"
                         Visibility="{Binding HasThumbnail, Converter={StaticResource BoolToVisibility}}" />
                     </Grid>

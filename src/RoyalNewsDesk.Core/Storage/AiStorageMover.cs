@@ -80,12 +80,16 @@ public static class AiStorageMover
                 var targetFile = Path.Combine(targetDir, relative);
                 Directory.CreateDirectory(LongPath(Path.GetDirectoryName(targetFile)!));
 
-                await using var source = new FileStream(
-                    sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read, CopyBufferSize,
-                    FileOptions.Asynchronous | FileOptions.SequentialScan);
-                await using var target = new FileStream(
-                    LongPath(targetFile), FileMode.Create, FileAccess.Write, FileShare.None, CopyBufferSize,
-                    FileOptions.Asynchronous);
+                await using var source = await OpenWithRetryAsync(
+                    () => new FileStream(
+                        sourceFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, CopyBufferSize,
+                        FileOptions.Asynchronous | FileOptions.SequentialScan),
+                    ct).ConfigureAwait(false);
+                await using var target = await OpenWithRetryAsync(
+                    () => new FileStream(
+                        LongPath(targetFile), FileMode.Create, FileAccess.Write, FileShare.None, CopyBufferSize,
+                        FileOptions.Asynchronous),
+                    ct).ConfigureAwait(false);
 
                 var buffer = new byte[CopyBufferSize];
                 int read;
@@ -108,6 +112,26 @@ public static class AiStorageMover
         }
 
         progress?.Report(1.0);
+    }
+
+    /// <summary>
+    /// Virus scanners, the search indexer and thumbnail readers grab fresh
+    /// files for a moment; a sharing violation here is almost always gone a
+    /// second later, so retry briefly before giving up.
+    /// </summary>
+    private static async Task<FileStream> OpenWithRetryAsync(Func<FileStream> open, CancellationToken ct)
+    {
+        for (var attempt = 0; ; attempt++)
+        {
+            try
+            {
+                return open();
+            }
+            catch (IOException) when (attempt < 4)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(400 << attempt), ct).ConfigureAwait(false);
+            }
+        }
     }
 
     /// <summary>Deep Python trees can pass MAX_PATH; the \\?\ prefix sidesteps it.</summary>
