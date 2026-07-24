@@ -147,7 +147,12 @@ public partial class App : Application
     public static void ApplyTheme(bool dark)
     {
         var theme = dark ? ApplicationTheme.Dark : ApplicationTheme.Light;
-        ApplicationThemeManager.Apply(theme);
+
+        // Keep the manager away from the window backdrop: its default re-applies
+        // Mica to the live window on every theme change, and this window runs
+        // with the backdrop off on purpose (hybrid-GPU machines render Mica
+        // black). The accent is ours to set right below, so skip that too.
+        ApplicationThemeManager.Apply(theme, Wpf.Ui.Controls.WindowBackdropType.None, updateAccent: false);
         // The automatic dark palette drains 30-65 points of saturation from
         // the base color, which turns royal blue into gray lavender. Hand the
         // dark theme an explicit ramp instead; light derives fine on its own.
