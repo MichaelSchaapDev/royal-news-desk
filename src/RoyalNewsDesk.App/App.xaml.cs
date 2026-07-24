@@ -43,6 +43,9 @@ public partial class App : Application
         var settingsStore = new JsonSettingsStore(_paths);
         var settings = settingsStore.Load();
 
+        _paths.AiRootOverride = settings.AiStorageFolder;
+        _paths.EnsureCreated();
+
         // Dev overrides for --screenshot runs; never persisted.
         var language = ReadArg("--lang") ?? settings.Language;
         var darkTheme = ReadArg("--theme") is { } t

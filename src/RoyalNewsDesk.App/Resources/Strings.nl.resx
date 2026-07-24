@@ -417,6 +417,36 @@
   <data name="Settings_EngineExtracting" xml:space="preserve">
     <value>Uitpakken...</value>
   </data>
+  <data name="Settings_Storage" xml:space="preserve">
+    <value>Opslag</value>
+  </data>
+  <data name="Settings_StorageIntro" xml:space="preserve">
+    <value>De stemmen en de AI-presentator zijn grote downloads. Kies een map op een schijf met ruimte; je afleveringen en instellingen blijven waar ze zijn.</value>
+  </data>
+  <data name="Settings_StorageCurrent" xml:space="preserve">
+    <value>Map voor AI-bestanden</value>
+  </data>
+  <data name="Settings_StorageReset" xml:space="preserve">
+    <value>Terug naar de standaardmap</value>
+  </data>
+  <data name="Settings_StorageMoveTitle" xml:space="preserve">
+    <value>AI-bestanden verplaatsen?</value>
+  </data>
+  <data name="Settings_StorageMoveText" xml:space="preserve">
+    <value>De gedownloade bestanden ({0} GB) verhuizen mee naar de nieuwe map. Dit kan enkele minuten duren; de oude bestanden worden verwijderd zodra alles is aangekomen.</value>
+  </data>
+  <data name="Settings_StorageMoving" xml:space="preserve">
+    <value>Bestanden verplaatsen...</value>
+  </data>
+  <data name="Settings_StorageNoSpace" xml:space="preserve">
+    <value>Niet genoeg vrije ruimte op die schijf.</value>
+  </data>
+  <data name="Settings_StorageNested" xml:space="preserve">
+    <value>Kies een map buiten de huidige map.</value>
+  </data>
+  <data name="Settings_StorageMoveFailed" xml:space="preserve">
+    <value>Verplaatsen is niet afgerond: {0} De oude map is onaangetast; probeer het opnieuw.</value>
+  </data>
   <data name="Settings_EngineNeedsGpu" xml:space="preserve">
     <value>Heeft een NVIDIA-videokaart nodig</value>
   </data>

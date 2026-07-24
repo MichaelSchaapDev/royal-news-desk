@@ -17,6 +17,7 @@
       <conv:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
       <conv:CountToVisibilityConverter x:Key="CountToVisibility" />
       <conv:InverseBoolConverter x:Key="InverseBool" />
+      <conv:NullToCollapsedConverter x:Key="NullToCollapsed" />
 
       <!-- Brand constants that hold in both themes. -->
       <SolidColorBrush x:Key="SidebarTopBrush" Color="#1D2C55" />

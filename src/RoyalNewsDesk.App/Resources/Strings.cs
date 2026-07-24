@@ -98,6 +98,26 @@ public static class Strings
 
     public static string About_Guide => Get(nameof(About_Guide));
 
+    public static string Settings_Storage => Get(nameof(Settings_Storage));
+
+    public static string Settings_StorageIntro => Get(nameof(Settings_StorageIntro));
+
+    public static string Settings_StorageCurrent => Get(nameof(Settings_StorageCurrent));
+
+    public static string Settings_StorageReset => Get(nameof(Settings_StorageReset));
+
+    public static string Settings_StorageMoveTitle => Get(nameof(Settings_StorageMoveTitle));
+
+    public static string Settings_StorageMoveText => Get(nameof(Settings_StorageMoveText));
+
+    public static string Settings_StorageMoving => Get(nameof(Settings_StorageMoving));
+
+    public static string Settings_StorageNoSpace => Get(nameof(Settings_StorageNoSpace));
+
+    public static string Settings_StorageNested => Get(nameof(Settings_StorageNested));
+
+    public static string Settings_StorageMoveFailed => Get(nameof(Settings_StorageMoveFailed));
+
     public static string Episodes_HasOutput => Get(nameof(Episodes_HasOutput));
 
     public static string Episodes_NoOutput => Get(nameof(Episodes_NoOutput));

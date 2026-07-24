@@ -19,12 +19,21 @@ public sealed class AppPaths
 
     public string DataRoot { get; }
 
+    /// <summary>
+    /// User-chosen folder for the big AI downloads (voices and presenter
+    /// engines). Null or blank means they live under <see cref="DataRoot"/>.
+    /// Settings, episodes and logs always stay in <see cref="DataRoot"/>.
+    /// </summary>
+    public string? AiRootOverride { get; set; }
+
+    public string AiRoot => string.IsNullOrWhiteSpace(AiRootOverride) ? DataRoot : AiRootOverride!;
+
     public string SettingsFile => Path.Combine(DataRoot, "settings.json");
 
-    public string ModelsRoot => Path.Combine(DataRoot, "models");
+    public string ModelsRoot => Path.Combine(AiRoot, "models");
 
     /// <summary>Downloaded photoreal presenter engines, one folder per engine id.</summary>
-    public string PresentersRoot => Path.Combine(DataRoot, "presenters");
+    public string PresentersRoot => Path.Combine(AiRoot, "presenters");
 
     public string EpisodesRoot => Path.Combine(DataRoot, "episodes");
 

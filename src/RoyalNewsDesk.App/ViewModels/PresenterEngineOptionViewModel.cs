@@ -54,6 +54,9 @@ public partial class PresenterEngineOptionViewModel : ObservableObject
 
     public bool CanDelete => IsInstalled && !IsBusy;
 
+    /// <summary>Re-reads the installed state, e.g. after the storage folder moved.</summary>
+    public void RefreshInstalled() => IsInstalled = _manager.IsInstalled(Id);
+
     partial void OnIsSelectedChanged(bool value)
     {
         if (value)

@@ -41,4 +41,10 @@ public sealed class AppSettings
 
     /// <summary>Absolute path to the presenter portrait photo; null until chosen.</summary>
     public string? PhotorealPortraitPath { get; set; }
+
+    /// <summary>
+    /// Folder for the big AI downloads (voices and presenter engines);
+    /// null means the app data folder on the system drive.
+    /// </summary>
+    public string? AiStorageFolder { get; set; }
 }

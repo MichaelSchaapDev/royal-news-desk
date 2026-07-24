@@ -59,14 +59,19 @@ public partial class SettingsViewModel : ObservableObject, ISavable
     [ObservableProperty]
     private bool _showRestartHint;
 
+    private readonly AppPaths _paths;
+
     public SettingsViewModel(
         ISettingsStore store,
         Core.VoiceModels.IVoiceModelManager voiceManager,
-        Core.Presenters.IPresenterEngineManager presenterManager)
+        Core.Presenters.IPresenterEngineManager presenterManager,
+        AppPaths paths)
     {
         _store = store;
+        _paths = paths;
         _settings = store.Load();
         _initialLanguage = _settings.Language;
+        _aiStorageText = paths.AiRoot;
 
         Voices = voiceManager.Voices
             .Select(v => new VoiceOptionViewModel(
@@ -190,6 +195,125 @@ public partial class SettingsViewModel : ObservableObject, ISavable
         {
             OutputFolder = dialog.FolderName;
             Save();
+        }
+    }
+
+    [ObservableProperty]
+    private string _aiStorageText;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanChangeAiStorage))]
+    private bool _isMovingAi;
+
+    [ObservableProperty]
+    private double _aiMoveFraction;
+
+    [ObservableProperty]
+    private string? _aiStorageError;
+
+    public bool CanChangeAiStorage => !IsMovingAi;
+
+    public bool AiStorageIsCustom => !string.IsNullOrWhiteSpace(_settings.AiStorageFolder);
+
+    [RelayCommand]
+    private async Task BrowseAiStorageAsync()
+    {
+        var dialog = new OpenFolderDialog();
+        if (dialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        await ApplyAiStorageAsync(dialog.FolderName).ConfigureAwait(true);
+    }
+
+    [RelayCommand]
+    private async Task ResetAiStorageAsync()
+    {
+        if (AiStorageIsCustom)
+        {
+            await ApplyAiStorageAsync(_paths.DataRoot).ConfigureAwait(true);
+        }
+    }
+
+    private async Task ApplyAiStorageAsync(string chosen)
+    {
+        AiStorageError = null;
+        var target = Path.GetFullPath(chosen);
+        var current = Path.GetFullPath(_paths.AiRoot);
+        if (string.Equals(target, current, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (AiStorageMover.IsSameOrNested(current, target))
+        {
+            AiStorageError = Resources.Strings.Settings_StorageNested;
+            return;
+        }
+
+        var bytes = AiStorageMover.MeasureBytes(current);
+        if (bytes > 0)
+        {
+            if (AiStorageMover.FreeBytesAt(target) < bytes + 500_000_000L)
+            {
+                AiStorageError = Resources.Strings.Settings_StorageNoSpace;
+                return;
+            }
+
+            var gb = (bytes / 1_000_000_000.0).ToString("0.0", System.Globalization.CultureInfo.CurrentCulture);
+            var confirm = new Wpf.Ui.Controls.MessageBox
+            {
+                Title = Resources.Strings.Settings_StorageMoveTitle,
+                Content = string.Format(
+                    System.Globalization.CultureInfo.CurrentCulture,
+                    Resources.Strings.Settings_StorageMoveText,
+                    gb),
+                PrimaryButtonText = Resources.Strings.Common_Continue,
+                CloseButtonText = Resources.Strings.Common_Cancel,
+            };
+            if (await confirm.ShowDialogAsync() != Wpf.Ui.Controls.MessageBoxResult.Primary)
+            {
+                return;
+            }
+
+            IsMovingAi = true;
+            AiMoveFraction = 0;
+            var progress = new Progress<double>(f => AiMoveFraction = f);
+            try
+            {
+                await Task.Run(() => AiStorageMover.MoveAsync(current, target, progress, CancellationToken.None))
+                    .ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            {
+                AiStorageError = string.Format(
+                    System.Globalization.CultureInfo.CurrentCulture,
+                    Resources.Strings.Settings_StorageMoveFailed,
+                    ex.Message);
+                return;
+            }
+            finally
+            {
+                IsMovingAi = false;
+            }
+        }
+
+        var isDefault = string.Equals(target, Path.GetFullPath(_paths.DataRoot), StringComparison.OrdinalIgnoreCase);
+        _settings.AiStorageFolder = isDefault ? null : target;
+        _paths.AiRootOverride = _settings.AiStorageFolder;
+        _paths.EnsureCreated();
+        _store.Save(_settings);
+        AiStorageText = _paths.AiRoot;
+        OnPropertyChanged(nameof(AiStorageIsCustom));
+        foreach (var voice in Voices)
+        {
+            voice.RefreshInstalled();
+        }
+
+        foreach (var engine in PresenterEngines)
+        {
+            engine.RefreshInstalled();
         }
     }
 
