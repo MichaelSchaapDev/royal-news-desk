@@ -32,9 +32,11 @@
           Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}" />
       </Grid>
 
-      <!-- Empty state -->
+      <!-- Empty state. Declared after the list on purpose: the list surface
+           would otherwise sit above this and swallow the button's clicks. -->
       <StackPanel
         Grid.Row="1"
+        Panel.ZIndex="1"
         Margin="0,64,0,0"
         HorizontalAlignment="Center"
         VerticalAlignment="Top"
@@ -73,7 +75,10 @@
       </StackPanel>
 
       <!-- Episode cards -->
-      <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <ScrollViewer
+        Grid.Row="1"
+        VerticalScrollBarVisibility="Auto"
+        Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
         <ItemsControl ItemsSource="{Binding Episodes}">
           <ItemsControl.ItemTemplate>
             <DataTemplate DataType="{x:Type vm:EpisodeRow}">
