@@ -92,6 +92,12 @@ public static class Strings
 
     public static string Episodes_Kicker => Get(nameof(Episodes_Kicker));
 
+    public static string Produce_Kicker => Get(nameof(Produce_Kicker));
+
+    public static string About_Links => Get(nameof(About_Links));
+
+    public static string About_Guide => Get(nameof(About_Guide));
+
     public static string Episodes_HasOutput => Get(nameof(Episodes_HasOutput));
 
     public static string Episodes_NoOutput => Get(nameof(Episodes_NoOutput));

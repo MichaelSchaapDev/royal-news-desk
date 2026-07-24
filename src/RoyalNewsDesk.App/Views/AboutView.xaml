@@ -2,23 +2,62 @@
   x:Class="RoyalNewsDesk.App.Views.AboutView"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
   xmlns:res="clr-namespace:RoyalNewsDesk.App.Resources"
   TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
-  <StackPanel MaxWidth="720" Margin="28,20,28,28" HorizontalAlignment="Stretch">
-    <TextBlock
-      Margin="0,0,0,10"
-      FontSize="26"
-      FontWeight="SemiBold"
-      Text="{x:Static res:Strings.About_Header}" />
-    <TextBlock Margin="0,0,0,16" Text="{x:Static res:Strings.About_MadeFor}" TextWrapping="Wrap" />
-    <StackPanel Orientation="Horizontal">
-      <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.About_Version}" />
-      <TextBlock Margin="8,0,0,0" Text="{Binding VersionText}" />
+  <StackPanel MaxWidth="760" Margin="44,26,44,44" HorizontalAlignment="Stretch">
+    <StackPanel Margin="0,0,0,20">
+      <TextBlock Style="{StaticResource PageKicker}" Text="{x:Static res:Strings.Brand_Studio}" />
+      <TextBlock Style="{StaticResource PageTitle}" Text="{x:Static res:Strings.About_Header}" />
     </StackPanel>
-    <TextBlock Margin="0,10,0,0">
-      <Hyperlink NavigateUri="{Binding RepositoryUrl}" RequestNavigate="OnRequestNavigate">
-        <Run Text="{Binding RepositoryUrl, Mode=OneWay}" />
-      </Hyperlink>
-    </TextBlock>
+
+    <Border Style="{StaticResource CardBorder}">
+      <StackPanel>
+        <StackPanel Orientation="Horizontal">
+          <Path
+            Width="26"
+            Height="24"
+            VerticalAlignment="Center"
+            Data="{StaticResource CrownGeometry}"
+            Fill="{DynamicResource GoldAccentBrush}"
+            Stretch="Uniform" />
+          <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+            <TextBlock
+              FontFamily="{DynamicResource DisplayFontFamily}"
+              FontSize="18"
+              FontWeight="Medium"
+              Text="{x:Static res:Strings.App_Title}" />
+            <TextBlock
+              FontSize="12"
+              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+              Text="{Binding VersionText, StringFormat=v{0}}" />
+          </StackPanel>
+        </StackPanel>
+        <TextBlock
+          Margin="0,14,0,0"
+          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+          Text="{x:Static res:Strings.About_MadeFor}"
+          TextWrapping="Wrap" />
+      </StackPanel>
+    </Border>
+
+    <Border Margin="0,14,0,0" Style="{StaticResource CardBorder}">
+      <StackPanel>
+        <TextBlock
+          Margin="0,0,0,10"
+          Style="{StaticResource SectionLabel}"
+          Text="{x:Static res:Strings.About_Links}" />
+        <TextBlock Margin="0,2,0,0">
+          <Hyperlink NavigateUri="{Binding GuideUrl}" RequestNavigate="OnRequestNavigate">
+            <Run Text="{x:Static res:Strings.About_Guide}" />
+          </Hyperlink>
+        </TextBlock>
+        <TextBlock Margin="0,8,0,0">
+          <Hyperlink NavigateUri="{Binding RepositoryUrl}" RequestNavigate="OnRequestNavigate">
+            <Run Text="{Binding RepositoryUrl, Mode=OneWay}" />
+          </Hyperlink>
+        </TextBlock>
+      </StackPanel>
+    </Border>
   </StackPanel>
 </UserControl>

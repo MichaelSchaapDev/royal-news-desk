@@ -192,6 +192,7 @@ public partial class App : Application
         }
 
         var page = ReadArg("--page") ?? "episodes";
+        var delay = int.TryParse(ReadArg("--shot-delay"), out var ms) ? ms : 1500;
         window.Dispatcher.InvokeAsync(async () =>
         {
             switch (page)
@@ -206,16 +207,24 @@ public partial class App : Application
                     mainVm.OpenFirstRun();
                     break;
                 case "editor":
+                case "produce":
                     var first = _services!.GetRequiredService<IEpisodeStore>().List().FirstOrDefault();
                     if (first is not null)
                     {
-                        mainVm.OpenEditor(first.Id);
+                        if (page == "produce")
+                        {
+                            mainVm.OpenProduce(first.Id);
+                        }
+                        else
+                        {
+                            mainVm.OpenEditor(first.Id);
+                        }
                     }
 
                     break;
             }
 
-            await Task.Delay(1500);
+            await Task.Delay(delay);
             var dpi = System.Windows.Media.VisualTreeHelper.GetDpi(window);
             var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap(
                 (int)(window.ActualWidth * dpi.DpiScaleX),

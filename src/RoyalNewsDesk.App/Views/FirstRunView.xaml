@@ -16,13 +16,32 @@
       BorderThickness="1"
       CornerRadius="12">
       <StackPanel>
+        <Path
+          Width="40"
+          Height="36"
+          Margin="0,4,0,16"
+          HorizontalAlignment="Center"
+          Data="{StaticResource CrownGeometry}"
+          Fill="{DynamicResource GoldAccentBrush}"
+          Stretch="Uniform" />
         <TextBlock
+          HorizontalAlignment="Center"
+          FontFamily="{DynamicResource DisplayFontFamily}"
           FontSize="28"
-          FontWeight="SemiBold"
+          FontWeight="Medium"
           Text="{x:Static res:Strings.FirstRun_Title}" />
         <TextBlock
-          Margin="0,12,0,0"
+          Margin="0,4,0,0"
+          HorizontalAlignment="Center"
+          FontSize="12"
+          FontWeight="SemiBold"
+          Foreground="{DynamicResource GoldAccentBrush}"
+          Text="{x:Static res:Strings.App_Title}"
+          Typography.Capitals="AllSmallCaps" />
+        <TextBlock
+          Margin="0,14,0,0"
           Text="{x:Static res:Strings.FirstRun_Body}"
+          TextAlignment="Center"
           TextWrapping="Wrap" />
 
         <Border
@@ -62,7 +81,7 @@
 
         <StackPanel Margin="0,20,0,0" Visibility="{Binding IsDone, Converter={StaticResource BoolToVisibility}}">
           <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-            <ui:SymbolIcon FontSize="20" Foreground="Green" Symbol="CheckmarkCircle24" />
+            <ui:SymbolIcon FontSize="20" Foreground="{DynamicResource StatusGoodBrush}" Symbol="CheckmarkCircle24" />
             <TextBlock Margin="8,0,0,0" Text="{x:Static res:Strings.FirstRun_Done}" />
           </StackPanel>
           <ui:Button

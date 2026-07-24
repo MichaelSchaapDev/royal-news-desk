@@ -7,31 +7,23 @@
   xmlns:vm="clr-namespace:RoyalNewsDesk.App.ViewModels"
   TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
   <UserControl.Resources>
-    <Style x:Key="SectionBorder" TargetType="Border">
-      <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
-      <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
-      <Setter Property="BorderThickness" Value="1" />
-      <Setter Property="CornerRadius" Value="8" />
-      <Setter Property="Padding" Value="18,14" />
+    <Style x:Key="SectionBorder" BasedOn="{StaticResource CardBorder}" TargetType="Border">
       <Setter Property="Margin" Value="0,0,0,14" />
     </Style>
-    <Style x:Key="SectionHeader" TargetType="TextBlock">
-      <Setter Property="FontSize" Value="16" />
-      <Setter Property="FontWeight" Value="SemiBold" />
-      <Setter Property="Margin" Value="0,0,0,10" />
+    <Style x:Key="SectionHeader" BasedOn="{StaticResource SectionLabel}" TargetType="TextBlock">
+      <Setter Property="Margin" Value="0,0,0,12" />
     </Style>
-    <Style x:Key="FieldLabel" TargetType="TextBlock">
-      <Setter Property="Margin" Value="0,10,0,4" />
+    <Style x:Key="FieldLabel" BasedOn="{StaticResource FieldLabelBase}" TargetType="TextBlock">
+      <Setter Property="Margin" Value="1,14,0,6" />
     </Style>
   </UserControl.Resources>
 
   <ScrollViewer VerticalScrollBarVisibility="Auto">
-    <StackPanel MaxWidth="720" Margin="28,20,28,28" HorizontalAlignment="Stretch">
-      <TextBlock
-        Margin="0,0,0,16"
-        FontSize="26"
-        FontWeight="SemiBold"
-        Text="{x:Static res:Strings.Settings_Header}" />
+    <StackPanel MaxWidth="760" Margin="44,26,44,44" HorizontalAlignment="Stretch">
+      <StackPanel Margin="0,0,0,20">
+        <TextBlock Style="{StaticResource PageKicker}" Text="{x:Static res:Strings.Brand_Studio}" />
+        <TextBlock Style="{StaticResource PageTitle}" Text="{x:Static res:Strings.Settings_Header}" />
+      </StackPanel>
 
       <Border Style="{StaticResource SectionBorder}">
         <StackPanel>
@@ -80,10 +72,19 @@
                       GroupName="VoicePick"
                       IsChecked="{Binding IsSelected}" />
                     <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
-                      <TextBlock
-                        FontSize="12"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{Binding StatusText}" />
+                      <TextBlock FontSize="12" Text="{Binding StatusText}">
+                        <TextBlock.Style>
+                          <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                            <Style.Triggers>
+                              <DataTrigger Binding="{Binding IsInstalled}" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource StatusGoodBrush}" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                              </DataTrigger>
+                            </Style.Triggers>
+                          </Style>
+                        </TextBlock.Style>
+                      </TextBlock>
                       <TextBlock
                         Margin="10,0,0,0"
                         FontSize="12"
@@ -165,21 +166,30 @@
                       GroupName="PresenterEnginePick"
                       IsChecked="{Binding IsSelected}" />
                     <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
-                      <TextBlock
-                        FontSize="12"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{Binding StatusText}" />
+                      <TextBlock FontSize="12" Text="{Binding StatusText}">
+                        <TextBlock.Style>
+                          <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                            <Style.Triggers>
+                              <DataTrigger Binding="{Binding IsInstalled}" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource StatusGoodBrush}" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                              </DataTrigger>
+                            </Style.Triggers>
+                          </Style>
+                        </TextBlock.Style>
+                      </TextBlock>
                       <TextBlock
                         Margin="10,0,0,0"
                         FontSize="12"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Text="{Binding SizeText}" />
-                      <TextBlock
+                      <Border
                         Margin="10,0,0,0"
-                        FontSize="12"
-                        Foreground="{DynamicResource PaletteRedBrush}"
-                        Text="{x:Static res:Strings.Settings_EngineNeedsGpu}"
-                        Visibility="{Binding NeedsGpu, Converter={StaticResource BoolToVisibility}}" />
+                        Style="{StaticResource ChipBorder}"
+                        Visibility="{Binding NeedsGpu, Converter={StaticResource BoolToVisibility}}">
+                        <TextBlock Style="{StaticResource ChipText}" Text="{x:Static res:Strings.Settings_EngineNeedsGpu}" />
+                      </Border>
                       <TextBlock
                         Margin="10,0,0,0"
                         FontSize="12"
@@ -217,7 +227,10 @@
               Width="96"
               Height="96"
               Background="{DynamicResource ControlFillColorSecondaryBrush}"
-              CornerRadius="8">
+              BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
+              BorderThickness="1"
+              CornerRadius="8"
+              ClipToBounds="True">
               <Grid>
                 <TextBlock
                   Margin="6"

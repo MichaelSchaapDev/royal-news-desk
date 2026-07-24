@@ -6,142 +6,284 @@
   xmlns:res="clr-namespace:RoyalNewsDesk.App.Resources"
   xmlns:vm="clr-namespace:RoyalNewsDesk.App.ViewModels"
   TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
-  <Grid Margin="28,20,28,20">
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="440" />
-      <ColumnDefinition Width="28" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
+  <Grid Margin="{StaticResource PagePadding}">
+    <Grid MaxWidth="1080">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
 
-    <StackPanel Grid.Column="0">
-      <Grid Margin="0,0,0,14">
-        <TextBlock FontSize="24" FontWeight="SemiBold" Text="{x:Static res:Strings.Produce_Header}" />
+      <!-- Header -->
+      <Grid Grid.Row="0" Margin="0,0,0,20">
+        <StackPanel>
+          <TextBlock Style="{StaticResource PageKicker}" Text="{x:Static res:Strings.Produce_Kicker}" />
+          <TextBlock Style="{StaticResource PageTitle}" Text="{x:Static res:Strings.Produce_Header}" />
+        </StackPanel>
         <ui:Button
           HorizontalAlignment="Right"
+          VerticalAlignment="Bottom"
           Command="{Binding CancelCommand}"
           Content="{x:Static res:Strings.Produce_Cancel}"
+          Icon="{ui:SymbolIcon Stop24}"
           Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibility}}" />
       </Grid>
 
-      <ItemsControl ItemsSource="{Binding Steps}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate DataType="{x:Type vm:StepRowViewModel}">
-            <Border Margin="0,0,0,6" Padding="10,8" CornerRadius="6" Background="{DynamicResource ControlFillColorDefaultBrush}">
-              <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                  <ui:SymbolIcon
-                    FontSize="16"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Symbol="Circle24"
-                    Visibility="{Binding IsPending, Converter={StaticResource BoolToVisibility}}" />
-                  <ui:ProgressRing
-                    Width="16"
-                    Height="16"
-                    IsIndeterminate="True"
-                    Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibility}}" />
-                  <ui:SymbolIcon
-                    FontSize="16"
-                    Foreground="Green"
-                    Symbol="CheckmarkCircle24"
-                    Visibility="{Binding IsSucceeded, Converter={StaticResource BoolToVisibility}}" />
-                  <ui:SymbolIcon
-                    FontSize="16"
-                    Foreground="{DynamicResource PaletteRedBrush}"
-                    Symbol="DismissCircle24"
-                    Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}" />
-                  <TextBlock Margin="10,0,0,0" Text="{Binding Text}" TextWrapping="Wrap" />
-                </StackPanel>
-                <ProgressBar
-                  Height="4"
-                  Margin="26,6,0,0"
-                  Maximum="1"
-                  Visibility="{Binding HasFraction, Converter={StaticResource BoolToVisibility}}"
-                  Value="{Binding Fraction, Mode=OneWay}" />
-              </StackPanel>
-            </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
+      <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="380" />
+          <ColumnDefinition Width="34" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-      <StackPanel Margin="0,10,0,0" Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}">
-        <TextBlock
-          FontSize="16"
-          FontWeight="SemiBold"
-          Foreground="{DynamicResource PaletteRedBrush}"
-          Text="{x:Static res:Strings.Produce_FailedHeader}" />
-        <TextBlock Margin="0,6,0,0" Text="{Binding FailText}" TextWrapping="Wrap" />
-        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-          <ui:Button
-            Appearance="Primary"
-            Command="{Binding AgainCommand}"
-            Content="{x:Static res:Strings.Produce_Retry}"
-            Icon="{ui:SymbolIcon ArrowClockwise24}" />
-          <ui:Button
-            Margin="8,0,0,0"
-            Command="{Binding GoBackCommand}"
-            Content="{x:Static res:Strings.Common_Back}" />
-        </StackPanel>
-      </StackPanel>
-    </StackPanel>
+        <!-- Step timeline -->
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+          <ItemsControl ItemsSource="{Binding Steps}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type vm:StepRowViewModel}">
+                <Border Margin="0,0,0,4" Padding="12,9" CornerRadius="8">
+                  <Border.Style>
+                    <Style TargetType="Border">
+                      <Setter Property="Background" Value="Transparent" />
+                      <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                          <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+                        </DataTrigger>
+                      </Style.Triggers>
+                    </Style>
+                  </Border.Style>
+                  <StackPanel>
+                    <Grid>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="22" />
+                        <ColumnDefinition Width="*" />
+                      </Grid.ColumnDefinitions>
+                      <ui:SymbolIcon
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        FontSize="16"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Symbol="Circle24"
+                        Visibility="{Binding IsPending, Converter={StaticResource BoolToVisibility}}" />
+                      <ui:ProgressRing
+                        Grid.Column="0"
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left"
+                        IsIndeterminate="True"
+                        Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibility}}" />
+                      <ui:SymbolIcon
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        FontSize="16"
+                        Foreground="{DynamicResource StatusGoodBrush}"
+                        Symbol="CheckmarkCircle24"
+                        Visibility="{Binding IsSucceeded, Converter={StaticResource BoolToVisibility}}" />
+                      <ui:SymbolIcon
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        FontSize="16"
+                        Foreground="{DynamicResource PaletteRedBrush}"
+                        Symbol="DismissCircle24"
+                        Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}" />
+                      <TextBlock
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Text}"
+                        TextWrapping="Wrap">
+                        <TextBlock.Style>
+                          <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                            <Style.Triggers>
+                              <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                              </DataTrigger>
+                              <DataTrigger Binding="{Binding IsSucceeded}" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                              </DataTrigger>
+                            </Style.Triggers>
+                          </Style>
+                        </TextBlock.Style>
+                      </TextBlock>
+                    </Grid>
+                    <ProgressBar
+                      Height="4"
+                      Margin="30,7,0,2"
+                      Maximum="1"
+                      Visibility="{Binding HasFraction, Converter={StaticResource BoolToVisibility}}"
+                      Value="{Binding Fraction, Mode=OneWay}" />
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
 
-    <StackPanel Grid.Column="2">
-      <StackPanel Visibility="{Binding IsDone, Converter={StaticResource BoolToVisibility}}">
-        <TextBlock FontSize="24" FontWeight="SemiBold" Text="{x:Static res:Strings.Produce_DoneHeader}" />
-        <TextBlock
-          Margin="0,4,0,10"
-          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-          Text="{Binding DurationText}" />
-        <Border Background="Black" CornerRadius="8" ClipToBounds="True">
-          <MediaElement
-            x:Name="Player"
-            Height="360"
-            LoadedBehavior="Manual"
-            ScrubbingEnabled="True"
-            Source="{Binding VideoUri}"
-            Stretch="Uniform" />
-        </Border>
-        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
-          <ui:Button
-            Click="OnPlayClick"
-            Content="▶"
-            FontSize="14" />
-          <ui:Button
-            Margin="8,0,0,0"
-            Click="OnPauseClick"
-            Content="⏸"
-            FontSize="14" />
-          <ui:Button
-            Margin="16,0,0,0"
-            Appearance="Primary"
-            Command="{Binding OpenFolderCommand}"
-            Content="{x:Static res:Strings.Produce_OpenFolder}"
-            Icon="{ui:SymbolIcon FolderOpen24}" />
-          <ui:Button
-            Margin="8,0,0,0"
-            Command="{Binding AgainCommand}"
-            Content="{x:Static res:Strings.Produce_Again}" />
-          <ui:Button
-            Margin="8,0,0,0"
-            Command="{Binding GoBackCommand}"
-            Content="{x:Static res:Strings.Common_Back}" />
-        </StackPanel>
-      </StackPanel>
+        <!-- Result column -->
+        <StackPanel Grid.Column="2">
 
-      <StackPanel Margin="0,18,0,0" Visibility="{Binding Warnings.Count, Converter={StaticResource CountToVisibility}}">
-        <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.Produce_Warnings}" />
-        <ItemsControl Margin="0,6,0,0" ItemsSource="{Binding Warnings}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
+          <!-- While it runs: a quiet studio card -->
+          <Border
+            Padding="0,60"
+            Style="{StaticResource CardBorder}"
+            Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibility}}">
+            <StackPanel HorizontalAlignment="Center">
+              <Path
+                Width="40"
+                Height="36"
+                HorizontalAlignment="Center"
+                Data="{StaticResource CrownGeometry}"
+                Fill="{DynamicResource GoldAccentBrush}"
+                Opacity="0.55"
+                Stretch="Uniform" />
               <TextBlock
-                Margin="0,2"
-                FontSize="12"
+                Margin="0,16,0,0"
+                HorizontalAlignment="Center"
+                FontFamily="{DynamicResource DisplayFontFamily}"
+                FontSize="17"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="{Binding}"
+                Text="{x:Static res:Strings.Produce_Header}" />
+            </StackPanel>
+          </Border>
+
+          <!-- Done -->
+          <StackPanel Visibility="{Binding IsDone, Converter={StaticResource BoolToVisibility}}">
+            <StackPanel Orientation="Horizontal">
+              <ui:SymbolIcon
+                VerticalAlignment="Center"
+                FontSize="22"
+                Foreground="{DynamicResource StatusGoodBrush}"
+                Symbol="CheckmarkCircle24" />
+              <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                FontFamily="{DynamicResource DisplayFontFamily}"
+                FontSize="22"
+                FontWeight="Medium"
+                Text="{x:Static res:Strings.Produce_DoneHeader}" />
+            </StackPanel>
+            <TextBlock
+              Margin="1,6,0,12"
+              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+              Text="{Binding DurationText}" />
+            <Border
+              Width="640"
+              Height="360"
+              HorizontalAlignment="Left"
+              Background="Black"
+              ClipToBounds="True"
+              CornerRadius="10">
+              <MediaElement
+                x:Name="Player"
+                LoadedBehavior="Manual"
+                ScrubbingEnabled="True"
+                Source="{Binding VideoUri}"
+                Stretch="Uniform" />
+            </Border>
+            <StackPanel Margin="0,14,0,0" Orientation="Horizontal">
+              <ui:Button
+                Click="OnPlayClick"
+                Icon="{ui:SymbolIcon Play24}"
+                ToolTip="Play" />
+              <ui:Button
+                Margin="6,0,0,0"
+                Click="OnPauseClick"
+                Icon="{ui:SymbolIcon Pause24}"
+                ToolTip="Pause" />
+              <ui:Button
+                Margin="18,0,0,0"
+                Appearance="Primary"
+                Command="{Binding OpenFolderCommand}"
+                Content="{x:Static res:Strings.Produce_OpenFolder}"
+                Icon="{ui:SymbolIcon FolderOpen24}" />
+              <ui:Button
+                Margin="8,0,0,0"
+                Command="{Binding AgainCommand}"
+                Content="{x:Static res:Strings.Produce_Again}"
+                Icon="{ui:SymbolIcon ArrowClockwise24}" />
+              <ui:Button
+                Margin="8,0,0,0"
+                Appearance="Transparent"
+                Command="{Binding GoBackCommand}"
+                Content="{x:Static res:Strings.Common_Back}" />
+            </StackPanel>
+          </StackPanel>
+
+          <!-- Failed -->
+          <Border
+            Style="{StaticResource CardBorder}"
+            Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}">
+            <StackPanel>
+              <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon
+                  VerticalAlignment="Center"
+                  FontSize="20"
+                  Foreground="{DynamicResource PaletteRedBrush}"
+                  Symbol="ErrorCircle24" />
+                <TextBlock
+                  Margin="10,0,0,0"
+                  VerticalAlignment="Center"
+                  FontSize="16"
+                  FontWeight="SemiBold"
+                  Text="{x:Static res:Strings.Produce_FailedHeader}" />
+              </StackPanel>
+              <TextBlock
+                Margin="0,10,0,0"
+                Text="{Binding FailText}"
                 TextWrapping="Wrap" />
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </StackPanel>
-    </StackPanel>
+              <StackPanel Margin="0,14,0,0" Orientation="Horizontal">
+                <ui:Button
+                  Appearance="Primary"
+                  Command="{Binding AgainCommand}"
+                  Content="{x:Static res:Strings.Produce_Retry}"
+                  Icon="{ui:SymbolIcon ArrowClockwise24}" />
+                <ui:Button
+                  Margin="8,0,0,0"
+                  Appearance="Transparent"
+                  Command="{Binding GoBackCommand}"
+                  Content="{x:Static res:Strings.Common_Back}" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <!-- Warnings -->
+          <Border
+            Margin="0,16,0,0"
+            Padding="16,12"
+            Background="{DynamicResource GoldAccentSoftBrush}"
+            CornerRadius="10"
+            Visibility="{Binding Warnings.Count, Converter={StaticResource CountToVisibility}}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <ui:SymbolIcon
+                Grid.Column="0"
+                Margin="0,2,10,0"
+                VerticalAlignment="Top"
+                Foreground="{DynamicResource GoldAccentBrush}"
+                Symbol="Info24" />
+              <StackPanel Grid.Column="1">
+                <TextBlock FontWeight="SemiBold" Text="{x:Static res:Strings.Produce_Warnings}" />
+                <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding Warnings}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock
+                        Margin="0,2"
+                        FontSize="12.5"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding}"
+                        TextWrapping="Wrap" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </StackPanel>
+            </Grid>
+          </Border>
+        </StackPanel>
+      </Grid>
+    </Grid>
   </Grid>
 </UserControl>
