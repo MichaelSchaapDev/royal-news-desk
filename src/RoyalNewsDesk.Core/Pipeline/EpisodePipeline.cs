@@ -144,7 +144,7 @@ public sealed class EpisodePipeline(
                     Path.Combine(paths.SentencesDir, Formatting.Inv.F($"s{i:0000}.wav"))))
                 .ToList();
 
-            var voiceProgress = new Progress<double>(f => progress.Report(new StepProgress(
+            var voiceProgress = new SyncProgress(f => progress.Report(new StepProgress(
                 PipelineStepId.Voice,
                 StepState.Running,
                 Fraction: f,
@@ -212,7 +212,7 @@ public sealed class EpisodePipeline(
             await File.WriteAllLinesAsync(transcript, plan.AllSentences.Select(s => s.Text), ct)
                 .ConfigureAwait(false);
 
-            var lipProgress = new Progress<double>(f => progress.Report(new StepProgress(
+            var lipProgress = new SyncProgress(f => progress.Report(new StepProgress(
                 PipelineStepId.LipSync, StepState.Running, Fraction: f)));
 
             try
@@ -286,7 +286,7 @@ public sealed class EpisodePipeline(
         // Presenter
         await RunStepAsync(PipelineStepId.Presenter, progress, ct, async () =>
         {
-            var presenterProgress = new Progress<double>(f => progress.Report(new StepProgress(
+            var presenterProgress = new SyncProgress(f => progress.Report(new StepProgress(
                 PipelineStepId.Presenter, StepState.Running, Fraction: f)));
 
             if (style == Presenters.PresenterStyle.Photoreal)
@@ -351,7 +351,7 @@ public sealed class EpisodePipeline(
                 options.StudioAmbience,
                 options.BurnInSubtitles,
                 presenterTrack);
-            var bodyProgress = new Progress<double>(f => progress.Report(new StepProgress(
+            var bodyProgress = new SyncProgress(f => progress.Report(new StepProgress(
                 PipelineStepId.Assemble, StepState.Running, Fraction: 0.1 + f * 0.8)));
             await composer.RenderBodyAsync(paths.WorkDir, bodyPlan, options.HigherQuality, bodyProgress, ct)
                 .ConfigureAwait(false);
@@ -420,6 +420,17 @@ public sealed class EpisodePipeline(
         }).ConfigureAwait(false);
 
         return result;
+    }
+
+    /// <summary>
+    /// Forwards fraction reports on the calling thread. Progress&lt;T&gt; would
+    /// bounce them through the thread pool, letting a trailing fraction
+    /// arrive after the step's Succeeded report and freeze the step row
+    /// in its running look.
+    /// </summary>
+    private sealed class SyncProgress(Action<double> handler) : IProgress<double>
+    {
+        public void Report(double value) => handler(value);
     }
 
     private static async Task RunStepAsync(
