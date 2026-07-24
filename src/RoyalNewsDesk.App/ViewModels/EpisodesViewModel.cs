@@ -8,9 +8,11 @@ using RoyalNewsDesk.Core.Storage;
 
 namespace RoyalNewsDesk.App.ViewModels;
 
-public sealed record EpisodeRow(string Id, string Title, string CreatedText, bool HasOutput)
+public sealed record EpisodeRow(string Id, string Title, string CreatedText, bool HasOutput, string? ThumbnailPath)
 {
     public string StatusText => HasOutput ? Strings.Episodes_HasOutput : Strings.Episodes_NoOutput;
+
+    public bool HasThumbnail => ThumbnailPath is not null;
 }
 
 public partial class EpisodesViewModel(
@@ -33,7 +35,13 @@ public partial class EpisodesViewModel(
                 : summary.Title;
             var created = summary.CreatedUtc.ToLocalTime()
                 .ToString("d MMMM yyyy", CultureInfo.CurrentCulture);
-            Episodes.Add(new EpisodeRow(summary.Id, title, created, summary.HasOutput));
+            var thumbnail = System.IO.Path.Combine(store.PathsFor(summary.Id).OutDir, "thumbnail.png");
+            Episodes.Add(new EpisodeRow(
+                summary.Id,
+                title,
+                created,
+                summary.HasOutput,
+                System.IO.File.Exists(thumbnail) ? thumbnail : null));
         }
 
         IsEmpty = Episodes.Count == 0;

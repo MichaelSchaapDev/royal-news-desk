@@ -37,7 +37,13 @@
     <value>Nieuwe aflevering</value>
   </data>
   <data name="Episodes_Empty" xml:space="preserve">
-    <value>Nog geen afleveringen. Klik op 'Nieuwe aflevering' om te beginnen.</value>
+    <value>Schrijf je eerste script en de studio doet de rest: stem, presentator, vormgeving en ondertitels.</value>
+  </data>
+  <data name="Episodes_EmptyTitle" xml:space="preserve">
+    <value>Nog geen afleveringen</value>
+  </data>
+  <data name="Episodes_Kicker" xml:space="preserve">
+    <value>De redactie</value>
   </data>
   <data name="Episodes_HasOutput" xml:space="preserve">
     <value>Video klaar</value>
