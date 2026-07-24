@@ -114,6 +114,12 @@
   <data name="Editor_ImportConfirmTitle" xml:space="preserve">
     <value>Replace segments?</value>
   </data>
+  <data name="Editor_StoryN" xml:space="preserve">
+    <value>Story {0}</value>
+  </data>
+  <data name="Editor_ScriptHint" xml:space="preserve">
+    <value>Lines that start with # become headlines. A blank line starts a new paragraph, and [PAUSE] on its own line adds a pause.</value>
+  </data>
   <data name="Editor_ImportConfirmText" xml:space="preserve">
     <value>Splitting the script replaces the current segments.</value>
   </data>

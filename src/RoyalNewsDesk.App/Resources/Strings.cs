@@ -138,6 +138,10 @@ public static class Strings
 
     public static string Editor_ImportConfirmTitle => Get(nameof(Editor_ImportConfirmTitle));
 
+    public static string Editor_StoryN => Get(nameof(Editor_StoryN));
+
+    public static string Editor_ScriptHint => Get(nameof(Editor_ScriptHint));
+
     public static string Editor_ImportConfirmText => Get(nameof(Editor_ImportConfirmText));
 
     public static string Common_Continue => Get(nameof(Common_Continue));

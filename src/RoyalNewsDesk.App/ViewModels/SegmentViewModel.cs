@@ -30,7 +30,16 @@ public partial class SegmentViewModel : ObservableObject
 
     public string Id { get; }
 
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(DisplayName))]
+    private int _ordinal;
+
+    public string DisplayName => string.Format(
+        System.Globalization.CultureInfo.CurrentCulture, Resources.Strings.Editor_StoryN, Ordinal);
+
     public bool HasImage => !string.IsNullOrEmpty(ImageFile);
+
+    public string? ImagePath => ImageFile is { } file ? Path.Combine(_imagesDir, file) : null;
 
     public Segment ToModel() => new()
     {
@@ -40,7 +49,11 @@ public partial class SegmentViewModel : ObservableObject
         ImageFile = ImageFile,
     };
 
-    partial void OnImageFileChanged(string? value) => OnPropertyChanged(nameof(HasImage));
+    partial void OnImageFileChanged(string? value)
+    {
+        OnPropertyChanged(nameof(HasImage));
+        OnPropertyChanged(nameof(ImagePath));
+    }
 
     [RelayCommand]
     private void PickImage()

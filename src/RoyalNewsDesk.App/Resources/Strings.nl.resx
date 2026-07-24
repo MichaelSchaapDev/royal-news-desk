@@ -114,6 +114,12 @@
   <data name="Editor_ImportConfirmTitle" xml:space="preserve">
     <value>Segmenten vervangen?</value>
   </data>
+  <data name="Editor_StoryN" xml:space="preserve">
+    <value>Verhaal {0}</value>
+  </data>
+  <data name="Editor_ScriptHint" xml:space="preserve">
+    <value>Regels die met # beginnen worden koppen. Een lege regel begint een nieuwe alinea, en [PAUSE] op een eigen regel voegt een pauze toe.</value>
+  </data>
   <data name="Editor_ImportConfirmText" xml:space="preserve">
     <value>Het verdelen van het script vervangt de huidige segmenten.</value>
   </data>

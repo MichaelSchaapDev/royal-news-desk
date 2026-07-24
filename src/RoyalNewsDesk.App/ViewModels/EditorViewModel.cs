@@ -42,6 +42,16 @@ public partial class EditorViewModel(
         {
             Segments.Add(new SegmentViewModel(segment, imagesDir));
         }
+
+        Renumber();
+    }
+
+    private void Renumber()
+    {
+        for (var i = 0; i < Segments.Count; i++)
+        {
+            Segments[i].Ordinal = i + 1;
+        }
     }
 
     public void Save()
@@ -89,10 +99,15 @@ public partial class EditorViewModel(
         var next = Segments.Count + 1;
         var segment = new Segment { Id = "seg-" + next.ToString("00", System.Globalization.CultureInfo.InvariantCulture) };
         Segments.Add(new SegmentViewModel(segment, store.PathsFor(_episode.Id).ImagesDir));
+        Renumber();
     }
 
     [RelayCommand]
-    private void RemoveSegment(SegmentViewModel segment) => Segments.Remove(segment);
+    private void RemoveSegment(SegmentViewModel segment)
+    {
+        Segments.Remove(segment);
+        Renumber();
+    }
 
     [RelayCommand]
     private void SaveEdits() => Save();
@@ -146,6 +161,7 @@ public partial class EditorViewModel(
             index++;
         }
 
+        Renumber();
         PasteText = "";
         Save();
     }
